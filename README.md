@@ -38,7 +38,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 |---:|---|---|---|
 | 1321 | Manufacturing Managers | Independent Manufacturing Floor Management (**:implemented** — real actor: `manufacturing-floor.store`/`.governor`, 7 tests) | robotics, identity, dmn, bpmn, audit-ledger, telemetry |
 | 2221 | Nursing Professionals | Independent Home Nursing Practice (**:implemented** — real actor: `home-nursing.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
-| 3253 | Community Health Workers | Community Health Outreach Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 3253 | Community Health Workers | Community Health Outreach Practice (**:implemented** — real actor: `community-health.store`/`.governor`, 7 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4321 | Stock Clerks | Independent Warehouse Stock Operations (**:implemented** — real actor: `warehouse-stock.store`/`.governor`, 8 tests) | robotics, forms, telemetry, optimization, audit-ledger, bpmn |
 | 5322 | Home-based Personal Care Workers | Independent Home-Based Care Practice (**:implemented** — real actor: `home-care.store`/`.governor`, 7 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
 | 6112 | Market Gardeners and Crop Growers | Independent Market Gardening Operations (**:implemented** — real actor: `market-garden.store`/`.governor`, 7 tests) | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
@@ -75,13 +75,16 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3123 | Construction Supervisors | Independent Construction Supervision Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 7212 | Welders and Flame Cutters | Independent Welding Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 9333 | Freight Handlers | Independent Freight Handling Practice | robotics, forms, telemetry, audit-ledger, bpmn |
+| 2634 | Psychologists | Independent Psychology Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 5120 | Cooks | Independent Culinary Practice | robotics, forms, telemetry, audit-ledger, bpmn |
+| 6114 | Mixed Crop Growers | Independent Mixed Crop Growing Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 
-4-5 representative unit groups per non-armed-forces ISCO-08 major group
-(39/39 across major groups 1-9; major group 0 "Armed Forces Occupations"
+4-6 representative unit groups per non-armed-forces ISCO-08 major group
+(42/42 across major groups 1-9; major group 0 "Armed Forces Occupations"
 is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
 armed-forces occupation, mirroring how `kotoba-industry` also leaves some
-sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332 and 1321
-are `:maturity :implemented` (real reference actors exist); the other 31
-are `:maturity :blueprint`. The remaining 397 ISCO-08 unit groups are
-registered at `:maturity :spec` (registry-only stub, full ISCO-08 coverage)
-for future promotion.
+sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321
+and 3253 are `:maturity :implemented` (real reference actors exist); the
+other 33 are `:maturity :blueprint`. The remaining 394 ISCO-08 unit groups
+are registered at `:maturity :spec` (registry-only stub, full ISCO-08
+coverage) for future promotion.
