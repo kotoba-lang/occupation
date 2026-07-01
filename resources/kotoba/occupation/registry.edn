@@ -196,10 +196,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1412"
    :name "Restaurant Managers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1412"
+   :business-id "cloud-itonami-isco-1412"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:plan :staff :inspect :review :report :audit]}
   {:id "1420"
    :name "Retail and Wholesale Trade Managers"
    :maturity :spec
@@ -610,7 +612,7 @@
    :name "Software Developers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2512"
    :business-id "cloud-itonami-isco-2512"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :design :build :test :deploy :audit]}
@@ -1022,10 +1024,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3255"
    :name "Physiotherapy Technicians and Assistants"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3255"
+   :business-id "cloud-itonami-isco-3255"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :assist :monitor :document :escalate :audit]}
   {:id "3256"
    :name "Medical Assistants"
    :maturity :spec
@@ -1566,10 +1570,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5162"
    :name "Companions and Valets"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5162"
+   :business-id "cloud-itonami-isco-5162"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :schedule :assist :log :report :audit]}
   {:id "5163"
    :name "Undertakers and Embalmers"
    :maturity :spec
