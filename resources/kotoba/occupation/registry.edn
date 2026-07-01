@@ -1126,10 +1126,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3339"
    :name "Business Services Agents Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3339"
+   :business-id "cloud-itonami-isco-3339"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :match :coordinate :close :report :audit]}
   {:id "3341"
    :name "Office Supervisors"
    :maturity :spec
@@ -1568,10 +1570,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5164"
    :name "Pet Groomers and Animal Care Workers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5164"
+   :business-id "cloud-itonami-isco-5164"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :groom-support :monitor :log :report :audit]}
   {:id "5165"
    :name "Driving Instructors"
    :maturity :spec
@@ -1612,7 +1616,7 @@
    :name "Shop Sales Assistants"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5223"
    :business-id "cloud-itonami-isco-5223"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies [:identity]
    :operating-states [:greet :advise :shelf-check :sell :report :audit]}
@@ -2384,10 +2388,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8172"
    :name "Wood Processing Plant Operators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8172"
+   :business-id "cloud-itonami-isco-8172"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:load :process :monitor :unload :report :audit]}
   {:id "8181"
    :name "Glass and Ceramics Plant Operators"
    :maturity :spec
