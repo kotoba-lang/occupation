@@ -114,7 +114,7 @@
    :name "Manufacturing Managers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1321"
    :business-id "cloud-itonami-isco-1321"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :dmn :bpmn :audit-ledger :telemetry]
    :optional-technologies [:optimization]
    :operating-states [:plan :assign :supervise :qc :report :audit]}
@@ -844,10 +844,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3123"
    :name "Construction Supervisors"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3123"
+   :business-id "cloud-itonami-isco-3123"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:brief :inspect :coordinate :clear :report :audit]}
   {:id "3131"
    :name "Power Production Plant Operators"
    :maturity :spec
@@ -1942,10 +1944,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "7212"
    :name "Welders and Flame Cutters"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7212"
+   :business-id "cloud-itonami-isco-7212"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:prep :weld-support :inspect :finish :invoice :audit]}
   {:id "7213"
    :name "Sheet Metal Workers"
    :maturity :spec
@@ -2606,10 +2610,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "9333"
    :name "Freight Handlers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-9333"
+   :business-id "cloud-itonami-isco-9333"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
+   :optional-technologies [:optimization]
+   :operating-states [:receive :load :unload :log :report :audit]}
   {:id "9334"
    :name "Shelf Fillers"
    :maturity :spec
