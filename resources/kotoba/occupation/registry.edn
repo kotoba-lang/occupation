@@ -358,10 +358,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2166"
    :name "Graphic and Multimedia Designers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2166"
+   :business-id "cloud-itonami-isco-2166"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :design :review :deliver :invoice :audit]}
   {:id "2211"
    :name "Generalist Medical Practitioners"
    :maturity :spec
@@ -1398,10 +1400,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4229"
    :name "Client Information Workers Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4229"
+   :business-id "cloud-itonami-isco-4229"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :route :respond :log :report :audit]}
   {:id "4311"
    :name "Accounting and Bookkeeping Clerks"
    :maturity :spec
@@ -2354,10 +2358,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8154"
    :name "Bleaching, Dyeing and Fabric Cleaning Machine Operators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8154"
+   :business-id "cloud-itonami-isco-8154"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:load :process :monitor :unload :report :audit]}
   {:id "8155"
    :name "Fur and Leather Preparing Machine Operators"
    :maturity :spec
@@ -2522,7 +2528,7 @@
    :name "Domestic Cleaners and Helpers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-9111"
    :business-id "cloud-itonami-isco-9111"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :schedule :clean :inspect :report :audit]}
