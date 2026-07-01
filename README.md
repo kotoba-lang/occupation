@@ -36,7 +36,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 
 | ISCO-08 | Occupation | Blueprint | Required technology |
 |---:|---|---|---|
-| 1321 | Manufacturing Managers | Independent Manufacturing Floor Management | robotics, identity, dmn, bpmn, audit-ledger, telemetry |
+| 1321 | Manufacturing Managers | Independent Manufacturing Floor Management (**:implemented** — real actor: `manufacturing-floor.store`/`.governor`, 7 tests) | robotics, identity, dmn, bpmn, audit-ledger, telemetry |
 | 2221 | Nursing Professionals | Independent Home Nursing Practice (**:implemented** — real actor: `home-nursing.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
 | 3253 | Community Health Workers | Community Health Outreach Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4321 | Stock Clerks | Independent Warehouse Stock Operations (**:implemented** — real actor: `warehouse-stock.store`/`.governor`, 8 tests) | robotics, forms, telemetry, optimization, audit-ledger, bpmn |
@@ -72,13 +72,16 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 1219 | Business Services and Administration Managers Not Elsewhere Classified | Independent Business Administration Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 2411 | Accountants | Independent Accounting Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4413 | Coding, Proofreading and Related Clerks | Independent Document Processing Practice | robotics, forms, audit-ledger |
+| 3123 | Construction Supervisors | Independent Construction Supervision Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 7212 | Welders and Flame Cutters | Independent Welding Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 9333 | Freight Handlers | Independent Freight Handling Practice | robotics, forms, telemetry, audit-ledger, bpmn |
 
-Two-to-seven representative unit groups per non-armed-forces ISCO-08 major
-group (36/36 across major groups 1-9; major group 0 "Armed Forces
-Occupations" is registry-only — a sole-proprietor OSS business blueprint
-doesn't fit an armed-forces occupation, mirroring how `kotoba-industry` also
-leaves some sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322 and
-8332 are `:maturity :implemented` (real reference actors exist); the other
-29 are `:maturity :blueprint`. The remaining 400 ISCO-08 unit groups are
+4-5 representative unit groups per non-armed-forces ISCO-08 major group
+(39/39 across major groups 1-9; major group 0 "Armed Forces Occupations"
+is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
+armed-forces occupation, mirroring how `kotoba-industry` also leaves some
+sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332 and 1321
+are `:maturity :implemented` (real reference actors exist); the other 31
+are `:maturity :blueprint`. The remaining 397 ISCO-08 unit groups are
 registered at `:maturity :spec` (registry-only stub, full ISCO-08 coverage)
 for future promotion.
