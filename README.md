@@ -48,7 +48,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3141 | Life Science Technicians (excluding Medical) | Independent Field & Lab Science Support Practice | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
 | 5223 | Shop Sales Assistants | Independent Retail Floor Sales Practice (**:implemented** — real actor: `retail-floor.store`/`.governor`, 8 tests) | robotics, forms, telemetry, audit-ledger, bpmn |
 | 6210 | Forestry and Related Workers | Independent Forestry Operations (**:implemented** — real actor: `forestry.store`/`.governor`, 7 tests) | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
-| 7231 | Motor Vehicle Mechanics and Repairers | Independent Auto Repair Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 7231 | Motor Vehicle Mechanics and Repairers | Independent Auto Repair Practice (**:implemented** — real actor: `auto-repair.store`/`.governor`, 7 tests) | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8121 | Metal Processing Plant Operators | Independent Metal Processing Plant Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9111 | Domestic Cleaners and Helpers | Independent Domestic Cleaning Practice | robotics, identity, forms, audit-ledger |
 | 1120 | Managing Directors and Chief Executives | Independent Small-Business Executive Practice | robotics, identity, dmn, bpmn, audit-ledger |
@@ -84,14 +84,17 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3339 | Business Services Agents Not Elsewhere Classified | Independent Business Services Agency Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 5164 | Pet Groomers and Animal Care Workers | Independent Pet Care Practice | robotics, forms, telemetry, audit-ledger, bpmn |
 | 8172 | Wood Processing Plant Operators | Independent Wood Processing Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
+| 2320 | Vocational Education Teachers | Independent Vocational Education Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 4211 | Bank Tellers and Related Clerks | Independent Financial Services Teller Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 5169 | Personal Services Workers Not Elsewhere Classified | Independent Personal Services Practice | robotics, forms, identity, audit-ledger, bpmn |
 
 5-6 representative unit groups per non-armed-forces ISCO-08 major group
-(48/48 across major groups 1-9; major group 0 "Armed Forces Occupations"
+(51/51 across major groups 1-9; major group 0 "Armed Forces Occupations"
 is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
 armed-forces occupation, mirroring how `kotoba-industry` also leaves some
 sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321,
-3253, 6210 and 5223 are `:maturity :implemented` (real reference actors
-exist); the other 37 are `:maturity :blueprint`. The remaining 388
+3253, 6210, 5223 and 7231 are `:maturity :implemented` (real reference
+actors exist); the other 39 are `:maturity :blueprint`. The remaining 385
 ISCO-08 unit groups are registered at `:maturity :spec` (registry-only
 stub, full
 ISCO-08 coverage) for future promotion.
