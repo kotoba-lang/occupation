@@ -44,7 +44,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 6112 | Market Gardeners and Crop Growers | Independent Market Gardening Operations (**:implemented** — real actor: `market-garden.store`/`.governor`, 7 tests) | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 | 7126 | Plumbers and Pipe Fitters | Independent Plumbing Practice (**:implemented** — real actor: `plumbing.store`/`.governor`, 7 tests) | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8332 | Heavy Truck and Lorry Drivers | Independent Freight Driving Operations | robotics, telemetry, identity, dmn, bpmn, audit-ledger |
-| 9312 | Civil Engineering Labourers | Independent Civil Labour Crew | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 9312 | Civil Engineering Labourers | Independent Civil Labour Crew (**:implemented** — real actor: `civil-labour.store`/`.governor`, 7 tests) | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 3141 | Life Science Technicians (excluding Medical) | Independent Field & Lab Science Support Practice | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
 | 5223 | Shop Sales Assistants | Independent Retail Floor Sales Practice | robotics, forms, telemetry, audit-ledger, bpmn |
 | 6210 | Forestry and Related Workers | Independent Forestry Operations | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
@@ -63,13 +63,16 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 6130 | Mixed Crop and Animal Producers | Independent Mixed Farming Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 | 8160 | Food and Related Products Machine Operators | Independent Food Processing Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9412 | Kitchen Helpers | Independent Kitchen Support Practice | robotics, forms, audit-ledger |
+| 1330 | Information and Communications Technology Services Managers | Independent IT Services Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 3512 | Information and Communications Technology User Support Technicians | Independent IT Support Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 6222 | Inland and Coastal Waters Fishery Workers | Independent Small-Scale Fishery Operations | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
 
 Two-to-five representative unit groups per non-armed-forces ISCO-08 major
-group (27/27 across major groups 1-9; major group 0 "Armed Forces
+group (30/30 across major groups 1-9; major group 0 "Armed Forces
 Occupations" is registry-only — a sole-proprietor OSS business blueprint
 doesn't fit an armed-forces occupation, mirroring how `kotoba-industry` also
-leaves some sections registry-only). 6112, 2221, 7126 and 4321 are
-`:maturity :implemented` (real reference actors exist); the other 23 are
-`:maturity :blueprint`. The remaining 409 ISCO-08 unit groups are
+leaves some sections registry-only). 6112, 2221, 7126, 4321 and 9312 are
+`:maturity :implemented` (real reference actors exist); the other 25 are
+`:maturity :blueprint`. The remaining 406 ISCO-08 unit groups are
 registered at `:maturity :spec` (registry-only stub, full ISCO-08 coverage)
 for future promotion.
