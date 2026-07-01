@@ -45,10 +45,17 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 7126 | Plumbers and Pipe Fitters | Independent Plumbing Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8332 | Heavy Truck and Lorry Drivers | Independent Freight Driving Operations | robotics, telemetry, identity, dmn, bpmn, audit-ledger |
 | 9312 | Civil Engineering Labourers | Independent Civil Labour Crew | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 3141 | Life Science Technicians (excluding Medical) | Independent Field & Lab Science Support Practice | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
+| 5223 | Shop Sales Assistants | Independent Retail Floor Sales Practice | robotics, forms, telemetry, audit-ledger, bpmn |
+| 6210 | Forestry and Related Workers | Independent Forestry Operations | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
+| 7231 | Motor Vehicle Mechanics and Repairers | Independent Auto Repair Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 8121 | Metal Processing Plant Operators | Independent Metal Processing Plant Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
+| 9111 | Domestic Cleaners and Helpers | Independent Domestic Cleaning Practice | robotics, identity, forms, audit-ledger |
 
 One representative unit group per ISCO-08 major group (10/10; major group 0
 "Armed Forces Occupations" is registry-only — a sole-proprietor OSS business
 blueprint doesn't fit an armed-forces occupation, mirroring how
-`kotoba-industry` also leaves some sections registry-only). The remaining 427
-ISCO-08 unit groups are registered at `:maturity :spec` (registry-only stub,
-full ISCO-08 coverage) for future promotion.
+`kotoba-industry` also leaves some sections registry-only), plus a second
+representative for major groups 3/5/6/7/8/9 as coverage deepens. The
+remaining 421 ISCO-08 unit groups are registered at `:maturity :spec`
+(registry-only stub, full ISCO-08 coverage) for future promotion.
