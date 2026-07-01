@@ -136,10 +136,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1330"
    :name "Information and Communications Technology Services Managers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1330"
+   :business-id "cloud-itonami-isco-1330"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :plan :deploy-support :monitor :report :audit]}
   {:id "1341"
    :name "Child Care Services Managers"
    :maturity :spec
@@ -1252,10 +1254,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3512"
    :name "Information and Communications Technology User Support Technicians"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3512"
+   :business-id "cloud-itonami-isco-3512"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :diagnose :resolve :log :report :audit]}
   {:id "3513"
    :name "Computer Network and Systems Technicians"
    :maturity :spec
@@ -1782,10 +1786,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "6222"
    :name "Inland and Coastal Waters Fishery Workers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6222"
+   :business-id "cloud-itonami-isco-6222"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :forms :dmn :bpmn :audit-ledger]
+   :optional-technologies [:optimization]
+   :operating-states [:plan :set :harvest :sort :sell :audit]}
   {:id "6223"
    :name "Deep-sea Fishery Workers"
    :maturity :spec
@@ -2554,7 +2560,7 @@
    :name "Civil Engineering Labourers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-9312"
    :business-id "cloud-itonami-isco-9312"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:brief :prep-site :labor :inspect :clear-site :audit]}
