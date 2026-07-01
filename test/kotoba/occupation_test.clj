@@ -8,7 +8,8 @@
     (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"]]
+  (doseq [isco ["1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+                "3141" "5223" "6210" "7231" "8121" "9111"]]
     (is (:business-id (occupation/get-occupation isco)))
     (is (seq (occupation/required-technologies isco)))
     (is (seq (:technology-stack (occupation/execution-plan isco))))))
@@ -30,8 +31,8 @@
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
-      (is (= 9 (:blueprint m)))
-      (is (= 427 (:spec m)))
+      (is (= 15 (:blueprint m)))
+      (is (= 421 (:spec m)))
       (is (= 0 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
