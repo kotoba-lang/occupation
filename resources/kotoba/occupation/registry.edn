@@ -464,10 +464,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2320"
    :name "Vocational Education Teachers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2320"
+   :business-id "cloud-itonami-isco-2320"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :plan :teach-support :assess :report :audit]}
   {:id "2330"
    :name "Secondary Education Teachers"
    :maturity :spec
@@ -1326,10 +1328,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4211"
    :name "Bank Tellers and Related Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4211"
+   :business-id "cloud-itonami-isco-4211"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :verify :process :log :report :audit]}
   {:id "4212"
    :name "Bookmakers, Croupiers and Related Gaming Workers"
    :maturity :spec
@@ -1584,10 +1588,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5169"
    :name "Personal Services Workers Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5169"
+   :business-id "cloud-itonami-isco-5169"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :schedule :service :log :report :audit]}
   {:id "5211"
    :name "Stall and Market Salespersons"
    :maturity :spec
@@ -2010,7 +2016,7 @@
    :name "Motor Vehicle Mechanics and Repairers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7231"
    :business-id "cloud-itonami-isco-7231"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:diagnose :quote :repair :test :invoice :audit]}
