@@ -41,7 +41,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3253 | Community Health Workers | Community Health Outreach Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4321 | Stock Clerks | Independent Warehouse Stock Operations | robotics, forms, telemetry, optimization, audit-ledger, bpmn |
 | 5322 | Home-based Personal Care Workers | Independent Home-Based Care Practice | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
-| 6112 | Market Gardeners and Crop Growers | Independent Market Gardening Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
+| 6112 | Market Gardeners and Crop Growers | Independent Market Gardening Operations (**:implemented** — real actor: `market-garden.store`/`.governor`, 7 tests) | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 | 7126 | Plumbers and Pipe Fitters | Independent Plumbing Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8332 | Heavy Truck and Lorry Drivers | Independent Freight Driving Operations | robotics, telemetry, identity, dmn, bpmn, audit-ledger |
 | 9312 | Civil Engineering Labourers | Independent Civil Labour Crew | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
@@ -51,11 +51,15 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 7231 | Motor Vehicle Mechanics and Repairers | Independent Auto Repair Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8121 | Metal Processing Plant Operators | Independent Metal Processing Plant Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9111 | Domestic Cleaners and Helpers | Independent Domestic Cleaning Practice | robotics, identity, forms, audit-ledger |
+| 1120 | Managing Directors and Chief Executives | Independent Small-Business Executive Practice | robotics, identity, dmn, bpmn, audit-ledger |
+| 2512 | Software Developers | Independent Software Development Studio | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 4110 | General Office Clerks | Independent Office Administration Practice | robotics, forms, audit-ledger, bpmn |
 
-One representative unit group per ISCO-08 major group (10/10; major group 0
-"Armed Forces Occupations" is registry-only — a sole-proprietor OSS business
-blueprint doesn't fit an armed-forces occupation, mirroring how
-`kotoba-industry` also leaves some sections registry-only), plus a second
-representative for major groups 3/5/6/7/8/9 as coverage deepens. The
-remaining 421 ISCO-08 unit groups are registered at `:maturity :spec`
-(registry-only stub, full ISCO-08 coverage) for future promotion.
+Two representative unit groups per non-armed-forces ISCO-08 major group
+(18/18 across major groups 1-9; major group 0 "Armed Forces Occupations" is
+registry-only — a sole-proprietor OSS business blueprint doesn't fit an
+armed-forces occupation, mirroring how `kotoba-industry` also leaves some
+sections registry-only). 6112 is `:maturity :implemented` (a real reference
+actor exists); the other 17 are `:maturity :blueprint`. The remaining 418
+ISCO-08 unit groups are registered at `:maturity :spec` (registry-only stub,
+full ISCO-08 coverage) for future promotion.
