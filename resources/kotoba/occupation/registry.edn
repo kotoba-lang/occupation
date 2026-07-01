@@ -74,10 +74,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1219"
    :name "Business Services and Administration Managers Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1219"
+   :business-id "cloud-itonami-isco-1219"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :plan :coordinate :review :report :audit]}
   {:id "1221"
    :name "Sales and Marketing Managers"
    :maturity :spec
@@ -526,10 +528,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2411"
    :name "Accountants"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2411"
+   :business-id "cloud-itonami-isco-2411"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :reconcile :prepare :review :file :audit]}
   {:id "2412"
    :name "Financial and Investment Advisers"
    :maturity :spec
@@ -1436,10 +1440,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4413"
    :name "Coding, Proofreading and Related Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4413"
+   :business-id "cloud-itonami-isco-4413"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :audit-ledger :bpmn]
+   :optional-technologies [:identity]
+   :operating-states [:intake :scan :code :proofread :report :audit]}
   {:id "4414"
    :name "Scribes and Related Workers"
    :maturity :spec
@@ -2442,9 +2448,9 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8332"
    :name "Heavy Truck and Lorry Drivers"
-   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8324"
-   :business-id "cloud-itonami-isco-8324"
-   :maturity :blueprint
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8332"
+   :business-id "cloud-itonami-isco-8332"
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :identity :dmn :bpmn :audit-ledger]
    :optional-technologies [:optimization]
    :operating-states [:plan-route :load :drive :deliver :log-hours :audit]}
