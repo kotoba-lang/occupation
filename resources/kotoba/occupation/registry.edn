@@ -372,7 +372,7 @@
    :name "Nursing Professionals"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2221"
    :business-id "cloud-itonami-isco-2221"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :telemetry]
    :optional-technologies []
    :operating-states [:intake :assess :care :document :escalate :audit]}
@@ -940,10 +940,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3213"
    :name "Pharmaceutical Technicians and Assistants"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3213"
+   :business-id "cloud-itonami-isco-3213"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :verify :dispense-support :log :report :audit]}
   {:id "3214"
    :name "Medical and Dental Prosthetic Technicians"
    :maturity :spec
@@ -1516,10 +1518,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5153"
    :name "Building Caretakers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5153"
+   :business-id "cloud-itonami-isco-5153"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
+   :optional-technologies [:identity]
+   :operating-states [:inspect :maintain :repair-support :log :report :audit]}
   {:id "5161"
    :name "Astrologers, Fortune-tellers and Related Workers"
    :maturity :spec
@@ -2062,10 +2066,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "7411"
    :name "Building and Related Electricians"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7411"
+   :business-id "cloud-itonami-isco-7411"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:diagnose :quote :wire :test :invoice :audit]}
   {:id "7412"
    :name "Electrical Mechanics and Fitters"
    :maturity :spec
