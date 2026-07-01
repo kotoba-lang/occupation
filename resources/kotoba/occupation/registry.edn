@@ -408,10 +408,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2262"
    :name "Pharmacists"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2262"
+   :business-id "cloud-itonami-isco-2262"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :verify :counsel :dispense :report :audit]}
   {:id "2263"
    :name "Environmental and Occupational Health and Hygiene Professionals"
    :maturity :spec
@@ -1336,10 +1338,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4222"
    :name "Contact Centre Information Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4222"
+   :business-id "cloud-itonami-isco-4222"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:greet :route :log :escalate :report :audit]}
   {:id "4223"
    :name "Telephone Switchboard Operators"
    :maturity :spec
@@ -1642,10 +1646,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5311"
    :name "Child Care Workers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5311"
+   :business-id "cloud-itonami-isco-5311"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :schedule :supervise :log :report :audit]}
   {:id "5312"
    :name "Teachers’ Aides"
    :maturity :spec
@@ -1884,7 +1890,7 @@
    :name "Plumbers and Pipe Fitters"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7126"
    :business-id "cloud-itonami-isco-7126"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:diagnose :quote :repair :test :invoice :audit]}
