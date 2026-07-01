@@ -874,10 +874,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3141"
    :name "Life Science Technicians (excluding Medical)"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3141"
+   :business-id "cloud-itonami-isco-3141"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :forms :dmn :bpmn :audit-ledger]
+   :optional-technologies [:optimization]
+   :operating-states [:plan :sample :analyze :log :report :audit]}
   {:id "3142"
    :name "Agricultural Technicians"
    :maturity :spec
@@ -1574,10 +1576,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5223"
    :name "Shop Sales Assistants"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5223"
+   :business-id "cloud-itonami-isco-5223"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
+   :optional-technologies [:identity]
+   :operating-states [:greet :advise :shelf-check :sell :report :audit]}
   {:id "5230"
    :name "Cashiers and Ticket Clerks"
    :maturity :spec
@@ -1746,10 +1750,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "6210"
    :name "Forestry and Related Workers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6210"
+   :business-id "cloud-itonami-isco-6210"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :forms :dmn :bpmn :audit-ledger]
+   :optional-technologies [:optimization]
+   :operating-states [:survey :plan :harvest :replant :report :audit]}
   {:id "6221"
    :name "Aquaculture Workers"
    :maturity :spec
@@ -1952,10 +1958,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "7231"
    :name "Motor Vehicle Mechanics and Repairers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7231"
+   :business-id "cloud-itonami-isco-7231"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:diagnose :quote :repair :test :invoice :audit]}
   {:id "7232"
    :name "Aircraft Engine Mechanics and Repairers"
    :maturity :spec
@@ -2222,10 +2230,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8121"
    :name "Metal Processing Plant Operators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8121"
+   :business-id "cloud-itonami-isco-8121"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
+   :optional-technologies [:cae]
+   :operating-states [:charge :process :monitor :sample :report :audit]}
   {:id "8122"
    :name "Metal Finishing, Plating and Coating Machine Operators"
    :maturity :spec
@@ -2440,10 +2450,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "9111"
    :name "Domestic Cleaners and Helpers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-9111"
+   :business-id "cloud-itonami-isco-9111"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :schedule :clean :inspect :report :audit]}
   {:id "9112"
    :name "Cleaners and Helpers in Offices, Hotels and Other Establishments"
    :maturity :spec
