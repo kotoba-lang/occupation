@@ -48,10 +48,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1120"
    :name "Managing Directors and Chief Executives"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1120"
+   :business-id "cloud-itonami-isco-1120"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:plan :direct :review :decide :report :audit]}
   {:id "1211"
    :name "Finance Managers"
    :maturity :spec
@@ -108,7 +110,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1321"
    :name "Manufacturing Managers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-1321"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1321"
    :business-id "cloud-itonami-isco-1321"
    :maturity :blueprint
    :required-technologies [:robotics :identity :dmn :bpmn :audit-ledger :telemetry]
@@ -368,7 +370,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2221"
    :name "Nursing Professionals"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-2221"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2221"
    :business-id "cloud-itonami-isco-2221"
    :maturity :blueprint
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :telemetry]
@@ -592,10 +594,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2512"
    :name "Software Developers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2512"
+   :business-id "cloud-itonami-isco-2512"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :design :build :test :deploy :audit]}
   {:id "2513"
    :name "Web and Multimedia Developers"
    :maturity :spec
@@ -984,7 +988,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3253"
    :name "Community Health Workers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-3253"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3253"
    :business-id "cloud-itonami-isco-3253"
    :maturity :blueprint
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
@@ -1274,10 +1278,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4110"
    :name "General Office Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4110"
+   :business-id "cloud-itonami-isco-4110"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :audit-ledger :bpmn]
+   :optional-technologies [:identity]
+   :operating-states [:intake :file :process :report :audit]}
   {:id "4120"
    :name "Secretaries (general)"
    :maturity :spec
@@ -1388,7 +1394,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4321"
    :name "Stock Clerks"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-4321"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4321"
    :business-id "cloud-itonami-isco-4321"
    :maturity :blueprint
    :required-technologies [:robotics :forms :telemetry :optimization :audit-ledger :bpmn]
@@ -1650,7 +1656,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5322"
    :name "Home-based Personal Care Workers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-5322"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5322"
    :business-id "cloud-itonami-isco-5322"
    :maturity :blueprint
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :telemetry]
@@ -1700,9 +1706,9 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "6112"
    :name "Market Gardeners and Crop Growers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-6112"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6112"
    :business-id "cloud-itonami-isco-6112"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
    :optional-technologies [:cfd]
    :operating-states [:plan :sow :tend :harvest :sell :audit]}
@@ -1872,7 +1878,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "7126"
    :name "Plumbers and Pipe Fitters"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-7126"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7126"
    :business-id "cloud-itonami-isco-7126"
    :maturity :blueprint
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
@@ -2412,7 +2418,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8332"
    :name "Heavy Truck and Lorry Drivers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-8324"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8324"
    :business-id "cloud-itonami-isco-8324"
    :maturity :blueprint
    :required-technologies [:robotics :telemetry :identity :dmn :bpmn :audit-ledger]
@@ -2530,7 +2536,7 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "9312"
    :name "Civil Engineering Labourers"
-   :repo "https://github.com/gftdcojp/cloud-itonami-isco-9312"
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-9312"
    :business-id "cloud-itonami-isco-9312"
    :maturity :blueprint
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
