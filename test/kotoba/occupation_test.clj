@@ -20,7 +20,8 @@
                 "3123" "7212" "9333"
                 "2634" "5120" "6114"
                 "1349" "4131" "8189"
-                "3339" "5164" "8172"]]
+                "3339" "5164" "8172"
+                "2320" "4211" "5169"]]
     (is (:business-id (occupation/get-occupation isco)))
     (is (seq (occupation/required-technologies isco)))
     (is (seq (:technology-stack (occupation/execution-plan isco))))))
@@ -47,16 +48,17 @@
     (is (= :implemented (occupation/maturity "1321")))
     (is (= :implemented (occupation/maturity "3253")))
     (is (= :implemented (occupation/maturity "6210")))
-    (is (= :implemented (occupation/maturity "5223"))))
+    (is (= :implemented (occupation/maturity "5223")))
+    (is (= :implemented (occupation/maturity "7231"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1111"))))
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
-      (is (= 37 (:blueprint m)))
-      (is (= 388 (:spec m)))
-      (is (= 11 (:implemented m))))))
+      (is (= 39 (:blueprint m)))
+      (is (= 385 (:spec m)))
+      (is (= 12 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -92,6 +94,9 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r))))
     (let [r (occupation/maturity-roadmap "5223")]
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r))))
+    (let [r (occupation/maturity-roadmap "7231")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
   (testing "a blueprint entry's next step is implemented"
