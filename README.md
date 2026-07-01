@@ -42,7 +42,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 4321 | Stock Clerks | Independent Warehouse Stock Operations | robotics, forms, telemetry, optimization, audit-ledger, bpmn |
 | 5322 | Home-based Personal Care Workers | Independent Home-Based Care Practice | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
 | 6112 | Market Gardeners and Crop Growers | Independent Market Gardening Operations (**:implemented** — real actor: `market-garden.store`/`.governor`, 7 tests) | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
-| 7126 | Plumbers and Pipe Fitters | Independent Plumbing Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 7126 | Plumbers and Pipe Fitters | Independent Plumbing Practice (**:implemented** — real actor: `plumbing.store`/`.governor`, 7 tests) | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8332 | Heavy Truck and Lorry Drivers | Independent Freight Driving Operations | robotics, telemetry, identity, dmn, bpmn, audit-ledger |
 | 9312 | Civil Engineering Labourers | Independent Civil Labour Crew | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 3141 | Life Science Technicians (excluding Medical) | Independent Field & Lab Science Support Practice | robotics, telemetry, forms, dmn, bpmn, audit-ledger |
@@ -57,13 +57,16 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3213 | Pharmaceutical Technicians and Assistants | Independent Pharmacy Support Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 5153 | Building Caretakers | Independent Building Caretaking Practice | robotics, forms, telemetry, audit-ledger, bpmn |
 | 7411 | Building and Related Electricians | Independent Electrical Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
+| 2262 | Pharmacists | Independent Pharmacy Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 4222 | Contact Centre Information Clerks | Independent Reception & Contact Practice | robotics, forms, identity, audit-ledger, bpmn |
+| 5311 | Child Care Workers | Independent Child Care Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 
-Two-to-three representative unit groups per non-armed-forces ISCO-08 major
-group (21/21 across major groups 1-9; major group 0 "Armed Forces
+Two-to-four representative unit groups per non-armed-forces ISCO-08 major
+group (24/24 across major groups 1-9; major group 0 "Armed Forces
 Occupations" is registry-only — a sole-proprietor OSS business blueprint
 doesn't fit an armed-forces occupation, mirroring how `kotoba-industry` also
-leaves some sections registry-only). 6112 and 2221 are `:maturity
-:implemented` (real reference actors exist); the other 19 are `:maturity
-:blueprint`. The remaining 415 ISCO-08 unit groups are registered at
+leaves some sections registry-only). 6112, 2221 and 7126 are `:maturity
+:implemented` (real reference actors exist); the other 21 are `:maturity
+:blueprint`. The remaining 412 ISCO-08 unit groups are registered at
 `:maturity :spec` (registry-only stub, full ISCO-08 coverage) for future
 promotion.
