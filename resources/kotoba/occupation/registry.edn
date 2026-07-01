@@ -700,10 +700,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2634"
    :name "Psychologists"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2634"
+   :business-id "cloud-itonami-isco-2634"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :assess :session :document :escalate :audit]}
   {:id "2635"
    :name "Social Work and Counselling Professionals"
    :maturity :spec
@@ -1002,7 +1004,7 @@
    :name "Community Health Workers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3253"
    :business-id "cloud-itonami-isco-3253"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:outreach :screen :refer :follow-up :report :audit]}
@@ -1492,10 +1494,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5120"
    :name "Cooks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5120"
+   :business-id "cloud-itonami-isco-5120"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:prep :cook-support :plate :log :report :audit]}
   {:id "5131"
    :name "Waiters"
    :maturity :spec
@@ -1742,10 +1746,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "6114"
    :name "Mixed Crop Growers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6114"
+   :business-id "cloud-itonami-isco-6114"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
+   :optional-technologies [:cfd]
+   :operating-states [:plan :sow :tend :harvest :sell :audit]}
   {:id "6121"
    :name "Livestock and Dairy Producers"
    :maturity :spec
