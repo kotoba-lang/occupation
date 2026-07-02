@@ -850,10 +850,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "3122"
    :name "Manufacturing Supervisors"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3122"
+   :business-id "cloud-itonami-isco-3122"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:plan :supervise :inspect :report :escalate :audit]}
   {:id "3123"
    :name "Construction Supervisors"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3123"
@@ -1310,7 +1312,7 @@
    :name "General Office Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4110"
    :business-id "cloud-itonami-isco-4110"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :audit-ledger :bpmn]
    :optional-technologies [:identity]
    :operating-states [:intake :file :process :report :audit]}
@@ -1756,10 +1758,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "6111"
    :name "Field Crop and Vegetable Growers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6111"
+   :business-id "cloud-itonami-isco-6111"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:plan :plant :monitor :harvest :sell :audit]}
   {:id "6112"
    :name "Market Gardeners and Crop Growers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6112"
@@ -2486,10 +2490,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8322"
    :name "Car, Taxi and Van Drivers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8322"
+   :business-id "cloud-itonami-isco-8322"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :identity :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:accept-trip :drive :drop-off :log :report :audit]}
   {:id "8331"
    :name "Bus and Tram Drivers"
    :maturity :spec
