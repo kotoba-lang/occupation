@@ -45,7 +45,11 @@ Current state (ISCO-08 unit-group coverage 100%):
 
 - Total entries: 436 (full ISCO-08 unit-group list)
 - Major groups: 10/10 represented (group 0 "Armed Forces" registry-only)
-- `:implemented` 23 · `:blueprint` 61 · `:spec` 352
+- `:implemented` 24 · `:blueprint` 60 · `:spec` 352
+- 1 of the 24 `:implemented` entries (6130) is on the full
+  `langgraph.graph` Actor pattern (Advisor+Governor as StateGraph
+  nodes); the rest use a lighter standalone Store+governor-function
+  pattern
 
 Every entry requires `:robotics` (ADR-2607011000 robotics-premise, adopted
 here for parity with `kotoba-industry`): a robot performs the physical domain
