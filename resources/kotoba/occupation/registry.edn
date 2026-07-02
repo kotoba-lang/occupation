@@ -188,7 +188,7 @@
    :name "Professional Services Managers Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1349"
    :business-id "cloud-itonami-isco-1349"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :plan :coordinate :review :report :audit]}
