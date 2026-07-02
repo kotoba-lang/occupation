@@ -70,7 +70,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 8342 | Earthmoving and Related Plant Operators | Independent Earthmoving Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9622 | Odd-job Persons | Independent Handyman Practice | robotics, forms, audit-ledger, bpmn |
 | 1219 | Business Services and Administration Managers Not Elsewhere Classified | Independent Business Administration Management Practice (**:implemented** — real `langgraph.graph` Actor: `business-admin.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
-| 2411 | Accountants | Independent Accounting Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2411 | Accountants | Independent Accounting Practice (**:implemented** — real `langgraph.graph` Actor: `accounting.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4413 | Coding, Proofreading and Related Clerks | Independent Document Processing Practice | robotics, forms, audit-ledger |
 | 3123 | Construction Supervisors | Independent Construction Supervision Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 7212 | Welders and Flame Cutters | Independent Welding Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
@@ -133,15 +133,15 @@ business blueprint doesn't fit an armed-forces occupation, mirroring how
 `kotoba-industry` also leaves some sections registry-only). 6112, 2221,
 7126, 4321, 9312, 5322, 8332, 1321, 3253, 6210, 5223, 7231, 8121, 9111,
 2512, 1120, 4110, 3213, 5153, 7411, 2262, 4222, 5311, 6130, 8160, 2166,
-2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144
-and 2320 are `:maturity :implemented` (real reference actors exist); the
-other 49 are `:maturity :blueprint`. The remaining 348 ISCO-08 unit
-groups are registered at `:maturity :spec` (registry-only stub, full
-ISCO-08 coverage) for future promotion.
+2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144,
+2320 and 2411 are `:maturity :implemented` (real reference actors
+exist); the other 48 are `:maturity :blueprint`. The remaining 348
+ISCO-08 unit groups are registered at `:maturity :spec` (registry-only
+stub, full ISCO-08 coverage) for future promotion.
 
 Note: per the "Future promotions will follow the langgraph.graph pattern
-going forward" direction, 16 of the 39 `:implemented` entries — 6130,
-8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144 and 2320 — are on the full itonami Actor
+going forward" direction, 17 of the 40 `:implemented` entries — 6130,
+8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320 and 2411 — are on the full itonami Actor
 pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
 distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
 Actors section); the remaining 23 use the lighter standalone `Store` +
