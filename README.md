@@ -60,7 +60,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 2262 | Pharmacists | Independent Pharmacy Practice (**:implemented** — real actor: `pharmacy-practice.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4222 | Contact Centre Information Clerks | Independent Reception & Contact Practice (**:implemented** — real actor: `reception-contact.store`/`.governor`, 8 tests) | robotics, forms, identity, audit-ledger, bpmn |
 | 5311 | Child Care Workers | Independent Child Care Practice (**:implemented** — real actor: `child-care.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
-| 6130 | Mixed Crop and Animal Producers | Independent Mixed Farming Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
+| 6130 | Mixed Crop and Animal Producers | Independent Mixed Farming Operations (**:implemented** — real `langgraph.graph` Actor: `mixed-farming.actor`/`.advisor`/`.governor`/`.store`, 10 tests — first `cloud-itonami-isco-*` on the full itonami Actor pattern) | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 | 8160 | Food and Related Products Machine Operators | Independent Food Processing Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9412 | Kitchen Helpers | Independent Kitchen Support Practice | robotics, forms, audit-ledger |
 | 1330 | Information and Communications Technology Services Managers | Independent IT Services Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
@@ -127,8 +127,16 @@ is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
 armed-forces occupation, mirroring how `kotoba-industry` also leaves some
 sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321,
 3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110, 3213, 5153, 7411,
-2262, 4222 and 5311 are `:maturity :implemented` (real reference actors
-exist); the other 61 are `:maturity :blueprint`. The remaining 352
-ISCO-08 unit groups are registered at `:maturity :spec` (registry-only
-stub, full
+2262, 4222, 5311 and 6130 are `:maturity :implemented` (real reference
+actors exist); the other 60 are `:maturity :blueprint`. The remaining
+352 ISCO-08 unit groups are registered at `:maturity :spec`
+(registry-only stub, full
 ISCO-08 coverage) for future promotion.
+
+Note: 6130 is the first `cloud-itonami-isco-*` occupation implemented on
+the full itonami Actor pattern (a real `langgraph.graph/state-graph`
+with Advisor/Governor as distinct nodes and human-in-the-loop
+interrupt/resume, per CLAUDE.md's Actors section) rather than the
+lighter standalone `Store` + pure `governor/assess` function pattern
+used by the other 23 `:implemented` entries. Future promotions will
+follow the langgraph.graph pattern going forward.
