@@ -924,7 +924,7 @@
    :name "Life Science Technicians (excluding Medical)"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3141"
    :business-id "cloud-itonami-isco-3141"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :forms :dmn :bpmn :audit-ledger]
    :optional-technologies [:optimization]
    :operating-states [:plan :sample :analyze :log :report :audit]}
