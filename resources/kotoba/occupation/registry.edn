@@ -296,7 +296,7 @@
    :name "Mechanical Engineers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2144"
    :business-id "cloud-itonami-isco-2144"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies [:cae]
    :operating-states [:intake :design :analyze :review :sign-off :audit]}
