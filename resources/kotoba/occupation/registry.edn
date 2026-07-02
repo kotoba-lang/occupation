@@ -142,7 +142,7 @@
    :name "Information and Communications Technology Services Managers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1330"
    :business-id "cloud-itonami-isco-1330"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :plan :deploy-support :monitor :report :audit]}
