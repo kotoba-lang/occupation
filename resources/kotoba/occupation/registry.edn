@@ -1340,7 +1340,7 @@
    :name "Secretaries (general)"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4120"
    :business-id "cloud-itonami-isco-4120"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :schedule :correspond :file :report :audit]}
