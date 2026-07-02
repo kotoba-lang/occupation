@@ -2444,7 +2444,7 @@
    :name "Food and Related Products Machine Operators"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8160"
    :business-id "cloud-itonami-isco-8160"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:batch :process :monitor :sample :report :audit]}
