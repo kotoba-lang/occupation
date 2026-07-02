@@ -150,7 +150,7 @@
    :name "Child Care Services Managers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1341"
    :business-id "cloud-itonami-isco-1341"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :staff-plan :inspect :report :escalate :audit]}
