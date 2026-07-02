@@ -57,7 +57,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 3213 | Pharmaceutical Technicians and Assistants | Independent Pharmacy Support Practice (**:implemented** — real actor: `pharmacy-support.store`/`.governor`, 7 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 5153 | Building Caretakers | Independent Building Caretaking Practice (**:implemented** — real actor: `building-caretaking.store`/`.governor`, 7 tests) | robotics, forms, telemetry, audit-ledger, bpmn |
 | 7411 | Building and Related Electricians | Independent Electrical Practice (**:implemented** — real actor: `electrical-practice.store`/`.governor`, 7 tests) | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
-| 2262 | Pharmacists | Independent Pharmacy Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2262 | Pharmacists | Independent Pharmacy Practice (**:implemented** — real actor: `pharmacy-practice.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4222 | Contact Centre Information Clerks | Independent Reception & Contact Practice | robotics, forms, identity, audit-ledger, bpmn |
 | 5311 | Child Care Workers | Independent Child Care Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 6130 | Mixed Crop and Animal Producers | Independent Mixed Farming Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
@@ -111,14 +111,17 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 1439 | Services Managers Not Elsewhere Classified | Independent Services Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4132 | Data Entry Clerks | Independent Data Entry Practice | robotics, forms, audit-ledger |
 | 8153 | Sewing Machine Operators | Independent Sewing Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
+| 2621 | Archivists and Curators | Independent Archival & Curatorial Practice | robotics, forms, identity, audit-ledger, bpmn |
+| 4224 | Hotel Receptionists | Independent Hotel Reception Practice | robotics, forms, identity, audit-ledger, bpmn |
+| 7523 | Woodworking Machine Tool Setters and Operators | Independent Woodworking Machine Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 
 7-8 representative unit groups per non-armed-forces ISCO-08 major group
-(75/75 across major groups 1-9; major group 0 "Armed Forces Occupations"
+(78/78 across major groups 1-9; major group 0 "Armed Forces Occupations"
 is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
 armed-forces occupation, mirroring how `kotoba-industry` also leaves some
 sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321,
-3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110, 3213, 5153 and 7411
-are `:maturity :implemented` (real reference actors exist); the other 55
-are `:maturity :blueprint`. The remaining 361 ISCO-08 unit groups are
-registered at `:maturity :spec` (registry-only stub, full
+3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110, 3213, 5153, 7411
+and 2262 are `:maturity :implemented` (real reference actors exist); the
+other 57 are `:maturity :blueprint`. The remaining 358 ISCO-08 unit
+groups are registered at `:maturity :spec` (registry-only stub, full
 ISCO-08 coverage) for future promotion.
