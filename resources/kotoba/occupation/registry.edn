@@ -1,6 +1,6 @@
 {:kotoba.registry/id :kotoba/occupation
  :kotoba.registry/version 1
- :kotoba.registry/updated "2026-07-01"
+ :kotoba.registry/updated "2026-07-02"
  :kotoba.registry/note "ISCO-08 authoritative unit-group coverage (436/436), mirrors kotoba-lang/industry's ISIC full-class registry. Most entries are :maturity :spec (registry-only stub); curated entries have a published cloud-itonami-isco-{code} blueprint repo."
  :occupations
  [
@@ -76,7 +76,7 @@
    :name "Business Services and Administration Managers Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1219"
    :business-id "cloud-itonami-isco-1219"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :plan :coordinate :review :report :audit]}
@@ -370,7 +370,7 @@
    :name "Graphic and Multimedia Designers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2166"
    :business-id "cloud-itonami-isco-2166"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :design :review :deliver :invoice :audit]}
@@ -742,10 +742,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2641"
    :name "Authors and Related Writers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2641"
+   :business-id "cloud-itonami-isco-2641"
+   :maturity :implemented
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :draft :review :publish :audit]}
   {:id "2642"
    :name "Journalists"
    :maturity :spec
@@ -760,16 +762,20 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2651"
    :name "Visual Artists"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2651"
+   :business-id "cloud-itonami-isco-2651"
+   :maturity :implemented
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :draft :review :publish :audit]}
   {:id "2652"
    :name "Musicians, Singers and Composers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2652"
+   :business-id "cloud-itonami-isco-2652"
+   :maturity :implemented
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :compose :review :release :audit]}
   {:id "2653"
    :name "Dancers and Choreographers"
    :maturity :spec
@@ -778,10 +784,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2654"
    :name "Film, Stage and Related Directors and Producers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2654"
+   :business-id "cloud-itonami-isco-2654"
+   :maturity :implemented
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :produce :review :publish :audit]}
   {:id "2655"
    :name "Actors"
    :maturity :spec

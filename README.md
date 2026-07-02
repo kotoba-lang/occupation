@@ -69,7 +69,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 7115 | Carpenters and Joiners | Independent Carpentry Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 8342 | Earthmoving and Related Plant Operators | Independent Earthmoving Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9622 | Odd-job Persons | Independent Handyman Practice | robotics, forms, audit-ledger, bpmn |
-| 1219 | Business Services and Administration Managers Not Elsewhere Classified | Independent Business Administration Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 1219 | Business Services and Administration Managers Not Elsewhere Classified | Independent Business Administration Management Practice (**:implemented** — real `langgraph.graph` Actor: `business-admin.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 2411 | Accountants | Independent Accounting Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4413 | Coding, Proofreading and Related Clerks | Independent Document Processing Practice | robotics, forms, audit-ledger |
 | 3123 | Construction Supervisors | Independent Construction Supervision Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
@@ -90,7 +90,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 6221 | Aquaculture Workers | Independent Aquaculture Operations | robotics, telemetry, dmn, bpmn, audit-ledger, forms |
 | 7233 | Agricultural and Industrial Machinery Mechanics and Repairers | Independent Farm & Industrial Machinery Repair Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 9211 | Crop Farm Labourers | Independent Crop Farm Labour Practice | robotics, telemetry, forms, audit-ledger, bpmn |
-| 2166 | Graphic and Multimedia Designers | Independent Graphic Design Studio | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2166 | Graphic and Multimedia Designers | Independent Graphic Design Studio (**:implemented** — real `langgraph.graph` Actor: `design-studio.actor`/`.advisor`/`.governor`/`.store`) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4229 | Client Information Workers Not Elsewhere Classified | Independent Client Information Services Practice | robotics, forms, identity, audit-ledger, bpmn |
 | 8154 | Bleaching, Dyeing and Fabric Cleaning Machine Operators | Independent Fabric Processing Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 1412 | Restaurant Managers | Independent Restaurant Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
@@ -120,23 +120,30 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 2431 | Advertising and Marketing Professionals | Independent Advertising & Marketing Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4120 | Secretaries (general) | Independent Secretarial Practice | robotics, forms, identity, audit-ledger, bpmn |
 | 6123 | Apiarists and Sericulturists | Independent Apiary Operations | robotics, telemetry, dmn, bpmn, audit-ledger, forms |
+| 2641 | Authors and Related Writers | Independent Writing Practice (**:implemented** — real `langgraph.graph` Actor: `writing-practice.actor`/`.advisor`/`.governor`/`.store`; craft library `kotoba-lang/shousetsu` enforces the body-as-blob invariant) | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2651 | Visual Artists | Independent Visual Art & Manga Studio (**:implemented** — real `langgraph.graph` Actor: `visual-art-studio.actor`/`.advisor`/`.governor`/`.store`; craft libraries `kotoba-lang/kami-genko` + `kami-mangaka-*`) | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2652 | Musicians, Singers and Composers | Independent Music Practice (**:implemented** — real `langgraph.graph` Actor: `music-practice.actor`/`.advisor`/`.governor`/`.store`; craft library `kotoba-lang/ongaku`) | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2654 | Film, Stage and Related Directors and Producers | Independent Video Production Studio (**:implemented** — real `langgraph.graph` Actor: `video-production.actor`/`.advisor`/`.governor`/`.store`; craft library `kotoba-lang/douga`) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 
 7-9 representative unit groups per non-armed-forces ISCO-08 major group
-(84/84 across major groups 1-9; major group 0 "Armed Forces Occupations"
-is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
-armed-forces occupation, mirroring how `kotoba-industry` also leaves some
-sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321,
-3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110, 3213, 5153, 7411,
-2262, 4222, 5311, 6130 and 8160 are `:maturity :implemented` (real
-reference actors exist); the other 59 are `:maturity :blueprint`. The
-remaining 352 ISCO-08 unit groups are registered at `:maturity :spec`
+(88/88 across major groups 1-9, up from the original 84/84 representative
+sample as occupations are added alongside promotions; major group 0
+"Armed Forces Occupations" is registry-only — a sole-proprietor OSS
+business blueprint doesn't fit an armed-forces occupation, mirroring how
+`kotoba-industry` also leaves some sections registry-only). 6112, 2221,
+7126, 4321, 9312, 5322, 8332, 1321, 3253, 6210, 5223, 7231, 8121, 9111,
+2512, 1120, 4110, 3213, 5153, 7411, 2262, 4222, 5311, 6130, 8160, 2166,
+2641, 2651, 2652, 2654 and 1219 are `:maturity :implemented` (real
+reference actors exist); the other 57 are `:maturity :blueprint`. The
+remaining 348 ISCO-08 unit groups are registered at `:maturity :spec`
 (registry-only stub, full
 ISCO-08 coverage) for future promotion.
 
-Note: 6130 and 8160 are the first `cloud-itonami-isco-*` occupations
-implemented on the full itonami Actor pattern (a real
-`langgraph.graph/state-graph` with Advisor/Governor as distinct nodes
-and human-in-the-loop interrupt/resume, per CLAUDE.md's Actors section)
-rather than the lighter standalone `Store` + pure `governor/assess`
-function pattern used by the other 23 `:implemented` entries. Future promotions will
-follow the langgraph.graph pattern going forward.
+Note: per the "Future promotions will follow the langgraph.graph pattern
+going forward" direction, 8 of the 31 `:implemented` entries — 6130, 8160,
+2166, 2641, 2651, 2652, 2654 and 1219 — are on the full itonami Actor
+pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
+distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
+Actors section); the remaining 23 use the lighter standalone `Store` +
+pure `governor/assess` function pattern from before that direction was
+adopted.
