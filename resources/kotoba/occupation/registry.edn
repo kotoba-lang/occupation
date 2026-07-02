@@ -1300,7 +1300,7 @@
    :name "Information and Communications Technology User Support Technicians"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3512"
    :business-id "cloud-itonami-isco-3512"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :diagnose :resolve :log :report :audit]}
