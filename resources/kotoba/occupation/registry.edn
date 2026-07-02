@@ -50,7 +50,7 @@
    :name "Managing Directors and Chief Executives"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1120"
    :business-id "cloud-itonami-isco-1120"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:plan :direct :review :decide :report :audit]}
@@ -562,10 +562,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2422"
    :name "Policy Administration Professionals"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2422"
+   :business-id "cloud-itonami-isco-2422"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :draft :review :publish :report :audit]}
   {:id "2423"
    :name "Personnel and Careers Professionals"
    :maturity :spec
@@ -1476,10 +1478,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4415"
    :name "Filing and Copying Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4415"
+   :business-id "cloud-itonami-isco-4415"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :file :copy :index :report :audit]}
   {:id "4416"
    :name "Personnel Clerks"
    :maturity :spec
@@ -1638,10 +1642,12 @@
    :operating-states [:greet :advise :shelf-check :sell :report :audit]}
   {:id "5230"
    :name "Cashiers and Ticket Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5230"
+   :business-id "cloud-itonami-isco-5230"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:open-register :transact :reconcile :close-register :report :audit]}
   {:id "5241"
    :name "Fashion and Other Models"
    :maturity :spec
