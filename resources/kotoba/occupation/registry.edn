@@ -1050,7 +1050,7 @@
    :name "Physiotherapy Technicians and Assistants"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3255"
    :business-id "cloud-itonami-isco-3255"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :assist :monitor :document :escalate :audit]}
