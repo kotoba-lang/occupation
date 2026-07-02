@@ -692,7 +692,7 @@
    :name "Archivists and Curators"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2621"
    :business-id "cloud-itonami-isco-2621"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :catalogue :preserve :exhibit :report :audit]}
