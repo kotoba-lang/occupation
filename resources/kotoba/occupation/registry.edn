@@ -1160,7 +1160,7 @@
    :name "Business Services Agents Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3339"
    :business-id "cloud-itonami-isco-3339"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :match :coordinate :close :report :audit]}
