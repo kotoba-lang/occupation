@@ -288,10 +288,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2144"
    :name "Mechanical Engineers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2144"
+   :business-id "cloud-itonami-isco-2144"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
+   :optional-technologies [:cae]
+   :operating-states [:intake :design :analyze :review :sign-off :audit]}
   {:id "2145"
    :name "Chemical Engineers"
    :maturity :spec
@@ -966,7 +968,7 @@
    :name "Pharmaceutical Technicians and Assistants"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3213"
    :business-id "cloud-itonami-isco-3213"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :verify :dispense-support :log :report :audit]}
@@ -1442,10 +1444,12 @@
    :operating-states [:receive :stock :pick :count :report :audit]}
   {:id "4322"
    :name "Production Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4322"
+   :business-id "cloud-itonami-isco-4322"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :schedule :track :reconcile :report :audit]}
   {:id "4323"
    :name "Transport Clerks"
    :maturity :spec
@@ -1688,10 +1692,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "5249"
    :name "Sales Workers Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5249"
+   :business-id "cloud-itonami-isco-5249"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :advise :sell :fulfill :report :audit]}
   {:id "5311"
    :name "Child Care Workers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5311"
