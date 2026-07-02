@@ -426,7 +426,7 @@
    :name "Pharmacists"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2262"
    :business-id "cloud-itonami-isco-2262"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :verify :counsel :dispense :report :audit]}
@@ -686,10 +686,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "2621"
    :name "Archivists and Curators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2621"
+   :business-id "cloud-itonami-isco-2621"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :catalogue :preserve :exhibit :report :audit]}
   {:id "2622"
    :name "Librarians and Related Information Professionals"
    :maturity :spec
@@ -1392,10 +1394,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "4224"
    :name "Hotel Receptionists"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4224"
+   :business-id "cloud-itonami-isco-4224"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:check-in :assist :check-out :log :report :audit]}
   {:id "4225"
    :name "Inquiry Clerks"
    :maturity :spec
@@ -2232,10 +2236,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "7523"
    :name "Woodworking Machine Tool Setters and Operators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7523"
+   :business-id "cloud-itonami-isco-7523"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :set-up :cut :inspect :deliver :audit]}
   {:id "7531"
    :name "Tailors, Dressmakers, Furriers and Hatters"
    :maturity :spec
