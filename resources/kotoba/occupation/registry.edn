@@ -572,7 +572,7 @@
    :name "Policy Administration Professionals"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2422"
    :business-id "cloud-itonami-isco-2422"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :draft :review :publish :report :audit]}

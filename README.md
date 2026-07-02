@@ -96,7 +96,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 1412 | Restaurant Managers | Independent Restaurant Management Practice (**:implemented** — real `langgraph.graph` Actor: `restaurant-management.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 3255 | Physiotherapy Technicians and Assistants | Independent Physiotherapy Support Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 5162 | Companions and Valets | Independent Companion & Valet Practice | robotics, identity, forms, audit-ledger, bpmn |
-| 2422 | Policy Administration Professionals | Independent Policy Administration Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 2422 | Policy Administration Professionals | Independent Policy Administration Practice (**:implemented** — real `langgraph.graph` Actor: `policy-administration.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4415 | Filing and Copying Clerks | Independent Filing & Copying Practice | robotics, forms, audit-ledger |
 | 5230 | Cashiers and Ticket Clerks | Independent Cashier & Ticketing Practice | robotics, forms, identity, audit-ledger, bpmn |
 | 3122 | Manufacturing Supervisors | Independent Manufacturing Supervision Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
@@ -134,14 +134,14 @@ business blueprint doesn't fit an armed-forces occupation, mirroring how
 7126, 4321, 9312, 5322, 8332, 1321, 3253, 6210, 5223, 7231, 8121, 9111,
 2512, 1120, 4110, 3213, 5153, 7411, 2262, 4222, 5311, 6130, 8160, 2166,
 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144,
-2320 and 2411 are `:maturity :implemented` (real reference actors
-exist); the other 48 are `:maturity :blueprint`. The remaining 348
+2320, 2411 and 2422 are `:maturity :implemented` (real reference actors
+exist); the other 47 are `:maturity :blueprint`. The remaining 348
 ISCO-08 unit groups are registered at `:maturity :spec` (registry-only
 stub, full ISCO-08 coverage) for future promotion.
 
 Note: per the "Future promotions will follow the langgraph.graph pattern
-going forward" direction, 17 of the 40 `:implemented` entries — 6130,
-8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320 and 2411 — are on the full itonami Actor
+going forward" direction, 18 of the 41 `:implemented` entries — 6130,
+8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411 and 2422 — are on the full itonami Actor
 pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
 distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
 Actors section); the remaining 23 use the lighter standalone `Store` +
