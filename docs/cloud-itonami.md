@@ -45,7 +45,7 @@ Current state (ISCO-08 unit-group coverage 100%):
 
 - Total entries: 436 (full ISCO-08 unit-group list)
 - Major groups: 10/10 represented (group 0 "Armed Forces" registry-only)
-- `:implemented` 16 · `:blueprint` 47 · `:spec` 373
+- `:implemented` 17 · `:blueprint` 49 · `:spec` 370
 
 Every entry requires `:robotics` (ADR-2607011000 robotics-premise, adopted
 here for parity with `kotoba-industry`): a robot performs the physical domain
