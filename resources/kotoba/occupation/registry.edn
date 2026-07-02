@@ -724,7 +724,7 @@
    :name "Psychologists"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2634"
    :business-id "cloud-itonami-isco-2634"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :assess :session :document :escalate :audit]}
