@@ -31,7 +31,8 @@
                 "1341" "6121" "7318"
                 "1439" "4132" "8153"
                 "2621" "4224" "7523"
-                "1223" "5312" "6122"]]
+                "1223" "5312" "6122"
+                "2431" "4120" "6123"]]
     (is (:business-id (occupation/get-occupation isco)))
     (is (seq (occupation/required-technologies isco)))
     (is (seq (:technology-stack (occupation/execution-plan isco))))))
@@ -46,7 +47,7 @@
 
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint"
-    (is (= :blueprint (occupation/maturity "5311"))))
+    (is (= :blueprint (occupation/maturity "6130"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
@@ -69,16 +70,17 @@
     (is (= :implemented (occupation/maturity "5153")))
     (is (= :implemented (occupation/maturity "7411")))
     (is (= :implemented (occupation/maturity "2262")))
-    (is (= :implemented (occupation/maturity "4222"))))
+    (is (= :implemented (occupation/maturity "4222")))
+    (is (= :implemented (occupation/maturity "5311"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1111"))))
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
-      (is (= 59 (:blueprint m)))
-      (is (= 355 (:spec m)))
-      (is (= 22 (:implemented m))))))
+      (is (= 61 (:blueprint m)))
+      (is (= 352 (:spec m)))
+      (is (= 23 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -148,9 +150,12 @@
       (is (nil? (:next-step r))))
     (let [r (occupation/maturity-roadmap "4222")]
       (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r))))
+    (let [r (occupation/maturity-roadmap "5311")]
+      (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
   (testing "a blueprint entry's next step is implemented"
-    (let [r (occupation/maturity-roadmap "5311")]
+    (let [r (occupation/maturity-roadmap "6130")]
       (is (= :blueprint (:maturity r)))
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
