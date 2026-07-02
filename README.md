@@ -55,7 +55,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 2512 | Software Developers | Independent Software Development Studio (**:implemented** — real actor: `dev-studio.store`/`.governor`, 9 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4110 | General Office Clerks | Independent Office Administration Practice (**:implemented** — real actor: `office-admin.store`/`.governor`, 8 tests) | robotics, forms, audit-ledger, bpmn |
 | 3213 | Pharmaceutical Technicians and Assistants | Independent Pharmacy Support Practice (**:implemented** — real actor: `pharmacy-support.store`/`.governor`, 7 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
-| 5153 | Building Caretakers | Independent Building Caretaking Practice | robotics, forms, telemetry, audit-ledger, bpmn |
+| 5153 | Building Caretakers | Independent Building Caretaking Practice (**:implemented** — real actor: `building-caretaking.store`/`.governor`, 7 tests) | robotics, forms, telemetry, audit-ledger, bpmn |
 | 7411 | Building and Related Electricians | Independent Electrical Practice | robotics, forms, telemetry, dmn, bpmn, audit-ledger |
 | 2262 | Pharmacists | Independent Pharmacy Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4222 | Contact Centre Information Clerks | Independent Reception & Contact Practice | robotics, forms, identity, audit-ledger, bpmn |
@@ -105,14 +105,17 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 2144 | Mechanical Engineers | Independent Mechanical Engineering Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4322 | Production Clerks | Independent Production Clerk Practice | robotics, forms, telemetry, audit-ledger, bpmn |
 | 5249 | Sales Workers Not Elsewhere Classified | Independent Sales Practice | robotics, forms, identity, audit-ledger, bpmn |
+| 1341 | Child Care Services Managers | Independent Child Care Services Management Practice | robotics, identity, forms, dmn, bpmn, audit-ledger |
+| 6121 | Livestock and Dairy Producers | Independent Livestock & Dairy Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
+| 7318 | Handicraft Workers in Textile, Leather and Related Materials | Independent Textile & Leather Handicraft Practice | robotics, forms, audit-ledger, bpmn |
 
 7-8 representative unit groups per non-armed-forces ISCO-08 major group
-(69/69 across major groups 1-9; major group 0 "Armed Forces Occupations"
+(72/72 across major groups 1-9; major group 0 "Armed Forces Occupations"
 is registry-only — a sole-proprietor OSS business blueprint doesn't fit an
 armed-forces occupation, mirroring how `kotoba-industry` also leaves some
 sections registry-only). 6112, 2221, 7126, 4321, 9312, 5322, 8332, 1321,
-3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110 and 3213 are
-`:maturity :implemented` (real reference actors exist); the other 51 are
-`:maturity :blueprint`. The remaining 367 ISCO-08 unit groups are
+3253, 6210, 5223, 7231, 8121, 9111, 2512, 1120, 4110, 3213 and 5153 are
+`:maturity :implemented` (real reference actors exist); the other 53 are
+`:maturity :blueprint`. The remaining 364 ISCO-08 unit groups are
 registered at `:maturity :spec` (registry-only stub, full
 ISCO-08 coverage) for future promotion.
