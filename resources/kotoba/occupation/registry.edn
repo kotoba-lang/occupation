@@ -202,7 +202,7 @@
    :name "Restaurant Managers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1412"
    :business-id "cloud-itonami-isco-1412"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:plan :staff :inspect :review :report :audit]}
