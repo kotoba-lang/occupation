@@ -592,7 +592,7 @@
    :name "Advertising and Marketing Professionals"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2431"
    :business-id "cloud-itonami-isco-2431"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :plan :produce :review :publish :audit]}
