@@ -218,10 +218,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1439"
    :name "Services Managers Not Elsewhere Classified"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1439"
+   :business-id "cloud-itonami-isco-1439"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :plan :coordinate :report :escalate :audit]}
   {:id "2111"
    :name "Physicists and Astronomers"
    :maturity :spec
@@ -1336,10 +1338,12 @@
    :operating-states [:intake :transcribe :format :proofread :report :audit]}
   {:id "4132"
    :name "Data Entry Clerks"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4132"
+   :business-id "cloud-itonami-isco-4132"
+   :maturity :blueprint
+   :required-technologies [:robotics :forms :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :enter :verify :submit :report :audit]}
   {:id "4211"
    :name "Bank Tellers and Related Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4211"
@@ -2150,7 +2154,7 @@
    :name "Building and Related Electricians"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-7411"
    :business-id "cloud-itonami-isco-7411"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:diagnose :quote :wire :test :invoice :audit]}
@@ -2380,10 +2384,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "8153"
    :name "Sewing Machine Operators"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8153"
+   :business-id "cloud-itonami-isco-8153"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :cut :sew :inspect :deliver :audit]}
   {:id "8154"
    :name "Bleaching, Dyeing and Fabric Cleaning Machine Operators"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-8154"
