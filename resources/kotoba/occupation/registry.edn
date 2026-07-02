@@ -872,7 +872,7 @@
    :name "Manufacturing Supervisors"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3122"
    :business-id "cloud-itonami-isco-3122"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:plan :supervise :inspect :report :escalate :audit]}
