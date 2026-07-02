@@ -96,7 +96,7 @@
    :name "Research and Development Managers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1223"
    :business-id "cloud-itonami-isco-1223"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies [:cae]
    :operating-states [:intake :plan :coordinate :review :report :audit]}
