@@ -94,10 +94,12 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1223"
    :name "Research and Development Managers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
-   :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1223"
+   :business-id "cloud-itonami-isco-1223"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
+   :optional-technologies [:cae]
+   :operating-states [:intake :plan :coordinate :review :report :audit]}
   {:id "1311"
    :name "Agricultural and Forestry Production Managers"
    :maturity :spec
@@ -1382,7 +1384,7 @@
    :name "Contact Centre Information Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4222"
    :business-id "cloud-itonami-isco-4222"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:greet :route :log :escalate :report :audit]}
@@ -1718,10 +1720,12 @@
    :operating-states [:intake :schedule :supervise :log :report :audit]}
   {:id "5312"
    :name "Teachers’ Aides"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5312"
+   :business-id "cloud-itonami-isco-5312"
+   :maturity :blueprint
+   :required-technologies [:robotics :identity :forms :audit-ledger :bpmn]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:intake :assist :monitor :document :escalate :audit]}
   {:id "5321"
    :name "Health Care Assistants"
    :maturity :spec
@@ -1812,10 +1816,12 @@
    :operating-states [:plan :feed :monitor-health :milk-harvest :sell :audit]}
   {:id "6122"
    :name "Poultry Producers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6122"
+   :business-id "cloud-itonami-isco-6122"
+   :maturity :blueprint
+   :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
    :optional-technologies []
-   :operating-states [:intake :propose :approve :execute :audit]}
+   :operating-states [:plan :feed :monitor-health :collect :sell :audit]}
   {:id "6123"
    :name "Apiarists and Sericulturists"
    :maturity :spec
