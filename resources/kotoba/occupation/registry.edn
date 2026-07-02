@@ -880,7 +880,7 @@
    :name "Construction Supervisors"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-3123"
    :business-id "cloud-itonami-isco-3123"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:brief :inspect :coordinate :clear :report :audit]}
