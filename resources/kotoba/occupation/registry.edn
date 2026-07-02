@@ -478,7 +478,7 @@
    :name "Vocational Education Teachers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-2320"
    :business-id "cloud-itonami-isco-2320"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :plan :teach-support :assess :report :audit]}
