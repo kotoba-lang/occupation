@@ -1348,7 +1348,7 @@
    :name "Typists and Word Processing Operators"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4131"
    :business-id "cloud-itonami-isco-4131"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :audit-ledger :bpmn]
    :optional-technologies [:identity]
    :operating-states [:intake :transcribe :format :proofread :report :audit]}
