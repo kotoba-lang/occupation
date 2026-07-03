@@ -1814,7 +1814,7 @@
    :name "Mixed Crop Growers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6114"
    :business-id "cloud-itonami-isco-6114"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
    :optional-technologies [:cfd]
    :operating-states [:plan :sow :tend :harvest :sell :audit]}
