@@ -1718,7 +1718,7 @@
    :name "Sales Workers Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5249"
    :business-id "cloud-itonami-isco-5249"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :advise :sell :fulfill :report :audit]}
