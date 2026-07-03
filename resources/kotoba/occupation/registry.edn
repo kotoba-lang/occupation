@@ -1496,7 +1496,7 @@
    :name "Coding, Proofreading and Related Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4413"
    :business-id "cloud-itonami-isco-4413"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :audit-ledger :bpmn]
    :optional-technologies [:identity]
    :operating-states [:intake :scan :code :proofread :report :audit]}
