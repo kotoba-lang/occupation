@@ -1,6 +1,6 @@
 {:kotoba.registry/id :kotoba/occupation
  :kotoba.registry/version 1
- :kotoba.registry/updated "2026-07-02"
+ :kotoba.registry/updated "2026-07-03"
  :kotoba.registry/note "ISCO-08 authoritative unit-group coverage (436/436), mirrors kotoba-lang/industry's ISIC full-class registry. Most entries are :maturity :spec (registry-only stub); curated entries have a published cloud-itonami-isco-{code} blueprint repo."
  :occupations
  [
@@ -1470,7 +1470,7 @@
    :name "Production Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4322"
    :business-id "cloud-itonami-isco-4322"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :schedule :track :reconcile :report :audit]}
