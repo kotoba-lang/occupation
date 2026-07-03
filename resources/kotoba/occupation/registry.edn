@@ -1634,7 +1634,7 @@
    :name "Personal Services Workers Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5169"
    :business-id "cloud-itonami-isco-5169"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :schedule :service :log :report :audit]}
