@@ -1548,7 +1548,7 @@
    :name "Cooks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5120"
    :business-id "cloud-itonami-isco-5120"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:prep :cook-support :plate :log :report :audit]}

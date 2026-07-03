@@ -80,9 +80,9 @@
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
-      (is (= 29 (:blueprint m)))
+      (is (= 28 (:blueprint m)))
       (is (= 348 (:spec m)))
-      (is (= 59 (:implemented m))))))
+      (is (= 60 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
