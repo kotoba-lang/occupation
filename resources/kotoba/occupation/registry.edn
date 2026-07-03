@@ -1436,7 +1436,7 @@
    :name "Client Information Workers Not Elsewhere Classified"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4229"
    :business-id "cloud-itonami-isco-4229"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :route :respond :log :report :audit]}
