@@ -115,7 +115,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 4224 | Hotel Receptionists | Independent Hotel Reception Practice (**:implemented** — real `langgraph.graph` Actor: `hotel-reception.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, forms, identity, audit-ledger, bpmn |
 | 7523 | Woodworking Machine Tool Setters and Operators | Independent Woodworking Machine Operations | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 1223 | Research and Development Managers | Independent Research & Development Management Practice (**:implemented** — real `langgraph.graph` Actor: `rd-management.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
-| 5312 | Teachers' Aides | Independent Teacher's Aide Practice | robotics, identity, forms, audit-ledger, bpmn |
+| 5312 | Teachers' Aides | Independent Teacher's Aide Practice (**:implemented** — real `langgraph.graph` Actor: `teachers-aide.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, audit-ledger, bpmn |
 | 6122 | Poultry Producers | Independent Poultry Operations | robotics, telemetry, optimization, dmn, bpmn, audit-ledger, forms |
 | 2431 | Advertising and Marketing Professionals | Independent Advertising & Marketing Practice (**:implemented** — real `langgraph.graph` Actor: `advertising-marketing.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4120 | Secretaries (general) | Independent Secretarial Practice (**:implemented** — real `langgraph.graph` Actor: `secretarial.actor`/`.advisor`/`.governor`/`.store`, 10 tests) | robotics, forms, identity, audit-ledger, bpmn |
@@ -136,14 +136,14 @@ business blueprint doesn't fit an armed-forces occupation, mirroring how
 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144,
 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512,
 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164,
-5169, 5230 and 5249 are `:maturity :implemented` (real reference
-actors exist); the other 23 are `:maturity :blueprint`. The remaining
+5169, 5230, 5249 and 5312 are `:maturity :implemented` (real reference
+actors exist); the other 22 are `:maturity :blueprint`. The remaining
 348 ISCO-08 unit groups are registered at `:maturity :spec`
 (registry-only stub, full ISCO-08 coverage) for future promotion.
 
 Note: per the "Future promotions will follow the langgraph.graph pattern
-going forward" direction, 42 of the 65 `:implemented` entries — 6130,
-8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230 and 5249 — are on the full itonami Actor
+going forward" direction, 43 of the 66 `:implemented` entries — 6130,
+8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230, 5249 and 5312 — are on the full itonami Actor
 pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
 distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
 Actors section); the remaining 23 use the lighter standalone `Store` +

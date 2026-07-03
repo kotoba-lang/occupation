@@ -1734,7 +1734,7 @@
    :name "Teachers’ Aides"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5312"
    :business-id "cloud-itonami-isco-5312"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :assist :monitor :document :escalate :audit]}

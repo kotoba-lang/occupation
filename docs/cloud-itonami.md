@@ -45,9 +45,9 @@ Current state (ISCO-08 unit-group coverage 100%):
 
 - Total entries: 436 (full ISCO-08 unit-group list)
 - Major groups: 10/10 represented (group 0 "Armed Forces" registry-only)
-- `:implemented` 65 · `:blueprint` 23 · `:spec` 348
-- 42 of the 65 `:implemented` entries (6130, 8160, 2166, 2641, 2651, 2652,
-  2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230, 5249) are on the full `langgraph.graph` Actor pattern
+- `:implemented` 66 · `:blueprint` 22 · `:spec` 348
+- 43 of the 66 `:implemented` entries (6130, 8160, 2166, 2641, 2651, 2652,
+  2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230, 5249, 5312) are on the full `langgraph.graph` Actor pattern
   (Advisor+Governor as StateGraph nodes) — the direction all future
   promotions follow; the rest use a lighter standalone
   Store+governor-function pattern from before that direction was
