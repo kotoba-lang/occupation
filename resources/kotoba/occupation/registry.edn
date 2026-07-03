@@ -1410,7 +1410,7 @@
    :name "Hotel Receptionists"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4224"
    :business-id "cloud-itonami-isco-4224"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:check-in :assist :check-out :log :report :audit]}
