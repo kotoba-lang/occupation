@@ -1674,7 +1674,7 @@
    :name "Cashiers and Ticket Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5230"
    :business-id "cloud-itonami-isco-5230"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:open-register :transact :reconcile :close-register :report :audit]}
