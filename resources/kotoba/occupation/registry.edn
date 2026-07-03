@@ -1356,7 +1356,7 @@
    :name "Data Entry Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4132"
    :business-id "cloud-itonami-isco-4132"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :enter :verify :submit :report :audit]}
