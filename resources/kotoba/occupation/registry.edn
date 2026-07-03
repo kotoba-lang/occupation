@@ -1364,7 +1364,7 @@
    :name "Bank Tellers and Related Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4211"
    :business-id "cloud-itonami-isco-4211"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :verify :process :log :report :audit]}
