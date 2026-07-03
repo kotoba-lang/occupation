@@ -1822,7 +1822,7 @@
    :name "Livestock and Dairy Producers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-6121"
    :business-id "cloud-itonami-isco-6121"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :telemetry :optimization :dmn :bpmn :audit-ledger :forms]
    :optional-technologies []
    :operating-states [:plan :feed :monitor-health :milk-harvest :sell :audit]}
