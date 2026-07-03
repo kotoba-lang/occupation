@@ -1606,7 +1606,7 @@
    :name "Companions and Valets"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5162"
    :business-id "cloud-itonami-isco-5162"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :identity :forms :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :schedule :assist :log :report :audit]}
