@@ -1620,7 +1620,7 @@
    :name "Pet Groomers and Animal Care Workers"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-5164"
    :business-id "cloud-itonami-isco-5164"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :telemetry :audit-ledger :bpmn]
    :optional-technologies []
    :operating-states [:intake :groom-support :monitor :log :report :audit]}
