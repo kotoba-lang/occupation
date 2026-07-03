@@ -1510,7 +1510,7 @@
    :name "Filing and Copying Clerks"
    :repo "https://github.com/cloud-itonami/cloud-itonami-isco-4415"
    :business-id "cloud-itonami-isco-4415"
-   :maturity :blueprint
+   :maturity :implemented
    :required-technologies [:robotics :forms :audit-ledger]
    :optional-technologies []
    :operating-states [:intake :file :copy :index :report :audit]}
