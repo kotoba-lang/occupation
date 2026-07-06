@@ -52,6 +52,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 8121 | Metal Processing Plant Operators | Independent Metal Processing Plant Operations (**:implemented** — real actor: `metal-plant.store`/`.governor`, 7 tests) | robotics, telemetry, dmn, bpmn, audit-ledger |
 | 9111 | Domestic Cleaners and Helpers | Independent Domestic Cleaning Practice (**:implemented** — real actor: `domestic-cleaning.store`/`.governor`, 8 tests) | robotics, identity, forms, audit-ledger |
 | 1120 | Managing Directors and Chief Executives | Independent Small-Business Executive Practice (**:implemented** — real actor: `exec-practice.store`/`.governor`, 8 tests) | robotics, identity, dmn, bpmn, audit-ledger |
+| 1212 | Human Resource Managers | Independent HR Management Practice (**:implemented** — real actor: `hr-management.store`/`.governor`, 8 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger, telemetry |
 | 2512 | Software Developers | Independent Software Development Studio (**:implemented** — real actor: `dev-studio.store`/`.governor`, 9 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 | 4110 | General Office Clerks | Independent Office Administration Practice (**:implemented** — real actor: `office-admin.store`/`.governor`, 8 tests) | robotics, forms, audit-ledger, bpmn |
 | 3213 | Pharmaceutical Technicians and Assistants | Independent Pharmacy Support Practice (**:implemented** — real actor: `pharmacy-support.store`/`.governor`, 7 tests) | robotics, identity, forms, dmn, bpmn, audit-ledger |
@@ -126,7 +127,7 @@ required — ISIC and ISCO-08 unit-group codes overlap numerically, so a bare
 | 2654 | Film, Stage and Related Directors and Producers | Independent Video Production Studio (**:implemented** — real `langgraph.graph` Actor: `video-production.actor`/`.advisor`/`.governor`/`.store`; craft library `kotoba-lang/douga`) | robotics, identity, forms, dmn, bpmn, audit-ledger |
 
 7-9 representative unit groups per non-armed-forces ISCO-08 major group
-(88/88 across major groups 1-9, up from the original 84/84 representative
+(89/89 across major groups 1-9, up from the original 84/84 representative
 sample as occupations are added alongside promotions; major group 0
 "Armed Forces Occupations" is registry-only — a sole-proprietor OSS
 business blueprint doesn't fit an armed-forces occupation, mirroring how
@@ -136,17 +137,17 @@ business blueprint doesn't fit an armed-forces occupation, mirroring how
 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144,
 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512,
 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164,
-5169, 5230, 5249, 5312, 6111, 6114 and 6121 are `:maturity :implemented`
-(real reference actors exist); the other 19 are `:maturity :blueprint`.
-The remaining 348 ISCO-08 unit groups are registered at `:maturity
-:spec` (registry-only stub, full ISCO-08 coverage) for future
+5169, 5230, 5249, 5312, 6111, 6114, 6121 and 1212 are `:maturity
+:implemented` (real reference actors exist); the other 19 are `:maturity
+:blueprint`. The remaining 347 ISCO-08 unit groups are registered at
+`:maturity :spec` (registry-only stub, full ISCO-08 coverage) for future
 promotion.
 
 Note: per the "Future promotions will follow the langgraph.graph pattern
-going forward" direction, 46 of the 69 `:implemented` entries — 6130,
+going forward" direction, 46 of the 70 `:implemented` entries — 6130,
 8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230, 5249, 5312, 6111, 6114 and 6121 — are on the full itonami Actor
 pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
 distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
-Actors section); the remaining 23 use the lighter standalone `Store` +
-pure `governor/assess` function pattern from before that direction was
-adopted.
+Actors section); the remaining 24 (including 1212) use the lighter
+standalone `Store` + pure `governor/assess` function pattern from before
+that direction was adopted.
