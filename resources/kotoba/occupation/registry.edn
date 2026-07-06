@@ -62,8 +62,10 @@
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1212"
    :name "Human Resource Managers"
-   :maturity :spec
-   :required-technologies [:robotics :identity :audit-ledger]
+   :repo "https://github.com/cloud-itonami/cloud-itonami-isco-1212"
+   :business-id "cloud-itonami-isco-1212"
+   :maturity :implemented
+   :required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger :telemetry]
    :optional-technologies []
    :operating-states [:intake :propose :approve :execute :audit]}
   {:id "1213"

@@ -73,7 +73,8 @@
     (is (= :implemented (occupation/maturity "4222")))
     (is (= :implemented (occupation/maturity "5311")))
     (is (= :implemented (occupation/maturity "6130")))
-    (is (= :implemented (occupation/maturity "8160"))))
+    (is (= :implemented (occupation/maturity "8160")))
+    (is (= :implemented (occupation/maturity "1212"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1111"))))
   (testing "maturity-summary counts tiers"
@@ -81,8 +82,8 @@
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
       (is (= 19 (:blueprint m)))
-      (is (= 348 (:spec m)))
-      (is (= 69 (:implemented m))))))
+      (is (= 347 (:spec m)))
+      (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -160,6 +161,9 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r))))
     (let [r (occupation/maturity-roadmap "8160")]
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r))))
+    (let [r (occupation/maturity-roadmap "1212")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
   (testing "a blueprint entry's next step is implemented"
