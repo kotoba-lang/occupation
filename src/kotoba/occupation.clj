@@ -6,8 +6,31 @@
 
 (def registry-resource "kotoba/occupation/registry.edn")
 
+;; registry.edn is stored as Datomic/Datascript tx-data (a single-entity
+;; vector, see scripts/edn-datomize.bb `wrap-generic`) rather than a raw map,
+;; so it is directly transactable/queryable. Keys that already carried their
+;; own namespace (e.g. :kotoba.registry/id) were left untouched; only the
+;; genuinely bare :occupations key was promoted under this ns. `registry`
+;; reconstitutes the original bare-keyed map (with :occupations un-blobbed
+;; back into its live vector-of-maps) so every downstream fn below keeps
+;; working against the exact pre-datomize shape.
+(def ^:private wrap-ns "kotoba.occupation")
+
+(defn- unblob [v]
+  (if (string? v)
+    (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
+         (catch Exception _ v))
+    v))
+
+(defn- reconstitute-entity [tx-data]
+  (into {}
+        (map (fn [[k v]]
+               (let [bare? (= (namespace k) wrap-ns)]
+                 [(if bare? (keyword (name k)) k) (unblob v)])))
+        (dissoc (first tx-data) :db/id)))
+
 (defn registry []
-  (edn/read-string (slurp (io/resource registry-resource))))
+  (reconstitute-entity (edn/read-string (slurp (io/resource registry-resource)))))
 
 (defn occupations
   ([] (:occupations (registry)))
