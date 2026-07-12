@@ -110,8 +110,17 @@
       ;; technicians — a REGISTRY-SYNC: its blueprint repo already
       ;; existed (kawaraban, ADR-2607110200) but the registry still said
       ;; :spec; the entry now points at the real repo.
-      (is (= 44 (:blueprint m)))
-      (is (= 322 (:spec m)))
+      ;; 44 -> 50 with batch #7 (ADR-2607122700 addenda): 2423 personnel/
+      ;; careers (feeds the 7810 lane), 2424 training, 2529 DB/network
+      ;; NEC, 3522 telecom technicians (cognitive scope only — physical
+      ;; plant work stays out), 4221 travel clerks, 4323 transport
+      ;; clerks. Wave-0 :spec remainder is now 10: judges 2612
+      ;; (deliberately never agentized), the sensitive/regulated cluster
+      ;; 2611/2619/2412/4212/4213/4214 (deferred pending owner
+      ;; judgment), and the small tail 4411/4412/4414 (4412 mail
+      ;; carrying has a physical component).
+      (is (= 50 (:blueprint m)))
+      (is (= 316 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
