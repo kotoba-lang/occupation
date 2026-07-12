@@ -119,9 +119,16 @@
       ;; 2611/2619/2412/4212/4213/4214 (deferred pending owner
       ;; judgment), and the small tail 4411/4412/4414 (4412 mail
       ;; carrying has a physical component).
-      (is (= 50 (:blueprint m)))
+      ;; 50 -> 49 / 70 -> 71: 4311 bookkeeping clerks promoted
+      ;; :blueprint -> :implemented — BookkeepingActor (Advisor ⊣
+      ;; BookkeepingClerksGovernor, langgraph StateGraph, modeled on
+      ;; isco-2411) with two bookkeeping HARD invariants: source-
+      ;; document basis (no invented transactions) and double-entry
+      ;; balance. 14 tests / 36 assertions green — the loop's first
+      ;; vertical (:blueprint -> :implemented) promotion.
+      (is (= 49 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 70 (:implemented m))))))
+      (is (= 71 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
