@@ -86,8 +86,12 @@
       ;; operations technicians, 2519 software QA/analysts NEC — blueprint
       ;; satellites published, no actors claimed; wave 0 = LLM-first, no
       ;; robotics gate (kotoba.occupation.wave/wave-of = 0 for all four).
-      (is (= 23 (:blueprint m)))
-      (is (= 343 (:spec m)))
+      ;; 23 -> 27 with batch #2 (ADR-2607122700 addendum): 2514
+      ;; applications programmers, 2521 database designers/admins, 2522
+      ;; systems administrators, 3513 network/systems technicians — the
+      ;; ICT-operations cluster, same wave-0 discipline.
+      (is (= 27 (:blueprint m)))
+      (is (= 339 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
