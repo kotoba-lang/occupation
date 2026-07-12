@@ -81,8 +81,13 @@
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
       (is (= 436 (:total m)))
-      (is (= 19 (:blueprint m)))
-      (is (= 347 (:spec m)))
+      ;; 19 -> 23 with the ISCO wave-0 cognitive batch (ADR-2607122700):
+      ;; 4311 bookkeeping clerks, 2513 web/multimedia developers, 3511 ICT
+      ;; operations technicians, 2519 software QA/analysts NEC — blueprint
+      ;; satellites published, no actors claimed; wave 0 = LLM-first, no
+      ;; robotics gate (kotoba.occupation.wave/wave-of = 0 for all four).
+      (is (= 23 (:blueprint m)))
+      (is (= 343 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
