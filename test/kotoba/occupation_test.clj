@@ -126,9 +126,15 @@
       ;; document basis (no invented transactions) and double-entry
       ;; balance. 14 tests / 36 assertions green — the loop's first
       ;; vertical (:blueprint -> :implemented) promotion.
-      (is (= 49 (:blueprint m)))
+      ;; 49 -> 48 / 71 -> 72: 4313 payroll clerks promoted to
+      ;; :implemented — PayrollActor consuming kotoba-lang/labor
+      ;; (capability-library-wrapping convention, isic-9700 precedent);
+      ;; the governor RECOMPUTES wages via kotoba.labor/wages-for and
+      ;; HARD-holds any gross/net mismatch (fair pay is arithmetic, not
+      ;; opinion). 14 tests / 36 assertions green.
+      (is (= 48 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 71 (:implemented m))))))
+      (is (= 72 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
