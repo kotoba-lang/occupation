@@ -104,8 +104,14 @@
       ;; investment advice out of scope), 4312 statistical/finance/
       ;; insurance clerks, 4313 payroll clerks — analysis + back-office
       ;; finance cluster.
-      (is (= 39 (:blueprint m)))
-      (is (= 327 (:spec m)))
+      ;; 39 -> 44 with batch #6 (ADR-2607122700 addenda): 2433 technical/
+      ;; medical sales, 4419 clerical NEC, 4223 switchboard, 4416
+      ;; personnel clerks (new satellites) + 3521 broadcasting/AV
+      ;; technicians — a REGISTRY-SYNC: its blueprint repo already
+      ;; existed (kawaraban, ADR-2607110200) but the registry still said
+      ;; :spec; the entry now points at the real repo.
+      (is (= 44 (:blueprint m)))
+      (is (= 322 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
