@@ -94,8 +94,13 @@
       ;; technicians, 4226 receptionists, 4225 inquiry clerks, 4227
       ;; survey/market-research interviewers — the front-office cognitive
       ;; cluster, same wave-0 discipline.
-      (is (= 31 (:blueprint m)))
-      (is (= 335 (:spec m)))
+      ;; 31 -> 35 with batch #4 (ADR-2607122700 addenda): 2511 systems
+      ;; analysts, 2523 network professionals, 2432 public relations,
+      ;; 2434 ICT sales — completes 251x/252x ICT-professional coverage
+      ;; at >= :blueprint plus two outbound-heavy business professions
+      ;; (external-send always human-gated).
+      (is (= 35 (:blueprint m)))
+      (is (= 331 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
