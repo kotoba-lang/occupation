@@ -2,6 +2,7 @@
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.set :as set]
+            [kotoba.occupation.wave :as wave]
             [kotoba.technology :as technology]))
 
 (def registry-resource "kotoba/occupation/registry.edn")
@@ -82,6 +83,7 @@
      :business-id (:business-id occupation)
      :occupation (:name occupation)
      :maturity (:maturity occupation)
+     :wave (wave/wave-of isco)
      :required-technologies (:required-technologies occupation)
      :optional-technologies (:optional-technologies occupation)
      :operating-states (:operating-states occupation)
@@ -124,6 +126,7 @@
         has-repo (boolean (:repo occupation))]
     {:isco (str isco)
      :maturity level
+     :wave (wave/wave-of isco)
      :next-step (condp = level
                   :spec        :blueprint
                   :blueprint   :implemented
@@ -135,3 +138,17 @@
      :ui-ready? ui?
      :export-ready? export?
      :has-repo has-repo}))
+
+(defn wave-maturity-summary
+  "Aggregate maturity counts per reverse-topological rollout wave
+  (ADR-2607121000, `kotoba.occupation.wave`): for each wave 0-4, how
+  many registry entries sit at :spec / :blueprint / :implemented.
+  Occupation counterpart of `kotoba.industry/wave-maturity-summary`."
+  []
+  (into (sorted-map)
+        (map (fn [[w entries]]
+               [w {:total       (count entries)
+                   :spec        (count (filter #(= :spec (maturity (:id %))) entries))
+                   :blueprint   (count (filter #(= :blueprint (maturity (:id %))) entries))
+                   :implemented (count (filter #(= :implemented (maturity (:id %))) entries))}]))
+        (group-by #(wave/wave-of (:id %)) (occupations))))
