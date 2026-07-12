@@ -132,9 +132,14 @@
       ;; the governor RECOMPUTES wages via kotoba.labor/wages-for and
       ;; HARD-holds any gross/net mismatch (fair pay is arithmetic, not
       ;; opinion). 14 tests / 36 assertions green.
-      (is (= 48 (:blueprint m)))
+      ;; 48 -> 47 / 72 -> 73: 4226 receptionists promoted to
+      ;; :implemented — ReceptionActor with the no-double-booking HARD
+      ;; invariant (the governor checks the committed calendar
+      ;; deterministically; the advisor's free-slot claim is never
+      ;; trusted). 12 tests / 25 assertions green.
+      (is (= 47 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 72 (:implemented m))))))
+      (is (= 73 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
