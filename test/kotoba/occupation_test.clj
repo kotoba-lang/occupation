@@ -99,8 +99,13 @@
       ;; 2434 ICT sales — completes 251x/252x ICT-professional coverage
       ;; at >= :blueprint plus two outbound-heavy business professions
       ;; (external-send always human-gated).
-      (is (= 35 (:blueprint m)))
-      (is (= 331 (:spec m)))
+      ;; 35 -> 39 with batch #5 (ADR-2607122700 addenda): 2421 management
+      ;; analysts, 2413 financial analysts (analysis only — regulated
+      ;; investment advice out of scope), 4312 statistical/finance/
+      ;; insurance clerks, 4313 payroll clerks — analysis + back-office
+      ;; finance cluster.
+      (is (= 39 (:blueprint m)))
+      (is (= 327 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
