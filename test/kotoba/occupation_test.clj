@@ -137,9 +137,13 @@
       ;; invariant (the governor checks the committed calendar
       ;; deterministically; the advisor's free-slot claim is never
       ;; trusted). 12 tests / 25 assertions green.
-      (is (= 47 (:blueprint m)))
+      ;; 47 -> 46 / 73 -> 74: 4225 inquiry clerks promoted to
+      ;; :implemented — InquiryDeskActor with KB-citation-basis and
+      ;; deterministic freshness (stale knowledge unservable) HARD
+      ;; invariants. 12 tests / 26 assertions green.
+      (is (= 46 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 73 (:implemented m))))))
+      (is (= 74 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
