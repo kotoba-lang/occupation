@@ -90,8 +90,12 @@
       ;; applications programmers, 2521 database designers/admins, 2522
       ;; systems administrators, 3513 network/systems technicians — the
       ;; ICT-operations cluster, same wave-0 discipline.
-      (is (= 27 (:blueprint m)))
-      (is (= 339 (:spec m)))
+      ;; 27 -> 31 with batch #3 (ADR-2607122700 addenda): 3514 web
+      ;; technicians, 4226 receptionists, 4225 inquiry clerks, 4227
+      ;; survey/market-research interviewers — the front-office cognitive
+      ;; cluster, same wave-0 discipline.
+      (is (= 31 (:blueprint m)))
+      (is (= 335 (:spec m)))
       (is (= 70 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
