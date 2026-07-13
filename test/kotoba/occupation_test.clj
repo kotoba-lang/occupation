@@ -364,9 +364,15 @@
       ;; (water chemistry) + always-escalate chemical/deep-water HARD
       ;; invariants. 14 tests / 29 assertions green. 18 -> 17 /
       ;; 116 -> 117.
-      (is (= 17 (:blueprint m)))
+      ;; 6222 inland/coastal fishery workers promoted to
+      ;; :implemented, completes the robotics-premise agriculture/
+      ;; aquaculture run (6122/6123/6221/6222) — quota ceiling
+      ;; (arithmetic) + protected-zone exclusion (set) + always-
+      ;; escalate vessel/bycatch HARD invariants. 14 tests / 29
+      ;; assertions green. 17 -> 16 / 117 -> 118.
+      (is (= 16 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 117 (:implemented m))))))
+      (is (= 118 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
