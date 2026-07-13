@@ -415,9 +415,14 @@
       ;; maintenance-due ceiling (arithmetic) + always-escalate
       ;; pressurized-proximity/startup-shutdown HARD invariants. 14
       ;; tests / 30 assertions green. 8 -> 7 / 126 -> 127.
-      (is (= 7 (:blueprint m)))
+      ;; 8322 car/taxi/van drivers promoted to :implemented —
+      ;; duty-hours ceiling (cumulative arithmetic) + inspection
+      ;; validity (window) + always-escalate duty-hours-exception/
+      ;; high-risk HARD invariants. 14 tests / 30 assertions green.
+      ;; 7 -> 6 / 127 -> 128.
+      (is (= 6 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 127 (:implemented m))))))
+      (is (= 128 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
