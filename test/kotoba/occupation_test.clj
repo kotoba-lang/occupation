@@ -420,9 +420,14 @@
       ;; validity (window) + always-escalate duty-hours-exception/
       ;; high-risk HARD invariants. 14 tests / 30 assertions green.
       ;; 7 -> 6 / 127 -> 128.
-      (is (= 6 (:blueprint m)))
+      ;; 8342 earthmoving/related plant operators promoted to
+      ;; :implemented — cleared-depth ceiling (arithmetic) + cleared-
+      ;; zone membership (set) + always-escalate unlocated-utility/
+      ;; occupied-zone HARD invariants. 14 tests / 29 assertions
+      ;; green. 6 -> 5 / 128 -> 129.
+      (is (= 5 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 128 (:implemented m))))))
+      (is (= 129 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
