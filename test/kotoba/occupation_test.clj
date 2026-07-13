@@ -265,9 +265,13 @@
       ;; containment) + inspection-completeness (superset, no partial
       ;; credit) HARD invariants. 15 tests / 31 assertions green.
       ;; 39 -> 38 / 95 -> 96.
-      (is (= 38 (:blueprint m)))
+      ;; 1324 supply/distribution managers promoted to :implemented
+      ;; (second wave-1 batch-3 actor) — stock-arithmetic (allocation
+      ;; <= on-hand) + carrier-membership HARD invariants. 13 tests /
+      ;; 27 assertions green. 38 -> 37 / 96 -> 97.
+      (is (= 37 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 96 (:implemented m))))))
+      (is (= 97 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
