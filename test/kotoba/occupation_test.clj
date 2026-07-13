@@ -430,9 +430,13 @@
       ;; rest-interval ceiling + always-escalate heavy-equipment-
       ;; proximity/water-treatment HARD invariants. 14 tests / 29
       ;; assertions green. 5 -> 4 / 129 -> 130.
-      (is (= 4 (:blueprint m)))
+      ;; 9333 freight handlers promoted to :implemented — weight-
+      ;; reconciliation (band) + dock-assignment membership + always-
+      ;; escalate dock-proximity/overweight HARD invariants. 14
+      ;; tests / 30 assertions green. 4 -> 3 / 130 -> 131.
+      (is (= 3 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 130 (:implemented m))))))
+      (is (= 131 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
