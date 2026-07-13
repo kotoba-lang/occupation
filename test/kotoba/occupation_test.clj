@@ -229,9 +229,15 @@
       ;; aggregation-identity HARD invariant (line-item sum must equal
       ;; header total exactly; ground truth is the line items, not the
       ;; header). 13 tests / 28 assertions green. 40 -> 39 / 89 -> 90.
-      (is (= 39 (:blueprint m)))
+      ;; 2141 industrial & production engineers promoted to
+      ;; :implemented (fifth wave-1 actor) — tolerance-containment
+      ;; (measurement within registered [LSL,USL]) + stack-up-limit
+      ;; (cumulative tolerance <= registered allowable stack) HARD
+      ;; invariants, both arithmetic not judgement. 15 tests / 31
+      ;; assertions green. 39 -> 38 / 90 -> 91.
+      (is (= 38 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 90 (:implemented m))))))
+      (is (= 91 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
