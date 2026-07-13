@@ -320,9 +320,13 @@
       ;; :implemented — attenuation-ceiling (arithmetic) +
       ;; calibration-validity (expiry day interval) HARD invariants.
       ;; 13 tests / 28 assertions green. 27 -> 26 / 107 -> 108.
-      (is (= 26 (:blueprint m)))
+      ;; 4221 travel consultants & clerks promoted to :implemented —
+      ;; inventory arithmetic (units <= available) + refund-cutoff
+      ;; floor (days-before-departure >= cutoff) HARD invariants.
+      ;; 14 tests / 28 assertions green. 26 -> 25 / 108 -> 109.
+      (is (= 25 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 108 (:implemented m))))))
+      (is (= 109 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
