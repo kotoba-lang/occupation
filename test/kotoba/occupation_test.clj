@@ -324,9 +324,14 @@
       ;; inventory arithmetic (units <= available) + refund-cutoff
       ;; floor (days-before-departure >= cutoff) HARD invariants.
       ;; 14 tests / 28 assertions green. 26 -> 25 / 108 -> 109.
-      (is (= 25 (:blueprint m)))
+      ;; 4223 telephone switchboard operators promoted to
+      ;; :implemented — extension-membership (no misrouted call) +
+      ;; do-not-call exclusion (set membership, not operator
+      ;; discretion) HARD invariants. 13 tests / 27 assertions
+      ;; green. 25 -> 24 / 109 -> 110.
+      (is (= 24 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 109 (:implemented m))))))
+      (is (= 110 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
