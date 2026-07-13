@@ -255,8 +255,13 @@
       ;; 21xx engineering design professions now :implemented.
       ;; Link-margin floor + spectrum-containment HARD invariants.
       ;; 14 tests / 30 assertions green. 35 -> 34 / 94 -> 95.
-      (is (= 34 (:blueprint m)))
-      (is (= 307 (:spec m)))
+      ;; tick-44 batch: wave-1 batch 3 blueprints published — 1323
+      ;; construction / 1324 supply-distribution / 1342 health
+      ;; services / 1345 education managers + 2120 mathematicians/
+      ;; actuaries/statisticians. spec -> blueprint. 34 + 5 = 39 /
+      ;; 307 - 5 = 302.
+      (is (= 39 (:blueprint m)))
+      (is (= 302 (:spec m)))
       (is (= 95 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
