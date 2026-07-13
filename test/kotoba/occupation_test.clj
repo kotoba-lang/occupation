@@ -159,9 +159,15 @@
       ;; :implemented — SystemsAdministrationActor with window-
       ;; containment and freeze-non-overlap interval-arithmetic HARD
       ;; invariants. 14 tests / 30 assertions green.
-      (is (= 42 (:blueprint m)))
+      ;; 42 -> 41 / 78 -> 79: 3513 network/systems technicians promoted
+      ;; to :implemented — NetworkSystemsActor with the connectivity-
+      ;; preservation HARD invariant (BFS reachability recomputed over
+      ;; the registered topology; partition-inducing changes held).
+      ;; Completes the ICT-operations cluster (2521/2522/3513).
+      ;; 12 tests / 25 assertions green.
+      (is (= 41 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 78 (:implemented m))))))
+      (is (= 79 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
