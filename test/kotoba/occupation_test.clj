@@ -145,9 +145,14 @@
       ;; :implemented — TrainingActor with deterministic curriculum HARD
       ;; invariants (registered-module basis, prerequisite DAG order,
       ;; hours integrity). 14 tests / 31 assertions green.
-      (is (= 45 (:blueprint m)))
+      ;; 45 -> 44 / 75 -> 76: 2423 personnel/careers promoted to
+      ;; :implemented — CareersActor (feeds the 7810 labour-exchange
+      ;; lane) with consent HARD (a person's missing consent is not
+      ;; approvable) and deterministic skills-set-inclusion invariants.
+      ;; 13 tests / 28 assertions green.
+      (is (= 44 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 75 (:implemented m))))))
+      (is (= 76 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
