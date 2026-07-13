@@ -293,9 +293,13 @@
       ;; evidence) + savings-claim ceiling (arithmetic, not marketing)
       ;; HARD invariants. 13 tests / 27 assertions green.
       ;; 33 -> 32 / 101 -> 102.
-      (is (= 32 (:blueprint m)))
+      ;; 2432 public relations professionals promoted to
+      ;; :implemented — embargo-floor (as-of >= registered lift day)
+      ;; + spokesperson-membership (approved set) HARD invariants.
+      ;; 13 tests / 27 assertions green. 32 -> 31 / 102 -> 103.
+      (is (= 31 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 102 (:implemented m))))))
+      (is (= 103 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
