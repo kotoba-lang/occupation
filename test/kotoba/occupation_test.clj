@@ -250,9 +250,14 @@
       ;; <= registered budget) + approved-vendor membership HARD
       ;; invariants. 13 tests / 27 assertions green.
       ;; 36 -> 35 / 93 -> 94.
-      (is (= 35 (:blueprint m)))
+      ;; 2153 telecommunications engineers promoted to :implemented
+      ;; (ninth wave-1 actor) — completes wave-1 batch 2, all five
+      ;; 21xx engineering design professions now :implemented.
+      ;; Link-margin floor + spectrum-containment HARD invariants.
+      ;; 14 tests / 30 assertions green. 35 -> 34 / 94 -> 95.
+      (is (= 34 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 94 (:implemented m))))))
+      (is (= 95 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
