@@ -405,9 +405,14 @@
       ;; always-escalate concentrated-chemical/pressurized HARD
       ;; invariants. 14 tests / 30 assertions green. 10 -> 9 /
       ;; 124 -> 125.
-      (is (= 9 (:blueprint m)))
+      ;; 8172 wood processing plant operators promoted to
+      ;; :implemented — dust-level ceiling + throughput ceiling +
+      ;; always-escalate blade-proximity/blade-change HARD
+      ;; invariants. 14 tests / 29 assertions green. 9 -> 8 /
+      ;; 125 -> 126.
+      (is (= 8 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 125 (:implemented m))))))
+      (is (= 126 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
