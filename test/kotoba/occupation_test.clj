@@ -329,9 +329,14 @@
       ;; do-not-call exclusion (set membership, not operator
       ;; discretion) HARD invariants. 13 tests / 27 assertions
       ;; green. 25 -> 24 / 109 -> 110.
-      (is (= 24 (:blueprint m)))
+      ;; 4227 survey/market research interviewers promoted to
+      ;; :implemented — segment-basis+quota-ceiling (registered
+      ;; segment, count <= quota) + consent-gate (unconsented
+      ;; recording is a violation) HARD invariants. 15 tests / 30
+      ;; assertions green. 24 -> 23 / 110 -> 111.
+      (is (= 23 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 110 (:implemented m))))))
+      (is (= 111 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
