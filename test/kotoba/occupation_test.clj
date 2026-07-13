@@ -197,9 +197,15 @@
       ;; set containment and control-point conflict HARD invariants
       ;; (jurisdiction is a registered set; a contradiction is detected
       ;; by comparison, not judgement). 13 tests / 27 assertions green.
-      (is (= 40 (:blueprint m)))
+      ;; 40 -> 39 / 84 -> 85: 1222 advertising & PR managers promoted
+      ;; to :implemented — AdvertisingPRManagementActor with claim-
+      ;; substantiation subset and prohibition-intersection HARD
+      ;; invariants (advertising is citation of registered evidence;
+      ;; the blacklist is arithmetic, not tone). 13 tests / 27
+      ;; assertions green.
+      (is (= 39 (:blueprint m)))
       (is (= 312 (:spec m)))
-      (is (= 84 (:implemented m))))))
+      (is (= 85 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
