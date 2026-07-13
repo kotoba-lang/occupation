@@ -307,9 +307,14 @@
       ;; (2432/2433/2434) — seat-count ceiling + component-
       ;; compatibility HARD invariants. 13 tests / 27 assertions
       ;; green. 30 -> 29 / 104 -> 105.
-      (is (= 29 (:blueprint m)))
+      ;; 3511 ICT operations technicians promoted to :implemented —
+      ;; SLA arithmetic (response-time <= registered ceiling) +
+      ;; certification-coverage (superset of required certs) HARD
+      ;; invariants. 13 tests / 27 assertions green. 29 -> 28 /
+      ;; 105 -> 106.
+      (is (= 28 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 105 (:implemented m))))))
+      (is (= 106 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
