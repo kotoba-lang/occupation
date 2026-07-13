@@ -211,9 +211,15 @@
       ;; design professions scaffolded as public blueprint satellites
       ;; (spec -> blueprint). 39 - 1 + 5 = 43 / 312 - 5 = 307 /
       ;; 85 + 1 = 86.
-      (is (= 43 (:blueprint m)))
+      ;; tick-35 batch: 2523 network professionals + 2519 software dev
+      ;; (NEC) promoted to :implemented. 2523: shadow-rule containment
+      ;; by set superset check (dead config is set containment, not
+      ;; opinion; 14/29 green). 2519: api-surface semver arithmetic —
+      ;; removed symbols require MAJOR, additions require MINOR+
+      ;; (15/34 green). 43 - 2 = 41 / 86 + 2 = 88.
+      (is (= 41 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 86 (:implemented m))))))
+      (is (= 88 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
