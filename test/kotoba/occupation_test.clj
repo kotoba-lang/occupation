@@ -187,9 +187,14 @@
       ;; recomputed from registered spends; overruns held at any
       ;; confidence; the commit node registers spends so the ceiling
       ;; tightens with each approval). 14 tests / 36 assertions green.
-      (is (= 42 (:blueprint m)))
+      ;; 42 -> 41 / 82 -> 83: 1221 sales/marketing managers promoted to
+      ;; :implemented — SalesMarketingManagementActor with discount-
+      ;; ceiling and price-floor HARD invariants (registered number
+      ;; tables; the authority table is not a negotiating position).
+      ;; 13 tests / 27 assertions green.
+      (is (= 41 (:blueprint m)))
       (is (= 312 (:spec m)))
-      (is (= 82 (:implemented m))))))
+      (is (= 83 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
