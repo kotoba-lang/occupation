@@ -284,9 +284,13 @@
       ;; arithmetic (p-value <= registered alpha) + method-membership
       ;; (approved-methods set) HARD invariants. 14 tests / 28
       ;; assertions green. 35 -> 34 / 99 -> 100.
-      (is (= 34 (:blueprint m)))
+      ;; 2413 financial analysts promoted to :implemented — rating-
+      ;; validity (registered scale membership) + conflict-disclosure
+      ;; (superset of known-conflicts) HARD invariants. 13 tests / 27
+      ;; assertions green. 34 -> 33 / 100 -> 101.
+      (is (= 33 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 100 (:implemented m))))))
+      (is (= 101 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
