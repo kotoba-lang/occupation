@@ -425,9 +425,14 @@
       ;; zone membership (set) + always-escalate unlocated-utility/
       ;; occupied-zone HARD invariants. 14 tests / 29 assertions
       ;; green. 6 -> 5 / 128 -> 129.
-      (is (= 5 (:blueprint m)))
+      ;; 9211 crop farm labourers promoted to :implemented,
+      ;; 60th loop vertical milestone — carry-weight ceiling +
+      ;; rest-interval ceiling + always-escalate heavy-equipment-
+      ;; proximity/water-treatment HARD invariants. 14 tests / 29
+      ;; assertions green. 5 -> 4 / 129 -> 130.
+      (is (= 4 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 129 (:implemented m))))))
+      (is (= 130 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
