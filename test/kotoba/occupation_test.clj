@@ -150,9 +150,14 @@
       ;; lane) with consent HARD (a person's missing consent is not
       ;; approvable) and deterministic skills-set-inclusion invariants.
       ;; 13 tests / 28 assertions green.
-      (is (= 44 (:blueprint m)))
+      ;; 44 -> 43 / 76 -> 77: 2521 database designers/administrators
+      ;; promoted to :implemented — DatabaseAdministrationActor with the
+      ;; backup-before-apply schema-version-equality HARD invariant and
+      ;; step-scan destructive-op escalation. 13 tests / 28 assertions
+      ;; green.
+      (is (= 43 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 76 (:implemented m))))))
+      (is (= 77 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
