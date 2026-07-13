@@ -47,7 +47,7 @@
 
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint"
-    (is (= :blueprint (occupation/maturity "9412"))))
+    (is (= :blueprint (occupation/maturity "9622"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
@@ -434,9 +434,14 @@
       ;; reconciliation (band) + dock-assignment membership + always-
       ;; escalate dock-proximity/overweight HARD invariants. 14
       ;; tests / 30 assertions green. 4 -> 3 / 130 -> 131.
-      (is (= 3 (:blueprint m)))
+      ;; 9412 kitchen helpers promoted to :implemented — sanitize-
+      ;; temperature band (food-safety spec, not a feel test) +
+      ;; restock-quantity ceiling (storage risk, not thrift) + always-
+      ;; escalate hot-surface-proximity/sharp-tool-zone-entry HARD
+      ;; invariants. 14 tests / 30 assertions green. 3 -> 2 / 131 -> 132.
+      (is (= 2 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 131 (:implemented m))))))
+      (is (= 132 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -520,7 +525,7 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
   (testing "a blueprint entry's next step is implemented"
-    (let [r (occupation/maturity-roadmap "9412")]
+    (let [r (occupation/maturity-roadmap "9622")]
       (is (= :blueprint (:maturity r)))
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
