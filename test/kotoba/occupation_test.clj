@@ -342,9 +342,15 @@
       ;; completeness (superset of required fields) + background-
       ;; check gate HARD invariants. 14 tests / 28 assertions
       ;; green. 22 -> 21 / 112 -> 113.
-      (is (= 21 (:blueprint m)))
+      ;; 4419 clerical support workers (NEC) promoted to
+      ;; :implemented, completes the wave-0 clerical cluster run
+      ;; (4221/4223/4227/4323/4416/4419) — retention-floor (interval)
+      ;; + clearance-ordinal (:public<:internal<:confidential) HARD
+      ;; invariants. 15 tests / 29 assertions green. 21 -> 20 /
+      ;; 113 -> 114.
+      (is (= 20 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 113 (:implemented m))))))
+      (is (= 114 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
