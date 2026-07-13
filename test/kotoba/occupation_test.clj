@@ -355,9 +355,13 @@
       ;; (arithmetic) + always-escalate medication/outbreak HARD
       ;; invariants. 13 tests / 27 assertions green. 20 -> 19 /
       ;; 114 -> 115.
-      (is (= 19 (:blueprint m)))
+      ;; 6123 apiarists/sericulturists promoted to :implemented —
+      ;; sustainable-yield ceiling (arithmetic) + always-escalate
+      ;; hive-treatment/defensive-colony HARD invariants. 13 tests /
+      ;; 27 assertions green. 19 -> 18 / 115 -> 116.
+      (is (= 18 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 115 (:implemented m))))))
+      (is (= 116 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
