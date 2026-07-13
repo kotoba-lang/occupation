@@ -302,9 +302,14 @@
       ;; licensed-buyer-gate (conditional membership for restricted
       ;; products) HARD invariants. 13 tests / 27 assertions green.
       ;; 31 -> 30 / 103 -> 104.
-      (is (= 30 (:blueprint m)))
+      ;; 2434 ICT sales professionals promoted to :implemented,
+      ;; completes the wave-0 professional-sales cluster
+      ;; (2432/2433/2434) — seat-count ceiling + component-
+      ;; compatibility HARD invariants. 13 tests / 27 assertions
+      ;; green. 30 -> 29 / 104 -> 105.
+      (is (= 29 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 104 (:implemented m))))))
+      (is (= 105 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
