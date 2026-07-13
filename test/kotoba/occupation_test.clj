@@ -338,9 +338,13 @@
       ;; ceiling (arithmetic, physics not optimism) + hazmat-class
       ;; subset HARD invariants. 13 tests / 27 assertions green.
       ;; 23 -> 22 / 111 -> 112.
-      (is (= 22 (:blueprint m)))
+      ;; 4416 personnel clerks promoted to :implemented — field-
+      ;; completeness (superset of required fields) + background-
+      ;; check gate HARD invariants. 14 tests / 28 assertions
+      ;; green. 22 -> 21 / 112 -> 113.
+      (is (= 21 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 112 (:implemented m))))))
+      (is (= 113 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
