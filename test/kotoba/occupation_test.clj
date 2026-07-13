@@ -384,9 +384,14 @@
       ;; to :implemented — approved-part membership + test-deviation
       ;; ceiling + always-escalate lift/hydraulic HARD invariants.
       ;; 14 tests / 29 assertions green. 14 -> 13 / 120 -> 121.
-      (is (= 13 (:blueprint m)))
+      ;; 7318 textile/leather handicraft workers promoted to
+      ;; :implemented — material-basis/stock-ceiling + spec-
+      ;; completeness (superset delivery) + always-escalate sharp-
+      ;; equipment/chemical HARD invariants. 17 tests / 33 assertions
+      ;; green. 13 -> 12 / 121 -> 122.
+      (is (= 12 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 121 (:implemented m))))))
+      (is (= 122 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
