@@ -175,8 +175,14 @@
       ;; basis and commit-scoped test-evidence HARD invariants (a green
       ;; run for another commit proves nothing — evidence freshness is
       ;; identity, not recency). 14 tests / 29 assertions green.
-      (is (= 39 (:blueprint m)))
-      (is (= 316 (:spec m)))
+      ;; 39 -> 43 / spec 316 -> 312: the FIRST wave-1 blueprint batch
+      ;; (ADR-2607122700 addenda) — functional managers 1211 finance,
+      ;; 1213 policy/planning, 1221 sales/marketing, 1222 advertising/PR.
+      ;; Management work is cognitive (no robotics gate), sequenced
+      ;; after the wave-0 substrate in rollout priority; blueprint
+      ;; inventory replenishment for the vertical (actor) line.
+      (is (= 43 (:blueprint m)))
+      (is (= 312 (:spec m)))
       (is (= 81 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
