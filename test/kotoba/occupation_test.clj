@@ -389,9 +389,14 @@
       ;; completeness (superset delivery) + always-escalate sharp-
       ;; equipment/chemical HARD invariants. 17 tests / 33 assertions
       ;; green. 13 -> 12 / 121 -> 122.
-      (is (= 12 (:blueprint m)))
+      ;; 7523 woodworking machine tool setters/operators promoted
+      ;; to :implemented — dimensional-tolerance (interval) +
+      ;; production-ceiling (arithmetic) + always-escalate blade/
+      ;; quality HARD invariants. 14 tests / 30 assertions green.
+      ;; 12 -> 11 / 122 -> 123.
+      (is (= 11 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 122 (:implemented m))))))
+      (is (= 123 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
