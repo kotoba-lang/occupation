@@ -380,9 +380,13 @@
       ;; arc-welding/flammable-proximity HARD invariants. Milestone:
       ;; 50th vertical shipped by this loop. 14 tests / 29 assertions
       ;; green. 15 -> 14 / 119 -> 120.
-      (is (= 14 (:blueprint m)))
+      ;; 7233 agricultural/industrial machinery mechanics promoted
+      ;; to :implemented — approved-part membership + test-deviation
+      ;; ceiling + always-escalate lift/hydraulic HARD invariants.
+      ;; 14 tests / 29 assertions green. 14 -> 13 / 120 -> 121.
+      (is (= 13 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 120 (:implemented m))))))
+      (is (= 121 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
