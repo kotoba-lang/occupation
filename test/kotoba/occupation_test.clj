@@ -141,9 +141,13 @@
       ;; :implemented — InquiryDeskActor with KB-citation-basis and
       ;; deterministic freshness (stale knowledge unservable) HARD
       ;; invariants. 12 tests / 26 assertions green.
-      (is (= 46 (:blueprint m)))
+      ;; 46 -> 45 / 74 -> 75: 2424 training professionals promoted to
+      ;; :implemented — TrainingActor with deterministic curriculum HARD
+      ;; invariants (registered-module basis, prerequisite DAG order,
+      ;; hours integrity). 14 tests / 31 assertions green.
+      (is (= 45 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 74 (:implemented m))))))
+      (is (= 75 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
