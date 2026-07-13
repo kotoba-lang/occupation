@@ -410,9 +410,14 @@
       ;; always-escalate blade-proximity/blade-change HARD
       ;; invariants. 14 tests / 29 assertions green. 9 -> 8 /
       ;; 125 -> 126.
-      (is (= 8 (:blueprint m)))
+      ;; 8189 stationary plant/machine operators (NEC) promoted
+      ;; to :implemented — pressure envelope (interval) +
+      ;; maintenance-due ceiling (arithmetic) + always-escalate
+      ;; pressurized-proximity/startup-shutdown HARD invariants. 14
+      ;; tests / 30 assertions green. 8 -> 7 / 126 -> 127.
+      (is (= 7 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 126 (:implemented m))))))
+      (is (= 127 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
