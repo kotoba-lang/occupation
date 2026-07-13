@@ -334,9 +334,13 @@
       ;; segment, count <= quota) + consent-gate (unconsented
       ;; recording is a violation) HARD invariants. 15 tests / 30
       ;; assertions green. 24 -> 23 / 110 -> 111.
-      (is (= 23 (:blueprint m)))
+      ;; 4323 transport clerks promoted to :implemented — payload-
+      ;; ceiling (arithmetic, physics not optimism) + hazmat-class
+      ;; subset HARD invariants. 13 tests / 27 assertions green.
+      ;; 23 -> 22 / 111 -> 112.
+      (is (= 22 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 111 (:implemented m))))))
+      (is (= 112 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
