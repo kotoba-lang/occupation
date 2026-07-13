@@ -269,9 +269,14 @@
       ;; (second wave-1 batch-3 actor) — stock-arithmetic (allocation
       ;; <= on-hand) + carrier-membership HARD invariants. 13 tests /
       ;; 27 assertions green. 38 -> 37 / 96 -> 97.
-      (is (= 37 (:blueprint m)))
+      ;; 1342 health services managers promoted to :implemented
+      ;; (third wave-1 batch-3 actor) — staffing-ratio ceiling
+      ;; (patient-safety arithmetic) + license-window (interval
+      ;; containment) HARD invariants. 14 tests / 30 assertions
+      ;; green. 37 -> 36 / 97 -> 98.
+      (is (= 36 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 97 (:implemented m))))))
+      (is (= 98 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
