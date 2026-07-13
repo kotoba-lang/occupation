@@ -370,9 +370,14 @@
       ;; (arithmetic) + protected-zone exclusion (set) + always-
       ;; escalate vessel/bycatch HARD invariants. 14 tests / 29
       ;; assertions green. 17 -> 16 / 117 -> 118.
-      (is (= 16 (:blueprint m)))
+      ;; 7115 carpenters/joiners promoted to :implemented —
+      ;; material-basis (registered stock key) + stock-ceiling
+      ;; (arithmetic) + always-escalate powered-saw/height-work HARD
+      ;; invariants. 14 tests / 29 assertions green. 16 -> 15 /
+      ;; 118 -> 119.
+      (is (= 15 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 118 (:implemented m))))))
+      (is (= 119 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
