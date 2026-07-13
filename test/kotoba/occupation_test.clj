@@ -260,9 +260,14 @@
       ;; services / 1345 education managers + 2120 mathematicians/
       ;; actuaries/statisticians. spec -> blueprint. 34 + 5 = 39 /
       ;; 307 - 5 = 302.
-      (is (= 39 (:blueprint m)))
+      ;; 1323 construction managers promoted to :implemented
+      ;; (first wave-1 batch-3 actor) — permit-window (interval
+      ;; containment) + inspection-completeness (superset, no partial
+      ;; credit) HARD invariants. 15 tests / 31 assertions green.
+      ;; 39 -> 38 / 95 -> 96.
+      (is (= 38 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 95 (:implemented m))))))
+      (is (= 96 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
