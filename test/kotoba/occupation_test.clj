@@ -155,9 +155,13 @@
       ;; backup-before-apply schema-version-equality HARD invariant and
       ;; step-scan destructive-op escalation. 13 tests / 28 assertions
       ;; green.
-      (is (= 43 (:blueprint m)))
+      ;; 43 -> 42 / 77 -> 78: 2522 systems administrators promoted to
+      ;; :implemented — SystemsAdministrationActor with window-
+      ;; containment and freeze-non-overlap interval-arithmetic HARD
+      ;; invariants. 14 tests / 30 assertions green.
+      (is (= 42 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 77 (:implemented m))))))
+      (is (= 78 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
