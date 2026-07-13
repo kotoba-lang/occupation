@@ -316,9 +316,13 @@
       ;; conformance-floor (ordinal WCAG scale) + domain-membership
       ;; HARD invariants. 13 tests / 27 assertions green.
       ;; 28 -> 27 / 106 -> 107.
-      (is (= 27 (:blueprint m)))
+      ;; 3522 telecom engineering technicians promoted to
+      ;; :implemented — attenuation-ceiling (arithmetic) +
+      ;; calibration-validity (expiry day interval) HARD invariants.
+      ;; 13 tests / 28 assertions green. 27 -> 26 / 107 -> 108.
+      (is (= 26 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 107 (:implemented m))))))
+      (is (= 108 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
