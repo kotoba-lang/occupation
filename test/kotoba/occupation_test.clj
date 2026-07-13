@@ -375,9 +375,14 @@
       ;; (arithmetic) + always-escalate powered-saw/height-work HARD
       ;; invariants. 14 tests / 29 assertions green. 16 -> 15 /
       ;; 118 -> 119.
-      (is (= 15 (:blueprint m)))
+      ;; 7212 welders/flame cutters promoted to :implemented —
+      ;; defect-length + alignment-offset ceilings + always-escalate
+      ;; arc-welding/flammable-proximity HARD invariants. Milestone:
+      ;; 50th vertical shipped by this loop. 14 tests / 29 assertions
+      ;; green. 15 -> 14 / 119 -> 120.
+      (is (= 14 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 119 (:implemented m))))))
+      (is (= 120 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
