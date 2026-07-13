@@ -359,9 +359,14 @@
       ;; sustainable-yield ceiling (arithmetic) + always-escalate
       ;; hive-treatment/defensive-colony HARD invariants. 13 tests /
       ;; 27 assertions green. 19 -> 18 / 115 -> 116.
-      (is (= 18 (:blueprint m)))
+      ;; 6221 aquaculture workers promoted to :implemented — per-
+      ;; fish feed ceiling (arithmetic) + dissolved-oxygen floor
+      ;; (water chemistry) + always-escalate chemical/deep-water HARD
+      ;; invariants. 14 tests / 29 assertions green. 18 -> 17 /
+      ;; 116 -> 117.
+      (is (= 17 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 116 (:implemented m))))))
+      (is (= 117 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
