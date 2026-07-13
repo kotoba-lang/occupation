@@ -165,9 +165,14 @@
       ;; the registered topology; partition-inducing changes held).
       ;; Completes the ICT-operations cluster (2521/2522/3513).
       ;; 12 tests / 25 assertions green.
-      (is (= 41 (:blueprint m)))
+      ;; 41 -> 40 / 79 -> 80: 2513 web/multimedia developers promoted
+      ;; to :implemented — WebMultimediaActor with license-provenance
+      ;; (spec-basis, creative edition) and internal-link-integrity HARD
+      ;; invariants. 12 tests / 26 assertions green — the loop's tenth
+      ;; vertical promotion.
+      (is (= 40 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 79 (:implemented m))))))
+      (is (= 80 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
