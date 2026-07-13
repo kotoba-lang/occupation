@@ -203,9 +203,17 @@
       ;; invariants (advertising is citation of registered evidence;
       ;; the blacklist is arithmetic, not tone). 13 tests / 27
       ;; assertions green.
-      (is (= 39 (:blueprint m)))
-      (is (= 312 (:spec m)))
-      (is (= 85 (:implemented m))))))
+      ;; tick-34 batch: 2511 systems analysts promoted to :implemented
+      ;; — SystemsAnalysisActor with requirement-coverage TOTALITY HARD
+      ;; invariant (every registered requirement maps to a non-empty
+      ;; registered-component set; 14 tests / 29 assertions green).
+      ;; Plus wave-1 batch 2: 2141/2142/2151/2152/2153 engineering
+      ;; design professions scaffolded as public blueprint satellites
+      ;; (spec -> blueprint). 39 - 1 + 5 = 43 / 312 - 5 = 307 /
+      ;; 85 + 1 = 86.
+      (is (= 43 (:blueprint m)))
+      (is (= 307 (:spec m)))
+      (is (= 86 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
