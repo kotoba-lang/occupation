@@ -279,9 +279,14 @@
       ;; arithmetic (completed >= required) + accreditation-window
       ;; (interval containment) HARD invariants. 14 tests / 30
       ;; assertions green. 36 -> 35 / 98 -> 99.
-      (is (= 35 (:blueprint m)))
+      ;; 2120 mathematicians/actuaries/statisticians promoted to
+      ;; :implemented, completes wave-1 batch 3 in full — significance
+      ;; arithmetic (p-value <= registered alpha) + method-membership
+      ;; (approved-methods set) HARD invariants. 14 tests / 28
+      ;; assertions green. 35 -> 34 / 99 -> 100.
+      (is (= 34 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 99 (:implemented m))))))
+      (is (= 100 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
