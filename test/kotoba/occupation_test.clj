@@ -217,9 +217,16 @@
       ;; opinion; 14/29 green). 2519: api-surface semver arithmetic —
       ;; removed symbols require MAJOR, additions require MINOR+
       ;; (15/34 green). 43 - 2 = 41 / 86 + 2 = 88.
-      (is (= 41 (:blueprint m)))
+      ;; 2529 database & network professionals (NEC) promoted to
+      ;; :implemented — completes the wave-0 ICT cluster (2511/2523/
+      ;; 2529). 3NF transitive-dependency HARD invariant: a non-
+      ;; trivial FD is admissible only if its determinant is a
+      ;; superkey or every dependent is a prime attribute of some
+      ;; candidate key (set membership, not design taste). 12 tests /
+      ;; 24 assertions green. 41 -> 40 / 88 -> 89.
+      (is (= 40 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 88 (:implemented m))))))
+      (is (= 89 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
