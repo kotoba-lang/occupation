@@ -312,9 +312,13 @@
       ;; certification-coverage (superset of required certs) HARD
       ;; invariants. 13 tests / 27 assertions green. 29 -> 28 /
       ;; 105 -> 106.
-      (is (= 28 (:blueprint m)))
+      ;; 3514 web technicians promoted to :implemented —
+      ;; conformance-floor (ordinal WCAG scale) + domain-membership
+      ;; HARD invariants. 13 tests / 27 assertions green.
+      ;; 28 -> 27 / 106 -> 107.
+      (is (= 27 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 106 (:implemented m))))))
+      (is (= 107 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
