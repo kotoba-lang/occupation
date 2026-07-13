@@ -245,9 +245,14 @@
       ;; rating) + voltage-class-match (equality, no substitution)
       ;; HARD invariants. 13 tests / 27 assertions green.
       ;; 37 -> 36 / 92 -> 93.
-      (is (= 36 (:blueprint m)))
+      ;; 2152 electronics engineers promoted to :implemented
+      ;; (eighth wave-1 actor) — power-budget arithmetic (BOM sum
+      ;; <= registered budget) + approved-vendor membership HARD
+      ;; invariants. 13 tests / 27 assertions green.
+      ;; 36 -> 35 / 93 -> 94.
+      (is (= 35 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 93 (:implemented m))))))
+      (is (= 94 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
