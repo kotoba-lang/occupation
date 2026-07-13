@@ -394,9 +394,14 @@
       ;; production-ceiling (arithmetic) + always-escalate blade/
       ;; quality HARD invariants. 14 tests / 30 assertions green.
       ;; 12 -> 11 / 122 -> 123.
-      (is (= 11 (:blueprint m)))
+      ;; 8153 sewing machine operators promoted to :implemented —
+      ;; stitch-density band (interval) + seam-deviation ceiling
+      ;; (arithmetic) + always-escalate needle/quality HARD
+      ;; invariants. 14 tests / 30 assertions green. 11 -> 10 /
+      ;; 123 -> 124.
+      (is (= 10 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 123 (:implemented m))))))
+      (is (= 124 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
