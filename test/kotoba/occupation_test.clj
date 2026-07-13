@@ -192,9 +192,14 @@
       ;; ceiling and price-floor HARD invariants (registered number
       ;; tables; the authority table is not a negotiating position).
       ;; 13 tests / 27 assertions green.
-      (is (= 41 (:blueprint m)))
+      ;; 41 -> 40 / 83 -> 84: 1213 policy & planning managers promoted
+      ;; to :implemented — PolicyPlanningManagementActor with mandate-
+      ;; set containment and control-point conflict HARD invariants
+      ;; (jurisdiction is a registered set; a contradiction is detected
+      ;; by comparison, not judgement). 13 tests / 27 assertions green.
+      (is (= 40 (:blueprint m)))
       (is (= 312 (:spec m)))
-      (is (= 83 (:implemented m))))))
+      (is (= 84 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
