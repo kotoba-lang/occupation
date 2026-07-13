@@ -288,9 +288,14 @@
       ;; validity (registered scale membership) + conflict-disclosure
       ;; (superset of known-conflicts) HARD invariants. 13 tests / 27
       ;; assertions green. 34 -> 33 / 100 -> 101.
-      (is (= 33 (:blueprint m)))
+      ;; 2421 management/organization analysts promoted to
+      ;; :implemented — metric-citation membership (no fabricated
+      ;; evidence) + savings-claim ceiling (arithmetic, not marketing)
+      ;; HARD invariants. 13 tests / 27 assertions green.
+      ;; 33 -> 32 / 101 -> 102.
+      (is (= 32 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 101 (:implemented m))))))
+      (is (= 102 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
