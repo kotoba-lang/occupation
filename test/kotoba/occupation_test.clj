@@ -235,9 +235,14 @@
       ;; (cumulative tolerance <= registered allowable stack) HARD
       ;; invariants, both arithmetic not judgement. 15 tests / 31
       ;; assertions green. 39 -> 38 / 90 -> 91.
-      (is (= 38 (:blueprint m)))
+      ;; 2142 civil engineers promoted to :implemented (sixth
+      ;; wave-1 actor) — load-capacity margin (utilization =
+      ;; load/capacity <= 1.0) + material-grade membership (approved-
+      ;; grades set) HARD invariants. 13 tests / 27 assertions green.
+      ;; 38 -> 37 / 91 -> 92.
+      (is (= 37 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 91 (:implemented m))))))
+      (is (= 92 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
