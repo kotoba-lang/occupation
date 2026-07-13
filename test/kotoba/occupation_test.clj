@@ -224,9 +224,14 @@
       ;; superkey or every dependent is a prime attribute of some
       ;; candidate key (set membership, not design taste). 12 tests /
       ;; 24 assertions green. 41 -> 40 / 88 -> 89.
-      (is (= 40 (:blueprint m)))
+      ;; 4312 statistical/finance/insurance clerks promoted to
+      ;; :implemented — StatFinanceInsuranceClerksActor with
+      ;; aggregation-identity HARD invariant (line-item sum must equal
+      ;; header total exactly; ground truth is the line items, not the
+      ;; header). 13 tests / 28 assertions green. 40 -> 39 / 89 -> 90.
+      (is (= 39 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 89 (:implemented m))))))
+      (is (= 90 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
