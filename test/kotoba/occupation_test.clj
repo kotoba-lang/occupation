@@ -181,9 +181,15 @@
       ;; Management work is cognitive (no robotics gate), sequenced
       ;; after the wave-0 substrate in rollout priority; blueprint
       ;; inventory replenishment for the vertical (actor) line.
-      (is (= 43 (:blueprint m)))
+      ;; 43 -> 42 / 81 -> 82: 1211 finance managers promoted to
+      ;; :implemented — FinanceManagementActor, the FIRST wave-1
+      ;; implemented actor. Budget ceiling is a ledger sum (remaining
+      ;; recomputed from registered spends; overruns held at any
+      ;; confidence; the commit node registers spends so the ceiling
+      ;; tightens with each approval). 14 tests / 36 assertions green.
+      (is (= 42 (:blueprint m)))
       (is (= 312 (:spec m)))
-      (is (= 81 (:implemented m))))))
+      (is (= 82 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
