@@ -297,9 +297,14 @@
       ;; :implemented — embargo-floor (as-of >= registered lift day)
       ;; + spokesperson-membership (approved set) HARD invariants.
       ;; 13 tests / 27 assertions green. 32 -> 31 / 102 -> 103.
-      (is (= 31 (:blueprint m)))
+      ;; 2433 technical/medical sales promoted to :implemented —
+      ;; indication-subset (off-label = subset violation) +
+      ;; licensed-buyer-gate (conditional membership for restricted
+      ;; products) HARD invariants. 13 tests / 27 assertions green.
+      ;; 31 -> 30 / 103 -> 104.
+      (is (= 30 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 103 (:implemented m))))))
+      (is (= 104 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
