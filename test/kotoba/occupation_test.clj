@@ -274,9 +274,14 @@
       ;; (patient-safety arithmetic) + license-window (interval
       ;; containment) HARD invariants. 14 tests / 30 assertions
       ;; green. 37 -> 36 / 97 -> 98.
-      (is (= 36 (:blueprint m)))
+      ;; 1345 education managers promoted to :implemented (fourth
+      ;; wave-1 batch-3 actor, completes batch 3) — credit-hour
+      ;; arithmetic (completed >= required) + accreditation-window
+      ;; (interval containment) HARD invariants. 14 tests / 30
+      ;; assertions green. 36 -> 35 / 98 -> 99.
+      (is (= 35 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 98 (:implemented m))))))
+      (is (= 99 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
