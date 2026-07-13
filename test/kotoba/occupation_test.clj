@@ -399,9 +399,15 @@
       ;; (arithmetic) + always-escalate needle/quality HARD
       ;; invariants. 14 tests / 30 assertions green. 11 -> 10 /
       ;; 123 -> 124.
-      (is (= 10 (:blueprint m)))
+      ;; 8154 bleaching/dyeing/fabric cleaning machine operators
+      ;; promoted to :implemented — chemical-concentration ceiling
+      ;; (arithmetic) + process-temperature envelope (interval) +
+      ;; always-escalate concentrated-chemical/pressurized HARD
+      ;; invariants. 14 tests / 30 assertions green. 10 -> 9 /
+      ;; 124 -> 125.
+      (is (= 9 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 124 (:implemented m))))))
+      (is (= 125 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
