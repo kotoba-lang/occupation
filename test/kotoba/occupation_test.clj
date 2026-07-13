@@ -348,9 +348,16 @@
       ;; + clearance-ordinal (:public<:internal<:confidential) HARD
       ;; invariants. 15 tests / 29 assertions green. 21 -> 20 /
       ;; 113 -> 114.
-      (is (= 20 (:blueprint m)))
+      ;; 6122 poultry producers promoted to :implemented — first
+      ;; robotics-premise vertical actually implemented (governor
+      ;; gates the coop-monitoring robot's dispatched actions; never
+      ;; dispatches hardware itself). Per-bird feed ceiling
+      ;; (arithmetic) + always-escalate medication/outbreak HARD
+      ;; invariants. 13 tests / 27 assertions green. 20 -> 19 /
+      ;; 114 -> 115.
+      (is (= 19 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 114 (:implemented m))))))
+      (is (= 115 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
