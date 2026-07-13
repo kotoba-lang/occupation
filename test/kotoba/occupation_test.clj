@@ -170,9 +170,14 @@
       ;; (spec-basis, creative edition) and internal-link-integrity HARD
       ;; invariants. 12 tests / 26 assertions green — the loop's tenth
       ;; vertical promotion.
-      (is (= 40 (:blueprint m)))
+      ;; 40 -> 39 / 80 -> 81: 2514 applications programmers promoted to
+      ;; :implemented — ApplicationsProgrammingActor with requirement-
+      ;; basis and commit-scoped test-evidence HARD invariants (a green
+      ;; run for another commit proves nothing — evidence freshness is
+      ;; identity, not recency). 14 tests / 29 assertions green.
+      (is (= 39 (:blueprint m)))
       (is (= 316 (:spec m)))
-      (is (= 80 (:implemented m))))))
+      (is (= 81 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
