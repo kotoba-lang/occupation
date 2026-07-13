@@ -240,9 +240,14 @@
       ;; load/capacity <= 1.0) + material-grade membership (approved-
       ;; grades set) HARD invariants. 13 tests / 27 assertions green.
       ;; 38 -> 37 / 91 -> 92.
-      (is (= 37 (:blueprint m)))
+      ;; 2151 electrical engineers promoted to :implemented
+      ;; (seventh wave-1 actor) — ampacity-margin (load <= registered
+      ;; rating) + voltage-class-match (equality, no substitution)
+      ;; HARD invariants. 13 tests / 27 assertions green.
+      ;; 37 -> 36 / 92 -> 93.
+      (is (= 36 (:blueprint m)))
       (is (= 307 (:spec m)))
-      (is (= 92 (:implemented m))))))
+      (is (= 93 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
