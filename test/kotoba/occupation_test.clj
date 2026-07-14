@@ -598,9 +598,10 @@
       ;; of editing the existing :spec one (436 -> 437 total, masking 3134's
       ;; real maturity behind the stale duplicate). Removed the stale
       ;; duplicate; counts below reflect the de-duplicated 436-entry registry.
+      ;; 3153 (Aircraft Pilots) promoted to :implemented: 269 -> 268 / 160 -> 161.
       (is (= 7 (:blueprint m)))
-      (is (= 269 (:spec m)))
-      (is (= 160 (:implemented m))))))
+      (is (= 268 (:spec m)))
+      (is (= 161 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
