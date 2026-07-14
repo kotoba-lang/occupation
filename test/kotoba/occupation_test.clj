@@ -51,9 +51,9 @@
             cleared it to zero; 2412/2611/2612/2619/4212/4213/4214
             (finance-adjacent trust services cluster complete) were
             promoted to :implemented at ticks 86-92 (see the
-            reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "4414"))))
+            reference-actors block below)")
   (testing "the reference actors are :implemented"
+    (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "2612")))
@@ -537,9 +537,16 @@
       ;; (certified/registered/court mail) no-autonomous-reroute/no-
       ;; dispose HARD invariants + always-escalate redirect-elsewhere/
       ;; dispose-item. 17 tests / 48 assertions green. 2 -> 1 / 142 -> 143.
-      (is (= 1 (:blueprint m)))
+      ;; 4414 scribes and related workers promoted to :implemented
+      ;; (ScribingActor, modeled on 4214 debt collectors) —
+      ;; delegation-of-authority HARD gate (absence is a hard block,
+      ;; not diligence) + no-actuation invariant; certify-copy,
+      ;; file-on-behalf-of-client and sign-on-behalf-of-client always
+      ;; escalate even when the delegation gate passes. 16 tests /
+      ;; 44 assertions green. 1 -> 0 / 143 -> 144.
+      (is (= 0 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 143 (:implemented m))))))
+      (is (= 144 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
