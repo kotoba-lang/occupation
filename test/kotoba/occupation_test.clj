@@ -48,10 +48,9 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611/2612/2619 (the whole legal
-            cluster) were promoted to :implemented at ticks 86-89 (see
-            the reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "4212")))
+            cleared it to zero; 2412/2611/2612/2619 (finance + the
+            whole legal cluster) were promoted to :implemented at
+            ticks 86-89 (see the reference-actors block below)"
     (is (= :blueprint (occupation/maturity "4213")))
     (is (= :blueprint (occupation/maturity "4214")))
     (is (= :blueprint (occupation/maturity "4411")))
@@ -62,6 +61,7 @@
     (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "2612")))
     (is (= :implemented (occupation/maturity "2619")))
+    (is (= :implemented (occupation/maturity "4212")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -503,9 +503,16 @@
       ;; 138. This clears the entire wave-0 batch #8 legal cluster
       ;; (2611/2612/2619) to :implemented (2412 finance was tick 86,
       ;; a separate cognitive-root cluster).
-      (is (= 6 (:blueprint m)))
+      ;; 4212 bookmakers/croupiers (gaming table & wagering operations
+      ;; practice) promoted to :implemented — payout-amount ceiling
+      ;; (unauthorized payout, not a lucky night) + patron-verified
+      ;; presence check (underage/fraud risk, not efficient service) +
+      ;; always-escalate over-limit-payout/unverified-wager HARD
+      ;; invariants. 14 tests / 29 assertions green. 6 -> 5 / 138 ->
+      ;; 139.
+      (is (= 5 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 138 (:implemented m))))))
+      (is (= 139 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
