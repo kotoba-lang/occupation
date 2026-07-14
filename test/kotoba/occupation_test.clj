@@ -608,8 +608,8 @@
       ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
       ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
       (is (= 7 (:blueprint m)))
-      (is (= 265 (:spec m)))
-      (is (= 164 (:implemented m))))))
+      (is (= 262 (:spec m)))
+      (is (= 167 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
