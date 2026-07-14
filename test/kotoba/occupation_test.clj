@@ -612,9 +612,10 @@
       ;; 3152 (Ships' Deck Officers and Pilots) promoted to :implemented: 264 -> 263 / 165 -> 166.
       ;; 1113 (Traditional Chiefs and Heads of Villages) promoted to :implemented: 263 -> 262 / 166 -> 167.
       ;; 0310 (Armed Forces Occupations, Other Ranks) promoted to :implemented: 262 -> 261 / 167 -> 168.
+      ;; 1114 (Senior Officials of Special-interest Organizations) promoted to :implemented: 261 -> 260 / 168 -> 169.
       (is (= 7 (:blueprint m)))
-      (is (= 261 (:spec m)))
-      (is (= 168 (:implemented m))))))
+      (is (= 260 (:spec m)))
+      (is (= 169 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
