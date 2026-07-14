@@ -52,7 +52,6 @@
             (finance-adjacent trust services cluster complete) were
             promoted to :implemented at ticks 86-92 (see the
             reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "4411")))
     (is (= :blueprint (occupation/maturity "4412")))
     (is (= :blueprint (occupation/maturity "4414"))))
   (testing "the reference actors are :implemented"
@@ -88,7 +87,8 @@
     (is (= :implemented (occupation/maturity "5311")))
     (is (= :implemented (occupation/maturity "6130")))
     (is (= :implemented (occupation/maturity "8160")))
-    (is (= :implemented (occupation/maturity "1212"))))
+    (is (= :implemented (occupation/maturity "1212")))
+    (is (= :implemented (occupation/maturity "4411"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1111"))))
   (testing "maturity-summary counts tiers"
@@ -526,9 +526,14 @@
       ;; / 30 assertions green. 4 -> 3 / 140 -> 141. This clears the
       ;; entire wave-0 batch #8 finance-adjacent trust services
       ;; cluster (4212/4213/4214) to :implemented.
-      (is (= 3 (:blueprint m)))
+      ;; 4411 library clerks promoted to :implemented (LibraryClerkActor,
+      ;; modeled on 4214 debt collectors) — patron-verification-basis +
+      ;; legal-hold-exclusion HARD invariants; late-fee-waiver-ceiling,
+      ;; restrict-account and purge-record always escalate. 16 tests /
+      ;; 41 assertions green.
+      (is (= 2 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 141 (:implemented m))))))
+      (is (= 142 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -617,11 +622,12 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
-  (testing "a blueprint entry's next step is implemented — wave-0
-            cognitive batch #8 (tick 85)"
+  (testing "an implemented entry that was previously :blueprint (4411,
+            wave-0 cognitive batch #8 -> implemented) is at maturity
+            ceiling like any other"
     (let [r (occupation/maturity-roadmap "4411")]
-      (is (= :blueprint (:maturity r)))
-      (is (= :implemented (:next-step r)))
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1111")]
