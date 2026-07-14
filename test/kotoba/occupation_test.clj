@@ -617,9 +617,12 @@
       ;; 0310 (Armed Forces Occupations, Other Ranks) promoted to :implemented: 262 -> 261 / 167 -> 168.
       ;; 2131 (Biologists) promoted to :implemented: 261 -> 260 / 168 -> 169.
       ;; 3121 (Mining Supervisors) promoted to :implemented: 260 -> 259 / 169 -> 170.
+      ;; 1114 (Senior Officials of Special-interest Organizations) and 3113
+      ;; (Electrical Engineering Technicians) promoted to :implemented in one
+      ;; batch after repeated 409s from concurrent registrations: 258 -> 256 / 171 -> 173.
       (is (= 7 (:blueprint m)))
-      (is (= 258 (:spec m)))
-      (is (= 171 (:implemented m))))))
+      (is (= 256 (:spec m)))
+      (is (= 173 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
