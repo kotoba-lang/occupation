@@ -49,8 +49,9 @@
   (testing "a published blueprint repo is :blueprint — wave-0 batch #8
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
-            the tier with 10 coordination-logistics entries"
-    (is (= :blueprint (occupation/maturity "3311")))
+            the tier with 10 coordination-logistics entries; 3311 was
+            promoted to :implemented at tick 95 (see reference-actors
+            block below)"
     (is (= :blueprint (occupation/maturity "3312")))
     (is (= :blueprint (occupation/maturity "3321")))
     (is (= :blueprint (occupation/maturity "3323")))
@@ -62,6 +63,7 @@
     (is (= :blueprint (occupation/maturity "9334"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
+    (is (= :implemented (occupation/maturity "3311")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "2612")))
@@ -559,9 +561,16 @@
       ;; services) + 8331 (drivers) + 9313/9334 (labourers). Wave 1 is
       ;; being worked separately by another session; this loop focuses
       ;; on wave 2. 0 -> 10 / 292 -> 282.
-      (is (= 10 (:blueprint m)))
+      ;; 3311 securities and finance dealers/brokers (securities
+      ;; brokerage practice) promoted to :implemented — order-size
+      ;; ceiling (unauthorized trading, not active management) +
+      ;; suitability-reviewed presence check (unsuitable execution,
+      ;; not efficient service) + always-escalate over-limit-trade/
+      ;; margin-call-liquidation HARD invariants. 14 tests / 29
+      ;; assertions green. 10 -> 9 / 144 -> 145.
+      (is (= 9 (:blueprint m)))
       (is (= 282 (:spec m)))
-      (is (= 144 (:implemented m))))))
+      (is (= 145 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
