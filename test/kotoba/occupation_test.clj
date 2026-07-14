@@ -616,8 +616,8 @@
       ;; 0310 (Armed Forces Occupations, Other Ranks) promoted to :implemented: 262 -> 261 / 167 -> 168.
       ;; 2131 (Biologists) promoted to :implemented: 261 -> 260 / 168 -> 169.
       (is (= 7 (:blueprint m)))
-      (is (= 260 (:spec m)))
-      (is (= 169 (:implemented m))))))
+      (is (= 259 (:spec m)))
+      (is (= 170 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
