@@ -49,10 +49,9 @@
   (testing "a published blueprint repo is :blueprint — wave-0 batch #8
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
-            the tier with 10 coordination-logistics entries; 3311 was
-            promoted to :implemented at tick 95 (see reference-actors
-            block below)"
-    (is (= :blueprint (occupation/maturity "3312")))
+            the tier with 10 coordination-logistics entries;
+            3311/3312 were promoted to :implemented at ticks 95-96
+            (see reference-actors block below)"
     (is (= :blueprint (occupation/maturity "3321")))
     (is (= :blueprint (occupation/maturity "3323")))
     (is (= :blueprint (occupation/maturity "3334")))
@@ -64,6 +63,7 @@
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
+    (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "2612")))
@@ -101,7 +101,7 @@
     (is (= :implemented (occupation/maturity "4412")))
     (is (= :implemented (occupation/maturity "1111"))))
   (testing "a registry-only unit group entry is :spec"
-    (is (= :spec (occupation/maturity "1112"))))
+    (is (= :spec (occupation/maturity "1411"))))
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
@@ -569,9 +569,20 @@
       ;; not efficient service) + always-escalate over-limit-trade/
       ;; margin-call-liquidation HARD invariants. 14 tests / 29
       ;; assertions green. 10 -> 9 / 144 -> 145.
-      (is (= 9 (:blueprint m)))
-      (is (= 280 (:spec m)))
-      (is (= 147 (:implemented m))))))
+      ;; (spec/blueprint/implemented drifted further via a concurrent
+      ;; wave-1 session's own landings, untouched by this loop's
+      ;; wave-2 lane — counts below are re-verified against live data
+      ;; at tick 96, not hand-derived from the prior comment's delta.)
+      ;; 3312 credit and loans officers (loan origination &
+      ;; underwriting practice) promoted to :implemented — approved-
+      ;; amount ceiling (unauthorized lending, not flexible service) +
+      ;; credit-assessment-completed presence check (uninformed
+      ;; lending decision, not efficient service) + always-escalate
+      ;; over-approved-disbursement/loan-approval-override HARD
+      ;; invariants. 14 tests / 29 assertions green.
+      (is (= 8 (:blueprint m)))
+      (is (= 278 (:spec m)))
+      (is (= 150 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -674,7 +685,7 @@
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
-    (let [r (occupation/maturity-roadmap "1112")]
+    (let [r (occupation/maturity-roadmap "1411")]
       (is (= :spec (:maturity r)))
       (is (= :blueprint (:next-step r)))
       (is (false? (:has-repo r))))))
