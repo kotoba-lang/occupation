@@ -50,9 +50,8 @@
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
             the tier with 10 coordination-logistics entries;
-            3311/3312/3321/3323/3334 were promoted to :implemented
-            (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "3332")))
+            3311/3312/3321/3323/3334/3332 were promoted to
+            :implemented (see reference-actors block below)"
     (is (= :blueprint (occupation/maturity "5414")))
     (is (= :blueprint (occupation/maturity "8331")))
     (is (= :blueprint (occupation/maturity "9313")))
@@ -63,6 +62,7 @@
     (is (= :implemented (occupation/maturity "3323")))
     (is (= :implemented (occupation/maturity "3321")))
     (is (= :implemented (occupation/maturity "3334")))
+    (is (= :implemented (occupation/maturity "3332")))
     (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
@@ -648,9 +648,16 @@
       ;; tests / 29 assertions green. Counts re-verified live
       ;; (o/maturity-summary) rather than hand-derived from the prior
       ;; comment's delta, per the Addendum 85/86 lesson.
-      (is (= 5 (:blueprint m)))
+      ;; 3332 conference/event planners promoted to :implemented —
+      ;; EventPlanningActor (Event Advisor ⊣ EventPlanningGovernor);
+      ;; budget-ceiling arithmetic (contract-amount <= event's
+      ;; :budget-ceiling) + venue-capacity-verified presence (event
+      ;; record) HARD invariants; :approve-over-budget-vendor-contract,
+      ;; :approve-guest-list-disclosure always-escalate. 14 tests / 29
+      ;; assertions green. Counts re-verified live.
+      (is (= 4 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 201 (:implemented m))))))
+      (is (= 202 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
