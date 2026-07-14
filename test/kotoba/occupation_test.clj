@@ -52,7 +52,6 @@
             the tier with 10 coordination-logistics entries;
             3311/3312/3321 were promoted to :implemented at ticks
             95-97 (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "3323")))
     (is (= :blueprint (occupation/maturity "3334")))
     (is (= :blueprint (occupation/maturity "3332")))
     (is (= :blueprint (occupation/maturity "5414")))
@@ -62,6 +61,7 @@
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
+    (is (= :implemented (occupation/maturity "3323")))
     (is (= :implemented (occupation/maturity "3321")))
     (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
@@ -622,7 +622,6 @@
       ;; batch after repeated 409s from concurrent registrations: 258 -> 256 / 171 -> 173.
       ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
       ;; 1343 (Aged Care Services Managers) promoted to :implemented: 255 -> 254 / 174 -> 175.
-      (is (= 7 (:blueprint m)))
       ;; Registry recovery: the on-disk file became unparseable EDN somewhere
       ;; around the 2149 promotion (a subsequent edit round-tripped it through
       ;; `pr-str`, double-escaping the embedded occupations string) and several
@@ -632,8 +631,16 @@
       ;; completed promotions since reapplied in place: 2145, 2146, 2149, 2165,
       ;; 3115, 3116, 3117, 3118, 3119, 3133, 3135, 3139, 3142, 3143, 3155.
       ;; 245 -> 230 spec, 184 -> 199 implemented.
+      ;; tick 98+: 3323 procurement/buyers promoted to :implemented —
+      ;; BuyersActor (ProcurementAdvisor ⊣ ProcurementGovernor); budget-
+      ;; ceiling arithmetic (order-amount <= client's :budget-ceiling) +
+      ;; supplier-verification presence (:supplier-verified? true) HARD
+      ;; invariants; :approve-over-budget-order, :approve-unverified-
+      ;; supplier-onboarding always-escalate. 14 tests / 29 assertions green.
+      ;; 6 -> 5 / 200 -> 201.
+      (is (= 6 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 199 (:implemented m))))))
+      (is (= 200 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
