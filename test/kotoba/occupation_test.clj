@@ -8,7 +8,7 @@
     (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1111" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+  (doseq [isco ["1111" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
                 "3141" "5223" "6210" "7231" "8121" "9111"
                 "1120" "2512" "4110"
                 "3213" "5153" "7411"
@@ -99,7 +99,8 @@
     (is (= :implemented (occupation/maturity "1212")))
     (is (= :implemented (occupation/maturity "4411")))
     (is (= :implemented (occupation/maturity "4412")))
-    (is (= :implemented (occupation/maturity "1111"))))
+    (is (= :implemented (occupation/maturity "1111")))
+    (is (= :implemented (occupation/maturity "1311"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1411"))))
   (testing "maturity-summary counts tiers"
@@ -587,9 +588,14 @@
       ;; not efficient service) + always-escalate over-limit-binding/
       ;; claims-settlement HARD invariants. 14 tests / 29 assertions
       ;; green. Counts re-verified live (tick 97): 8 -> 7 / 150 -> 151.
+      ;; tick-98: 1311 agricultural & forestry production managers promoted
+      ;; to :implemented — FarmManagementActor with site-verification and
+      ;; cost-threshold HARD invariants (farm must be registered/verified;
+      ;; anomalies and supply orders above threshold require human escalation).
+      ;; 14 tests / 36 assertions green. 7 / 277 -> 152.
       (is (= 7 (:blueprint m)))
-      (is (= 278 (:spec m)))
-      (is (= 151 (:implemented m))))))
+      (is (= 277 (:spec m)))
+      (is (= 152 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
