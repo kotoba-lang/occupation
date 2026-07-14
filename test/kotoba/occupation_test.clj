@@ -28,7 +28,7 @@
                 "2422" "4415" "5230"
                 "3122" "6111" "8322"
                 "2144" "4322" "5249"
-                "1341" "6121" "7318"
+                "1341" "1343" "6121" "7318"
                 "1439" "4132" "8153"
                 "2621" "4224" "7523"
                 "1223" "5312" "6122"
@@ -608,8 +608,8 @@
       ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
       ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
       (is (= 7 (:blueprint m)))
-      (is (= 265 (:spec m)))
-      (is (= 164 (:implemented m))))))
+      (is (= 263 (:spec m)))
+      (is (= 166 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
