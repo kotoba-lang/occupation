@@ -52,7 +52,6 @@
             (finance-adjacent trust services cluster complete) were
             promoted to :implemented at ticks 86-92 (see the
             reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "4412")))
     (is (= :blueprint (occupation/maturity "4414"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "2412")))
@@ -88,7 +87,8 @@
     (is (= :implemented (occupation/maturity "6130")))
     (is (= :implemented (occupation/maturity "8160")))
     (is (= :implemented (occupation/maturity "1212")))
-    (is (= :implemented (occupation/maturity "4411"))))
+    (is (= :implemented (occupation/maturity "4411")))
+    (is (= :implemented (occupation/maturity "4412"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1111"))))
   (testing "maturity-summary counts tiers"
@@ -531,9 +531,15 @@
       ;; legal-hold-exclusion HARD invariants; late-fee-waiver-ceiling,
       ;; restrict-account and purge-record always escalate. 16 tests /
       ;; 41 assertions green.
-      (is (= 2 (:blueprint m)))
+      ;; 4412 mail carriers/sorting clerks promoted to :implemented —
+      ;; verified tracking/manifest record presence check (no routing
+      ;; without a manifest, not a courtesy lookup) + protected-class
+      ;; (certified/registered/court mail) no-autonomous-reroute/no-
+      ;; dispose HARD invariants + always-escalate redirect-elsewhere/
+      ;; dispose-item. 17 tests / 48 assertions green. 2 -> 1 / 142 -> 143.
+      (is (= 1 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 142 (:implemented m))))))
+      (is (= 143 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
