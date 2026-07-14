@@ -47,7 +47,7 @@
 
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint"
-    (is (= :blueprint (occupation/maturity "9622"))))
+    (is (= :blueprint (occupation/maturity "3521"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
@@ -439,9 +439,16 @@
       ;; restock-quantity ceiling (storage risk, not thrift) + always-
       ;; escalate hot-surface-proximity/sharp-tool-zone-entry HARD
       ;; invariants. 14 tests / 30 assertions green. 3 -> 2 / 131 -> 132.
-      (is (= 2 (:blueprint m)))
+      ;; 9622 odd-job persons (handyman) promoted to :implemented —
+      ;; handling-weight ceiling (strain/injury risk, not effort) +
+      ;; task-duration time-box ceiling (site access is time-boxed, not
+      ;; open-ended) + always-escalate electrical-plumbing-access/
+      ;; working-at-height HARD invariants. 14 tests / 29 assertions
+      ;; green. 2 -> 1 / 132 -> 133. Only 3521 (bespoke kawaraban
+      ;; design, deliberately deferred) remains :blueprint.
+      (is (= 1 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 132 (:implemented m))))))
+      (is (= 133 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -525,7 +532,7 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
   (testing "a blueprint entry's next step is implemented"
-    (let [r (occupation/maturity-roadmap "9622")]
+    (let [r (occupation/maturity-roadmap "3521")]
       (is (= :blueprint (:maturity r)))
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
