@@ -8,7 +8,7 @@
     (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1111" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+  (doseq [isco ["1111" "1311" "1312" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
                 "3141" "5223" "6210" "7231" "8121" "9111"
                 "1120" "2512" "4110"
                 "3213" "5153" "7411"
@@ -102,7 +102,8 @@
     (is (= :implemented (occupation/maturity "1111")))
     (is (= :implemented (occupation/maturity "0110")))
     (is (= :implemented (occupation/maturity "0210")))
-    (is (= :implemented (occupation/maturity "1311"))))
+    (is (= :implemented (occupation/maturity "1311")))
+    (is (= :implemented (occupation/maturity "1312"))))
   (testing "reference chemists (2113) actor is :implemented"
     (is (= :implemented (occupation/maturity "2113"))))
   (testing "reference ships' engineers (3151) actor is :implemented"
@@ -608,8 +609,8 @@
       ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
       ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
       (is (= 7 (:blueprint m)))
-      (is (= 265 (:spec m)))
-      (is (= 164 (:implemented m))))))
+      (is (= 264 (:spec m)))
+      (is (= 165 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
