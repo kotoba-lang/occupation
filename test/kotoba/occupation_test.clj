@@ -48,10 +48,9 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611/2612 were promoted to
-            :implemented at ticks 86/87/88 (see the reference-actors
-            block below)"
-    (is (= :blueprint (occupation/maturity "2619")))
+            cleared it to zero; 2412/2611/2612/2619 (the whole legal
+            cluster) were promoted to :implemented at ticks 86-89 (see
+            the reference-actors block below)"
     (is (= :blueprint (occupation/maturity "4212")))
     (is (= :blueprint (occupation/maturity "4213")))
     (is (= :blueprint (occupation/maturity "4214")))
@@ -62,6 +61,7 @@
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "2612")))
+    (is (= :implemented (occupation/maturity "2619")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -493,9 +493,19 @@
       ;; service) + always-escalate binding-award-issuance/case-
       ;; acceptance HARD invariants. 14 tests / 29 assertions green.
       ;; 8 -> 7 / 136 -> 137.
-      (is (= 7 (:blueprint m)))
+      ;; 2619 legal professionals NEC (legal support & compliance
+      ;; practice) promoted to :implemented — certified-copies
+      ;; authorized-quantity ceiling (unregulated duplication, not
+      ;; efficient service) + identity-verified presence check
+      ;; (notarization fraud risk, not efficient service) + always-
+      ;; escalate certification-issuance/regulatory-filing HARD
+      ;; invariants. 14 tests / 29 assertions green. 7 -> 6 / 137 ->
+      ;; 138. This clears the entire wave-0 batch #8 legal cluster
+      ;; (2611/2612/2619) to :implemented (2412 finance was tick 86,
+      ;; a separate cognitive-root cluster).
+      (is (= 6 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 137 (:implemented m))))))
+      (is (= 138 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
