@@ -8,7 +8,7 @@
     (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1111" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+  (doseq [isco ["1111" "1114" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
                 "3141" "5223" "6210" "7231" "8121" "9111"
                 "1120" "2512" "4110"
                 "3213" "5153" "7411"
@@ -607,9 +607,18 @@
       ;; 3153 (Aircraft Pilots) promoted to :implemented: 269 -> 268 / 160 -> 161.
       ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
       ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
+      ;; 1113 (Traditional Chiefs and Heads of Villages) promoted to :implemented
+      ;; at higher maturity: 263 -> 262 / 166 -> 167.
+      ;; 1114 (Senior Officials of Special-interest Organizations) promoted to
+      ;; :implemented — AdvocacyActor with member-provenance and no-binding-
+      ;; authority HARD invariants (administrative support for special-interest
+      ;; organization officials: unions, associations, advocacy groups. Never
+      ;; binding organizational decisions, member discipline, or external
+      ;; negotiation on behalf of the org). 11 tests / 34 assertions green.
+      ;; 262 -> 261 / 167 -> 168.
       (is (= 7 (:blueprint m)))
-      (is (= 262 (:spec m)))
-      (is (= 167 (:implemented m))))))
+      (is (= 261 (:spec m)))
+      (is (= 168 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
