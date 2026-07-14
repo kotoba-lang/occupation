@@ -623,9 +623,9 @@
       ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
       ;; 1343 (Aged Care Services Managers) promoted to :implemented: 255 -> 254 / 174 -> 175.
       (is (= 7 (:blueprint m)))
-      ;; 2162 (Landscape Architects) promoted to :implemented: 254 -> 253 / 175 -> 176.
-      (is (= 253 (:spec m)))
-      (is (= 176 (:implemented m))))))
+      ;; 2162 (Landscape Architects), 2163 (Product and Garment Designers), and others promoted to :implemented: 254 -> 250 / 175 -> 179.
+      (is (= 250 (:spec m)))
+      (is (= 179 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
