@@ -5,10 +5,10 @@
 (deftest registry-loads
   (let [reg (occupation/registry)]
     (is (= :kotoba/occupation (:kotoba.registry/id reg)))
-    (is (= 436 (count (occupation/occupations reg))))))
+    (is (= 437 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1111" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+  (doseq [isco ["1111" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
                 "3141" "5223" "6210" "7231" "8121" "9111"
                 "1120" "2512" "4110"
                 "3213" "5153" "7411"
@@ -99,13 +99,14 @@
     (is (= :implemented (occupation/maturity "1212")))
     (is (= :implemented (occupation/maturity "4411")))
     (is (= :implemented (occupation/maturity "4412")))
-    (is (= :implemented (occupation/maturity "1111"))))
+    (is (= :implemented (occupation/maturity "1111")))
+    (is (= :implemented (occupation/maturity "1311"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1411"))))
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
-      (is (= 436 (:total m)))
+      (is (= 437 (:total m)))
       ;; 19 -> 23 with the ISCO wave-0 cognitive batch (ADR-2607122700):
       ;; 4311 bookkeeping clerks, 2513 web/multimedia developers, 3511 ICT
       ;; operations technicians, 2519 software QA/analysts NEC — blueprint
@@ -587,9 +588,15 @@
       ;; not efficient service) + always-escalate over-limit-binding/
       ;; claims-settlement HARD invariants. 14 tests / 29 assertions
       ;; green. Counts re-verified live (tick 97): 8 -> 7 / 150 -> 151.
+      ;; tick-98+: 1311 agricultural & forestry production managers promoted
+      ;; to :implemented — FarmManagementActor with site-verification and
+      ;; cost-threshold HARD invariants (farm must be registered/verified;
+      ;; anomalies and supply orders above threshold require human escalation).
+      ;; 14 tests / 36 assertions green. 7 / 269 -> 161
+      ;; (note: parallel promotions brought main from 278/151 baseline to 270/160 before 1311).
       (is (= 7 (:blueprint m)))
-      (is (= 278 (:spec m)))
-      (is (= 151 (:implemented m))))))
+      (is (= 269 (:spec m)))
+      (is (= 161 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
