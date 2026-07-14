@@ -48,8 +48,8 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero"
-    (is (= :blueprint (occupation/maturity "2412")))
+            cleared it to zero; 2412 was promoted to :implemented at
+            tick 86 (see the reference-actors block below)"
     (is (= :blueprint (occupation/maturity "2611")))
     (is (= :blueprint (occupation/maturity "2612")))
     (is (= :blueprint (occupation/maturity "2619")))
@@ -60,6 +60,7 @@
     (is (= :blueprint (occupation/maturity "4412")))
     (is (= :blueprint (occupation/maturity "4414"))))
   (testing "the reference actors are :implemented"
+    (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -472,9 +473,15 @@
       ;; adjacent trust services) + 4411/4412/4414 (clerical/services).
       ;; This clears wave 0 (cognitive-substrate-root)'s :spec pool to
       ;; zero (55/55 now blueprint-or-implemented). 0 -> 10 / 302 -> 292.
-      (is (= 10 (:blueprint m)))
+      ;; 2412 financial and investment advisers promoted to :implemented
+      ;; — allocation-percentage suitability ceiling (unsuitable advice,
+      ;; not aggressive strategy) + risk-disclosure-attached presence
+      ;; check (undisclosed advice is not efficient service) + always-
+      ;; escalate trade-execution/fund-transfer HARD invariants. 14
+      ;; tests / 29 assertions green. 10 -> 9 / 134 -> 135.
+      (is (= 9 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 134 (:implemented m))))))
+      (is (= 135 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
