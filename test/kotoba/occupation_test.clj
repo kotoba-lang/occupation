@@ -48,10 +48,10 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611/2612/2619/4212 were promoted
-            to :implemented at ticks 86-90 (see the reference-actors
-            block below)"
-    (is (= :blueprint (occupation/maturity "4214")))
+            cleared it to zero; 2412/2611/2612/2619/4212/4213/4214
+            (finance-adjacent trust services cluster complete) were
+            promoted to :implemented at ticks 86-92 (see the
+            reference-actors block below)"
     (is (= :blueprint (occupation/maturity "4411")))
     (is (= :blueprint (occupation/maturity "4412")))
     (is (= :blueprint (occupation/maturity "4414"))))
@@ -62,6 +62,7 @@
     (is (= :implemented (occupation/maturity "2619")))
     (is (= :implemented (occupation/maturity "4212")))
     (is (= :implemented (occupation/maturity "4213")))
+    (is (= :implemented (occupation/maturity "4214")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -517,9 +518,17 @@
       ;; always-escalate over-appraisal-disbursement/unappraised-loan-
       ;; offer HARD invariants. 14 tests / 29 assertions green. 5 -> 4
       ;; / 139 -> 140.
-      (is (= 4 (:blueprint m)))
+      ;; 4214 debt collectors (debt collection & recovery practice)
+      ;; promoted to :implemented — contact-window band (harassment
+      ;; risk, not diligence) + no-harassment-flag check (refused by
+      ;; construction, not merely discouraged) + always-escalate
+      ;; off-hours-contact/settlement-offer HARD invariants. 14 tests
+      ;; / 30 assertions green. 4 -> 3 / 140 -> 141. This clears the
+      ;; entire wave-0 batch #8 finance-adjacent trust services
+      ;; cluster (4212/4213/4214) to :implemented.
+      (is (= 3 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 140 (:implemented m))))))
+      (is (= 141 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
