@@ -623,11 +623,17 @@
       ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
       ;; 1343 (Aged Care Services Managers) promoted to :implemented: 255 -> 254 / 174 -> 175.
       (is (= 7 (:blueprint m)))
-      ;; 2162 (Landscape Architects), 2163 (Product and Garment Designers), and the
-      ;; rest of an 8-item batch (2132/2133/2143/2164/3114/3132) promoted to
-      ;; :implemented: 254 -> 245 / 175 -> 184.
-      (is (= 244 (:spec m)))
-      (is (= 185 (:implemented m))))))
+      ;; Registry recovery: the on-disk file became unparseable EDN somewhere
+      ;; around the 2149 promotion (a subsequent edit round-tripped it through
+      ;; `pr-str`, double-escaping the embedded occupations string) and several
+      ;; further promotions landed on top of the already-broken file without
+      ;; anyone re-validating the parse after merge. Reconstructed from the
+      ;; last known-good commit (3132's landing) with all 15 legitimately
+      ;; completed promotions since reapplied in place: 2145, 2146, 2149, 2165,
+      ;; 3115, 3116, 3117, 3118, 3119, 3133, 3135, 3139, 3142, 3143, 3155.
+      ;; 245 -> 230 spec, 184 -> 199 implemented.
+      (is (= 230 (:spec m)))
+      (is (= 199 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
