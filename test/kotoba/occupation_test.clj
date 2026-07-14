@@ -621,9 +621,10 @@
       ;; (Electrical Engineering Technicians) promoted to :implemented in one
       ;; batch after repeated 409s from concurrent registrations: 258 -> 256 / 171 -> 173.
       ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
+      ;; 1343 (Aged Care Services Managers) promoted to :implemented: 255 -> 254 / 174 -> 175.
       (is (= 7 (:blueprint m)))
-      (is (= 255 (:spec m)))
-      (is (= 174 (:implemented m))))))
+      (is (= 254 (:spec m)))
+      (is (= 175 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
