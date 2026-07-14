@@ -50,9 +50,8 @@
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
             the tier with 10 coordination-logistics entries;
-            3311/3312/3321 were promoted to :implemented at ticks
-            95-97 (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "3334")))
+            3311/3312/3321/3323/3334 were promoted to :implemented
+            (see reference-actors block below)"
     (is (= :blueprint (occupation/maturity "3332")))
     (is (= :blueprint (occupation/maturity "5414")))
     (is (= :blueprint (occupation/maturity "8331")))
@@ -63,6 +62,7 @@
     (is (= :implemented (occupation/maturity "3311")))
     (is (= :implemented (occupation/maturity "3323")))
     (is (= :implemented (occupation/maturity "3321")))
+    (is (= :implemented (occupation/maturity "3334")))
     (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
@@ -638,9 +638,19 @@
       ;; invariants; :approve-over-budget-order, :approve-unverified-
       ;; supplier-onboarding always-escalate. 14 tests / 29 assertions green.
       ;; 6 -> 5 / 200 -> 201.
-      (is (= 6 (:blueprint m)))
+      ;; 3334 real estate agents/property managers promoted to
+      ;; :implemented — RealEstateActor (Real Estate Advisor ⊣
+      ;; RealEstateGovernor); authorization-ceiling arithmetic
+      ;; (execution-amount <= listing's :max-authorized-amount) +
+      ;; tenant-screening-completed presence (listing record) HARD
+      ;; invariants; :approve-over-authorization-execution,
+      ;; :approve-security-deposit-disbursement always-escalate. 14
+      ;; tests / 29 assertions green. Counts re-verified live
+      ;; (o/maturity-summary) rather than hand-derived from the prior
+      ;; comment's delta, per the Addendum 85/86 lesson.
+      (is (= 5 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 200 (:implemented m))))))
+      (is (= 201 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
