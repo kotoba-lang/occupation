@@ -48,9 +48,9 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611 were promoted to :implemented
-            at ticks 86/87 (see the reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "2612")))
+            cleared it to zero; 2412/2611/2612 were promoted to
+            :implemented at ticks 86/87/88 (see the reference-actors
+            block below)"
     (is (= :blueprint (occupation/maturity "2619")))
     (is (= :blueprint (occupation/maturity "4212")))
     (is (= :blueprint (occupation/maturity "4213")))
@@ -61,6 +61,7 @@
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
+    (is (= :implemented (occupation/maturity "2612")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -485,9 +486,16 @@
       ;; efficient service) + always-escalate court-filing/new-
       ;; representation HARD invariants. 14 tests / 29 assertions
       ;; green. 9 -> 8 / 135 -> 136.
-      (is (= 8 (:blueprint m)))
+      ;; 2612 judges (private arbitration/mediation practice) promoted
+      ;; to :implemented — award-amount jurisdictional ceiling (ultra
+      ;; vires ruling, not a generous award) + recusal-check-cleared
+      ;; presence check (conflict-of-interest violation, not efficient
+      ;; service) + always-escalate binding-award-issuance/case-
+      ;; acceptance HARD invariants. 14 tests / 29 assertions green.
+      ;; 8 -> 7 / 136 -> 137.
+      (is (= 7 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 136 (:implemented m))))))
+      (is (= 137 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
