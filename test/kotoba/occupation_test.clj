@@ -5,7 +5,7 @@
 (deftest registry-loads
   (let [reg (occupation/registry)]
     (is (= :kotoba/occupation (:kotoba.registry/id reg)))
-    (is (= 437 (count (occupation/occupations reg))))))
+    (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
   (doseq [isco ["1111" "1311" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
@@ -106,7 +106,7 @@
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
-      (is (= 437 (:total m)))
+      (is (= 436 (:total m)))
       ;; 19 -> 23 with the ISCO wave-0 cognitive batch (ADR-2607122700):
       ;; 4311 bookkeeping clerks, 2513 web/multimedia developers, 3511 ICT
       ;; operations technicians, 2519 software QA/analysts NEC — blueprint
@@ -594,9 +594,13 @@
       ;; anomalies and supply orders above threshold require human escalation).
       ;; 14 tests / 36 assertions green. 7 / 269 -> 161
       ;; (note: parallel promotions brought main from 278/151 baseline to 270/160 before 1311).
+      ;; A concurrent 3134 promotion appended a duplicate "3134" entry instead
+      ;; of editing the existing :spec one (436 -> 437 total, masking 3134's
+      ;; real maturity behind the stale duplicate). Removed the stale
+      ;; duplicate; counts below reflect the de-duplicated 436-entry registry.
       (is (= 7 (:blueprint m)))
       (is (= 269 (:spec m)))
-      (is (= 161 (:implemented m))))))
+      (is (= 160 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
