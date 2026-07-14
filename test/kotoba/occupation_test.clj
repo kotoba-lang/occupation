@@ -8,7 +8,7 @@
     (is (= 436 (count (occupation/occupations reg))))))
 
 (deftest curated-occupations-resolve
-  (doseq [isco ["1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
+  (doseq [isco ["1111" "1321" "2221" "3253" "4321" "5322" "6112" "7126" "8332" "9312"
                 "3141" "5223" "6210" "7231" "8121" "9111"
                 "1120" "2512" "4110"
                 "3213" "5153" "7411"
@@ -98,9 +98,10 @@
     (is (= :implemented (occupation/maturity "8160")))
     (is (= :implemented (occupation/maturity "1212")))
     (is (= :implemented (occupation/maturity "4411")))
-    (is (= :implemented (occupation/maturity "4412"))))
+    (is (= :implemented (occupation/maturity "4412")))
+    (is (= :implemented (occupation/maturity "1111"))))
   (testing "a registry-only unit group entry is :spec"
-    (is (= :spec (occupation/maturity "1111"))))
+    (is (= :spec (occupation/maturity "1112"))))
   (testing "maturity-summary counts tiers"
     (let [m (occupation/maturity-summary)]
       (is (= (:total m) (+ (:spec m) (:blueprint m) (:implemented m))))
@@ -569,8 +570,8 @@
       ;; margin-call-liquidation HARD invariants. 14 tests / 29
       ;; assertions green. 10 -> 9 / 144 -> 145.
       (is (= 9 (:blueprint m)))
-      (is (= 281 (:spec m)))
-      (is (= 146 (:implemented m))))))
+      (is (= 280 (:spec m)))
+      (is (= 147 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -673,7 +674,7 @@
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
-    (let [r (occupation/maturity-roadmap "1111")]
+    (let [r (occupation/maturity-roadmap "1112")]
       (is (= :spec (:maturity r)))
       (is (= :blueprint (:next-step r)))
       (is (false? (:has-repo r))))))
