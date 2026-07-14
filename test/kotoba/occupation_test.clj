@@ -50,9 +50,8 @@
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
             the tier with 10 coordination-logistics entries;
-            3311/3312 were promoted to :implemented at ticks 95-96
-            (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "3321")))
+            3311/3312/3321 were promoted to :implemented at ticks
+            95-97 (see reference-actors block below)"
     (is (= :blueprint (occupation/maturity "3323")))
     (is (= :blueprint (occupation/maturity "3334")))
     (is (= :blueprint (occupation/maturity "3332")))
@@ -63,6 +62,7 @@
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
+    (is (= :implemented (occupation/maturity "3321")))
     (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
     (is (= :implemented (occupation/maturity "2611")))
@@ -580,9 +580,16 @@
       ;; lending decision, not efficient service) + always-escalate
       ;; over-approved-disbursement/loan-approval-override HARD
       ;; invariants. 14 tests / 29 assertions green.
-      (is (= 8 (:blueprint m)))
+      ;; 3321 insurance representatives (insurance brokerage practice)
+      ;; promoted to :implemented — coverage-limit ceiling (unauthorized
+      ;; underwriting, not generous coverage) + risk-disclosure-attached
+      ;; presence check on the application record (undisclosed coverage,
+      ;; not efficient service) + always-escalate over-limit-binding/
+      ;; claims-settlement HARD invariants. 14 tests / 29 assertions
+      ;; green. Counts re-verified live (tick 97): 8 -> 7 / 150 -> 151.
+      (is (= 7 (:blueprint m)))
       (is (= 278 (:spec m)))
-      (is (= 150 (:implemented m))))))
+      (is (= 151 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
