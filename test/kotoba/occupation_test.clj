@@ -623,11 +623,11 @@
       ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
       ;; 1343 (Aged Care Services Managers) promoted to :implemented: 255 -> 254 / 174 -> 175.
       (is (= 7 (:blueprint m)))
-      ;; 2162 (Landscape Architects), 2163 (Product and Garment Designers), and the
-      ;; rest of an 8-item batch (2132/2133/2143/2164/3114/3132) promoted to
-      ;; :implemented: 254 -> 245 / 175 -> 184.
-      (is (= 245 (:spec m)))
-      (is (= 184 (:implemented m))))))
+      ;; 2162 (Landscape Architects), 2163 (Product and Garment Designers), 2146 (Mining Engineers),
+      ;; and the rest of an 8-item batch (2132/2133/2143/2164/3114/3132) promoted to
+      ;; :implemented: 254 -> 244 / 175 -> 185.
+      (is (= 244 (:spec m)))
+      (is (= 185 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
