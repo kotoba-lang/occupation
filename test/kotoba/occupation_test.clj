@@ -103,6 +103,8 @@
     (is (= :implemented (occupation/maturity "0110")))
     (is (= :implemented (occupation/maturity "0210")))
     (is (= :implemented (occupation/maturity "1311"))))
+  (testing "reference electrical engineering technicians (3113) actor is :implemented"
+    (is (= :implemented (occupation/maturity "3113"))))
   (testing "reference chemists (2113) actor is :implemented"
     (is (= :implemented (occupation/maturity "2113"))))
   (testing "reference ships' engineers (3151) actor is :implemented"
@@ -607,9 +609,10 @@
       ;; 3153 (Aircraft Pilots) promoted to :implemented: 269 -> 268 / 160 -> 161.
       ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
       ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
+      ;; 3113 (Electrical Engineering Technicians) promoted to :implemented: 266 -> 265 / 163 -> 164.
       (is (= 7 (:blueprint m)))
-      (is (= 265 (:spec m)))
-      (is (= 164 (:implemented m))))))
+      (is (= 264 (:spec m)))
+      (is (= 165 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
