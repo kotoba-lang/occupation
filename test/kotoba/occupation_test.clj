@@ -46,12 +46,20 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "a published blueprint repo is :blueprint — wave-0 cognitive
-            batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611/2612/2619/4212/4213/4214
-            (finance-adjacent trust services cluster complete) were
-            promoted to :implemented at ticks 86-92 (see the
-            reference-actors block below)")
+  (testing "a published blueprint repo is :blueprint — wave-0 batch #8
+            fully cleared to :implemented (tick 93, incl. a concurrent
+            session's landings); wave-2 batch #1 (tick 94) replenishes
+            the tier with 10 coordination-logistics entries"
+    (is (= :blueprint (occupation/maturity "3311")))
+    (is (= :blueprint (occupation/maturity "3312")))
+    (is (= :blueprint (occupation/maturity "3321")))
+    (is (= :blueprint (occupation/maturity "3323")))
+    (is (= :blueprint (occupation/maturity "3334")))
+    (is (= :blueprint (occupation/maturity "3332")))
+    (is (= :blueprint (occupation/maturity "5414")))
+    (is (= :blueprint (occupation/maturity "8331")))
+    (is (= :blueprint (occupation/maturity "9313")))
+    (is (= :blueprint (occupation/maturity "9334"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "2412")))
@@ -544,8 +552,15 @@
       ;; file-on-behalf-of-client and sign-on-behalf-of-client always
       ;; escalate even when the delegation gate passes. 16 tests /
       ;; 44 assertions green. 1 -> 0 / 143 -> 144.
-      (is (= 0 (:blueprint m)))
-      (is (= 292 (:spec m)))
+      ;; tick 94: wave-2 (coordination-logistics, ADR-2607121000) batch
+      ;; #1 — 10 spec entries promoted to :blueprint (scaffold-only, no
+      ;; src/test yet): 3311/3312/3321/3323/3334/3332 (finance/
+      ;; coordination associate professionals) + 5414 (protective
+      ;; services) + 8331 (drivers) + 9313/9334 (labourers). Wave 1 is
+      ;; being worked separately by another session; this loop focuses
+      ;; on wave 2. 0 -> 10 / 292 -> 282.
+      (is (= 10 (:blueprint m)))
+      (is (= 282 (:spec m)))
       (is (= 144 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
@@ -641,6 +656,12 @@
     (let [r (occupation/maturity-roadmap "4411")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
+      (is (true? (:has-repo r)))))
+  (testing "a blueprint entry's next step is implemented — wave-2
+            batch #1 (tick 94)"
+    (let [r (occupation/maturity-roadmap "5414")]
+      (is (= :blueprint (:maturity r)))
+      (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1111")]
