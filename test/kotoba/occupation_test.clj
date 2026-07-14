@@ -46,12 +46,19 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "the blueprint tier is now empty — 3521 (the last remaining
-            :blueprint entry, deliberately deferred pending a bespoke
-            kawaraban-downstream implementation) was promoted to
-            :implemented at tick 83; no ISCO entry currently resolves
-            to :blueprint"
-    (is (zero? (:blueprint (occupation/maturity-summary)))))
+  (testing "a published blueprint repo is :blueprint — wave-0 cognitive
+            batch #8 (tick 85), replenishing the tier after Addendum 72
+            cleared it to zero"
+    (is (= :blueprint (occupation/maturity "2412")))
+    (is (= :blueprint (occupation/maturity "2611")))
+    (is (= :blueprint (occupation/maturity "2612")))
+    (is (= :blueprint (occupation/maturity "2619")))
+    (is (= :blueprint (occupation/maturity "4212")))
+    (is (= :blueprint (occupation/maturity "4213")))
+    (is (= :blueprint (occupation/maturity "4214")))
+    (is (= :blueprint (occupation/maturity "4411")))
+    (is (= :blueprint (occupation/maturity "4412")))
+    (is (= :blueprint (occupation/maturity "4414"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
@@ -459,8 +466,14 @@
       ;; product/live-on-air-switching HARD invariants. 15 tests / 31
       ;; assertions green. 1 -> 0 / 133 -> 134. Blueprint tier is now
       ;; fully cleared (zero :blueprint entries remain).
-      (is (= 0 (:blueprint m)))
-      (is (= 302 (:spec m)))
+      ;; tick 85: wave-0 cognitive batch #8 — 10 spec entries promoted
+      ;; to :blueprint (scaffold-only, no src/test yet): 2412/2611/2612/
+      ;; 2619 (finance/legal cognitive root) + 4212/4213/4214 (finance-
+      ;; adjacent trust services) + 4411/4412/4414 (clerical/services).
+      ;; This clears wave 0 (cognitive-substrate-root)'s :spec pool to
+      ;; zero (55/55 now blueprint-or-implemented). 0 -> 10 / 302 -> 292.
+      (is (= 10 (:blueprint m)))
+      (is (= 292 (:spec m)))
       (is (= 134 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
@@ -549,6 +562,12 @@
     (let [r (occupation/maturity-roadmap "3521")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
+      (is (true? (:has-repo r)))))
+  (testing "a blueprint entry's next step is implemented — wave-0
+            cognitive batch #8 (tick 85)"
+    (let [r (occupation/maturity-roadmap "4411")]
+      (is (= :blueprint (:maturity r)))
+      (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1111")]
