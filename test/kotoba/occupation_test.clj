@@ -46,8 +46,12 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "a published blueprint repo is :blueprint"
-    (is (= :blueprint (occupation/maturity "3521"))))
+  (testing "the blueprint tier is now empty — 3521 (the last remaining
+            :blueprint entry, deliberately deferred pending a bespoke
+            kawaraban-downstream implementation) was promoted to
+            :implemented at tick 83; no ISCO entry currently resolves
+            to :blueprint"
+    (is (zero? (:blueprint (occupation/maturity-summary)))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
@@ -446,9 +450,18 @@
       ;; working-at-height HARD invariants. 14 tests / 29 assertions
       ;; green. 2 -> 1 / 132 -> 133. Only 3521 (bespoke kawaraban
       ;; design, deliberately deferred) remains :blueprint.
-      (is (= 1 (:blueprint m)))
+      ;; 3521 broadcasting/AV technicians (media syndication downstream
+      ;; of kawaraban) promoted to :implemented — the bespoke design
+      ;; deferred since Addendum 46 finally implemented faithfully:
+      ;; excerpt-length ceiling (fair-use bound, not full-text
+      ;; reproduction) + attribution/link-out exact-match (misattribution
+      ;; is not syndication) + always-escalate publish-derivative-
+      ;; product/live-on-air-switching HARD invariants. 15 tests / 31
+      ;; assertions green. 1 -> 0 / 133 -> 134. Blueprint tier is now
+      ;; fully cleared (zero :blueprint entries remain).
+      (is (= 0 (:blueprint m)))
       (is (= 302 (:spec m)))
-      (is (= 133 (:implemented m))))))
+      (is (= 134 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -531,10 +544,11 @@
     (let [r (occupation/maturity-roadmap "1212")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))))
-  (testing "a blueprint entry's next step is implemented"
+  (testing "an implemented entry that was the last :blueprint (3521,
+            promoted tick 83) is at maturity ceiling like any other"
     (let [r (occupation/maturity-roadmap "3521")]
-      (is (= :blueprint (:maturity r)))
-      (is (= :implemented (:next-step r)))
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1111")]
