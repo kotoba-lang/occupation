@@ -103,6 +103,8 @@
     (is (= :implemented (occupation/maturity "1311"))))
   (testing "reference chemists (2113) actor is :implemented"
     (is (= :implemented (occupation/maturity "2113"))))
+  (testing "reference ships' engineers (3151) actor is :implemented"
+    (is (= :implemented (occupation/maturity "3151"))))
   (testing "a registry-only unit group entry is :spec"
     (is (= :spec (occupation/maturity "1411"))))
   (testing "maturity-summary counts tiers"
@@ -601,9 +603,11 @@
       ;; real maturity behind the stale duplicate). Removed the stale
       ;; duplicate; counts below reflect the de-duplicated 436-entry registry.
       ;; 3153 (Aircraft Pilots) promoted to :implemented: 269 -> 268 / 160 -> 161.
+      ;; 2113 (Chemists) promoted to :implemented: 268 -> 267 / 161 -> 162.
+      ;; 3151 (Ships' Engineers) promoted to :implemented: 267 -> 266 / 162 -> 163.
       (is (= 7 (:blueprint m)))
-      (is (= 267 (:spec m)))
-      (is (= 162 (:implemented m))))))
+      (is (= 266 (:spec m)))
+      (is (= 163 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
