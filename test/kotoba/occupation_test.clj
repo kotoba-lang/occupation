@@ -48,10 +48,9 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412/2611/2612/2619 (finance + the
-            whole legal cluster) were promoted to :implemented at
-            ticks 86-89 (see the reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "4213")))
+            cleared it to zero; 2412/2611/2612/2619/4212 were promoted
+            to :implemented at ticks 86-90 (see the reference-actors
+            block below)"
     (is (= :blueprint (occupation/maturity "4214")))
     (is (= :blueprint (occupation/maturity "4411")))
     (is (= :blueprint (occupation/maturity "4412")))
@@ -62,6 +61,7 @@
     (is (= :implemented (occupation/maturity "2612")))
     (is (= :implemented (occupation/maturity "2619")))
     (is (= :implemented (occupation/maturity "4212")))
+    (is (= :implemented (occupation/maturity "4213")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -510,9 +510,16 @@
       ;; always-escalate over-limit-payout/unverified-wager HARD
       ;; invariants. 14 tests / 29 assertions green. 6 -> 5 / 138 ->
       ;; 139.
-      (is (= 5 (:blueprint m)))
+      ;; 4213 pawnbrokers/money-lenders (pawnbroking & small-loan
+      ;; practice) promoted to :implemented — appraised-value ceiling
+      ;; (unsecured advance, not a pawn loan) + appraisal-completed
+      ;; presence check (unsecured guess, not a pawn valuation) +
+      ;; always-escalate over-appraisal-disbursement/unappraised-loan-
+      ;; offer HARD invariants. 14 tests / 29 assertions green. 5 -> 4
+      ;; / 139 -> 140.
+      (is (= 4 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 139 (:implemented m))))))
+      (is (= 140 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
