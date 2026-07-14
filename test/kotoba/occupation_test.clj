@@ -28,7 +28,7 @@
                 "2422" "4415" "5230"
                 "3122" "6111" "8322"
                 "2144" "4322" "5249"
-                "1341" "6121" "7318"
+                "1341" "1343" "1346" "6121" "7318"
                 "1439" "4132" "8153"
                 "2621" "4224" "7523"
                 "1223" "5312" "6122"
@@ -617,9 +617,10 @@
       ;; 0310 (Armed Forces Occupations, Other Ranks) promoted to :implemented: 262 -> 261 / 167 -> 168.
       ;; 2131 (Biologists) promoted to :implemented: 261 -> 260 / 168 -> 169.
       ;; 3121 (Mining Supervisors) promoted to :implemented: 260 -> 259 / 169 -> 170.
+      ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 258 -> 257 / 171 -> 172.
       (is (= 7 (:blueprint m)))
-      (is (= 258 (:spec m)))
-      (is (= 171 (:implemented m))))))
+      (is (= 257 (:spec m)))
+      (is (= 172 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
