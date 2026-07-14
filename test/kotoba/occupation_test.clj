@@ -28,7 +28,7 @@
                 "2422" "4415" "5230"
                 "3122" "6111" "8322"
                 "2144" "4322" "5249"
-                "1341" "6121" "7318"
+                "1341" "1346" "6121" "7318"
                 "1439" "4132" "8153"
                 "2621" "4224" "7523"
                 "1223" "5312" "6122"
@@ -620,9 +620,10 @@
       ;; 1114 (Senior Officials of Special-interest Organizations) and 3113
       ;; (Electrical Engineering Technicians) promoted to :implemented in one
       ;; batch after repeated 409s from concurrent registrations: 258 -> 256 / 171 -> 173.
+      ;; 1346 (Financial and Insurance Services Branch Managers) promoted to :implemented: 256 -> 255 / 173 -> 174.
       (is (= 7 (:blueprint m)))
-      (is (= 256 (:spec m)))
-      (is (= 173 (:implemented m))))))
+      (is (= 255 (:spec m)))
+      (is (= 174 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
