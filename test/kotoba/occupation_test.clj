@@ -569,8 +569,8 @@
       ;; margin-call-liquidation HARD invariants. 14 tests / 29
       ;; assertions green. 10 -> 9 / 144 -> 145.
       (is (= 9 (:blueprint m)))
-      (is (= 282 (:spec m)))
-      (is (= 145 (:implemented m))))))
+      (is (= 281 (:spec m)))
+      (is (= 146 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
