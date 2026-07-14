@@ -48,9 +48,8 @@
 (deftest maturity-tier
   (testing "a published blueprint repo is :blueprint — wave-0 cognitive
             batch #8 (tick 85), replenishing the tier after Addendum 72
-            cleared it to zero; 2412 was promoted to :implemented at
-            tick 86 (see the reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "2611")))
+            cleared it to zero; 2412/2611 were promoted to :implemented
+            at ticks 86/87 (see the reference-actors block below)"
     (is (= :blueprint (occupation/maturity "2612")))
     (is (= :blueprint (occupation/maturity "2619")))
     (is (= :blueprint (occupation/maturity "4212")))
@@ -61,6 +60,7 @@
     (is (= :blueprint (occupation/maturity "4414"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "2412")))
+    (is (= :implemented (occupation/maturity "2611")))
     (is (= :implemented (occupation/maturity "6112")))
     (is (= :implemented (occupation/maturity "2221")))
     (is (= :implemented (occupation/maturity "7126")))
@@ -479,9 +479,15 @@
       ;; check (undisclosed advice is not efficient service) + always-
       ;; escalate trade-execution/fund-transfer HARD invariants. 14
       ;; tests / 29 assertions green. 10 -> 9 / 134 -> 135.
-      (is (= 9 (:blueprint m)))
+      ;; 2611 lawyers promoted to :implemented — billable-hours
+      ;; engagement-scope ceiling (scope creep, not diligence) +
+      ;; conflict-check-cleared presence check (ethics violation, not
+      ;; efficient service) + always-escalate court-filing/new-
+      ;; representation HARD invariants. 14 tests / 29 assertions
+      ;; green. 9 -> 8 / 135 -> 136.
+      (is (= 8 (:blueprint m)))
       (is (= 292 (:spec m)))
-      (is (= 135 (:implemented m))))))
+      (is (= 136 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
