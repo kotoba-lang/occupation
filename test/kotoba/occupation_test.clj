@@ -46,13 +46,20 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "the blueprint tier is empty again — wave-0 batch #8 (tick
-            93) and wave-2 batch #1 (tick 94's 10 entries, all
-            promoted through 9334) have both fully cleared to
-            :implemented; no ISCO entry currently resolves to
-            :blueprint (see the reference-actors block below and the
-            count-pin assertions further down)"
-    (is (zero? (:blueprint (occupation/maturity-summary)))))
+  (testing "a published blueprint repo is :blueprint — wave-2
+            (coordination-logistics) batch #2 replenishes the tier
+            with 10 new entries after batch #1 fully cleared to
+            :implemented"
+    (is (= :blueprint (occupation/maturity "3313")))
+    (is (= :blueprint (occupation/maturity "3314")))
+    (is (= :blueprint (occupation/maturity "3315")))
+    (is (= :blueprint (occupation/maturity "3322")))
+    (is (= :blueprint (occupation/maturity "3324")))
+    (is (= :blueprint (occupation/maturity "3331")))
+    (is (= :blueprint (occupation/maturity "5419")))
+    (is (= :blueprint (occupation/maturity "8343")))
+    (is (= :blueprint (occupation/maturity "9321")))
+    (is (= :blueprint (occupation/maturity "9329"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
@@ -690,8 +697,13 @@
       ;; assertions green. Counts re-verified live. This clears
       ;; wave-2 batch #1 (all 10 entries from tick 94) fully to
       ;; :implemented — blueprint tier is empty again.
-      (is (= 0 (:blueprint m)))
-      (is (= 230 (:spec m)))
+      ;; wave-2 batch #2 — 10 spec entries promoted to :blueprint
+      ;; (scaffold-only, no src/test yet): 3313/3314/3315/3322/3324/
+      ;; 3331 (associate professionals) + 5419 (protective services) +
+      ;; 8343 (drivers/plant operators) + 9321/9329 (labourers). Counts
+      ;; re-verified live. 0 -> 10 / 230 -> 220.
+      (is (= 10 (:blueprint m)))
+      (is (= 220 (:spec m)))
       (is (= 206 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
@@ -794,6 +806,12 @@
     (let [r (occupation/maturity-roadmap "9334")]
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
+      (is (true? (:has-repo r)))))
+  (testing "a blueprint entry's next step is implemented — wave-2
+            batch #2"
+    (let [r (occupation/maturity-roadmap "8343")]
+      (is (= :blueprint (:maturity r)))
+      (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1411")]
