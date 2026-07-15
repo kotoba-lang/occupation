@@ -50,9 +50,8 @@
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
             the tier with 10 coordination-logistics entries;
-            3311/3312/3321/3323/3334/3332 were promoted to
+            3311/3312/3321/3323/3334/3332/5414 were promoted to
             :implemented (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "5414")))
     (is (= :blueprint (occupation/maturity "8331")))
     (is (= :blueprint (occupation/maturity "9313")))
     (is (= :blueprint (occupation/maturity "9334"))))
@@ -61,6 +60,7 @@
     (is (= :implemented (occupation/maturity "3311")))
     (is (= :implemented (occupation/maturity "3323")))
     (is (= :implemented (occupation/maturity "3321")))
+    (is (= :implemented (occupation/maturity "5414")))
     (is (= :implemented (occupation/maturity "3334")))
     (is (= :implemented (occupation/maturity "3332")))
     (is (= :implemented (occupation/maturity "3312")))
@@ -655,9 +655,16 @@
       ;; record) HARD invariants; :approve-over-budget-vendor-contract,
       ;; :approve-guest-list-disclosure always-escalate. 14 tests / 29
       ;; assertions green. Counts re-verified live.
-      (is (= 4 (:blueprint m)))
+      ;; 5414 security guards promoted to :implemented —
+      ;; SecurityGuardActor (Security Advisor ⊣ SecurityGuardGovernor);
+      ;; access-level ceiling (access-level <= site's
+      ;; :max-access-level) + identity-verified presence (proposal
+      ;; field) HARD invariants; :approve-use-of-force-action,
+      ;; :approve-detention-action always-escalate. 14 tests / 29
+      ;; assertions green. Counts re-verified live.
+      (is (= 3 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 202 (:implemented m))))))
+      (is (= 203 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -754,8 +761,8 @@
       (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a blueprint entry's next step is implemented — wave-2
-            batch #1 (tick 94)"
-    (let [r (occupation/maturity-roadmap "5414")]
+            batch #1"
+    (let [r (occupation/maturity-roadmap "8331")]
       (is (= :blueprint (:maturity r)))
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
