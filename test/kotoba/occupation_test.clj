@@ -46,14 +46,13 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "a published blueprint repo is :blueprint — wave-0 batch #8
-            fully cleared to :implemented (tick 93, incl. a concurrent
-            session's landings); wave-2 batch #1 (tick 94) replenishes
-            the tier with 10 coordination-logistics entries;
-            3311/3312/3321/3323/3334/3332/5414/8331/9313 were
-            promoted to :implemented (see reference-actors block
-            below); only 9334 remains :blueprint in this batch"
-    (is (= :blueprint (occupation/maturity "9334"))))
+  (testing "the blueprint tier is empty again — wave-0 batch #8 (tick
+            93) and wave-2 batch #1 (tick 94's 10 entries, all
+            promoted through 9334) have both fully cleared to
+            :implemented; no ISCO entry currently resolves to
+            :blueprint (see the reference-actors block below and the
+            count-pin assertions further down)"
+    (is (zero? (:blueprint (occupation/maturity-summary)))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
@@ -63,6 +62,7 @@
     (is (= :implemented (occupation/maturity "8331")))
     (is (= :implemented (occupation/maturity "9313")))
     (is (= :implemented (occupation/maturity "3334")))
+    (is (= :implemented (occupation/maturity "9334")))
     (is (= :implemented (occupation/maturity "3332")))
     (is (= :implemented (occupation/maturity "3312")))
     (is (= :implemented (occupation/maturity "2412")))
@@ -680,9 +680,19 @@
       ;; :approve-confined-space-entry always-escalate. 14 tests / 30
       ;; assertions green. Counts re-verified live. Only 9334 remains
       ;; :blueprint in wave-2 batch #1.
-      (is (= 1 (:blueprint m)))
+      ;; 9334 shelf fillers promoted to :implemented —
+      ;; RetailMerchandisingActor (Merchandising Advisor ⊣
+      ;; RetailMerchandisingGovernor); price-authorization ceiling
+      ;; (price-change-amount <= shop's :max-price-authorization) +
+      ;; planogram-compliance-checked presence (shop record) HARD
+      ;; invariants; :approve-over-authorization-price-change,
+      ;; :approve-inventory-write-off always-escalate. 14 tests / 29
+      ;; assertions green. Counts re-verified live. This clears
+      ;; wave-2 batch #1 (all 10 entries from tick 94) fully to
+      ;; :implemented — blueprint tier is empty again.
+      (is (= 0 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 205 (:implemented m))))))
+      (is (= 206 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -778,11 +788,12 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
-  (testing "a blueprint entry's next step is implemented — wave-2
-            batch #1's last remaining entry"
+  (testing "an implemented entry that was wave-2 batch #1's last
+            remaining :blueprint (9334) is at maturity ceiling like
+            any other"
     (let [r (occupation/maturity-roadmap "9334")]
-      (is (= :blueprint (:maturity r)))
-      (is (= :implemented (:next-step r)))
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1411")]
