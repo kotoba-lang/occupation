@@ -49,8 +49,7 @@
   (testing "a published blueprint repo is :blueprint — wave-2
             (coordination-logistics) batch #2 replenishes the tier
             with 10 new entries after batch #1 fully cleared to
-            :implemented"
-    (is (= :blueprint (occupation/maturity "3313")))
+            :implemented; 3313 is the first of batch #2 to clear"
     (is (= :blueprint (occupation/maturity "3314")))
     (is (= :blueprint (occupation/maturity "3315")))
     (is (= :blueprint (occupation/maturity "3322")))
@@ -61,6 +60,7 @@
     (is (= :blueprint (occupation/maturity "9321")))
     (is (= :blueprint (occupation/maturity "9329"))))
   (testing "the reference actors are :implemented"
+    (is (= :implemented (occupation/maturity "3313")))
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
     (is (= :implemented (occupation/maturity "3323")))
@@ -702,9 +702,17 @@
       ;; 3331 (associate professionals) + 5419 (protective services) +
       ;; 8343 (drivers/plant operators) + 9321/9329 (labourers). Counts
       ;; re-verified live. 0 -> 10 / 230 -> 220.
-      (is (= 10 (:blueprint m)))
+      ;; 3313 accounting associate professionals promoted to
+      ;; :implemented — AccountingSupportActor (Accounting Advisor ⊣
+      ;; AccountingSupportGovernor); transaction-amount ceiling
+      ;; (transaction-amount <= account's :max-transaction-amount) +
+      ;; source-document-attached presence (proposal) HARD invariants;
+      ;; :approve-over-ceiling-posting, :approve-period-close
+      ;; always-escalate. 14 tests / 29 assertions green. Counts
+      ;; re-verified live. First of batch #2 to clear. 10 -> 9 / 206 -> 207.
+      (is (= 9 (:blueprint m)))
       (is (= 220 (:spec m)))
-      (is (= 206 (:implemented m))))))
+      (is (= 207 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
