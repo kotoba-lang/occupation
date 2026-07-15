@@ -50,9 +50,9 @@
             fully cleared to :implemented (tick 93, incl. a concurrent
             session's landings); wave-2 batch #1 (tick 94) replenishes
             the tier with 10 coordination-logistics entries;
-            3311/3312/3321/3323/3334/3332/5414/8331 were promoted to
-            :implemented (see reference-actors block below)"
-    (is (= :blueprint (occupation/maturity "9313")))
+            3311/3312/3321/3323/3334/3332/5414/8331/9313 were
+            promoted to :implemented (see reference-actors block
+            below); only 9334 remains :blueprint in this batch"
     (is (= :blueprint (occupation/maturity "9334"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "4414")))
@@ -61,6 +61,7 @@
     (is (= :implemented (occupation/maturity "3321")))
     (is (= :implemented (occupation/maturity "5414")))
     (is (= :implemented (occupation/maturity "8331")))
+    (is (= :implemented (occupation/maturity "9313")))
     (is (= :implemented (occupation/maturity "3334")))
     (is (= :implemented (occupation/maturity "3332")))
     (is (= :implemented (occupation/maturity "3312")))
@@ -670,9 +671,18 @@
       ;; invariants; :approve-over-capacity-dispatch,
       ;; :approve-emergency-route-deviation always-escalate. 14 tests
       ;; / 29 assertions green. Counts re-verified live.
-      (is (= 2 (:blueprint m)))
+      ;; 9313 building construction labourers promoted to
+      ;; :implemented — ConstructionLabourActor (Labour Advisor ⊣
+      ;; ConstructionLabourGovernor); marked-zone membership (work-
+      ;; zone in site's registered :marked-zones set) + safety-plan-
+      ;; signed-off presence (site record) HARD invariants;
+      ;; :approve-unmarked-hazard-zone-work,
+      ;; :approve-confined-space-entry always-escalate. 14 tests / 30
+      ;; assertions green. Counts re-verified live. Only 9334 remains
+      ;; :blueprint in wave-2 batch #1.
+      (is (= 1 (:blueprint m)))
       (is (= 230 (:spec m)))
-      (is (= 204 (:implemented m))))))
+      (is (= 205 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -769,8 +779,8 @@
       (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a blueprint entry's next step is implemented — wave-2
-            batch #1"
-    (let [r (occupation/maturity-roadmap "9313")]
+            batch #1's last remaining entry"
+    (let [r (occupation/maturity-roadmap "9334")]
       (is (= :blueprint (:maturity r)))
       (is (= :implemented (:next-step r)))
       (is (true? (:has-repo r)))))
