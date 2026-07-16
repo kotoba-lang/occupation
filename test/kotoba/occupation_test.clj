@@ -50,7 +50,6 @@
             (coordination-logistics) batch #2 replenishes the tier
             with 10 new entries after batch #1 fully cleared to
             :implemented; 3313 is the first of batch #2 to clear"
-    (is (= :blueprint (occupation/maturity "3324")))
     (is (= :blueprint (occupation/maturity "3331")))
     (is (= :blueprint (occupation/maturity "5419")))
     (is (= :blueprint (occupation/maturity "8343")))
@@ -61,6 +60,7 @@
     (is (= :implemented (occupation/maturity "3314")))
     (is (= :implemented (occupation/maturity "3315")))
     (is (= :implemented (occupation/maturity "3322")))
+    (is (= :implemented (occupation/maturity "3324")))
     (is (= :implemented (occupation/maturity "4414")))
     (is (= :implemented (occupation/maturity "3311")))
     (is (= :implemented (occupation/maturity "3323")))
@@ -714,9 +714,11 @@
       ;; professionals promoted to :implemented.
       ;; 8 -> 7 / 208 -> 209: 3322 commercial sales representatives
       ;; promoted to :implemented (SalesRepresentationActor).
-      (is (= 6 (:blueprint m)))
+      ;; 7 -> 6 / 209 -> 210: 3324 trade brokers promoted to :implemented
+      ;; (TradeBrokerageActor).
+      (is (= 5 (:blueprint m)))
       (is (= 220 (:spec m)))
-      (is (= 210 (:implemented m))))))
+      (is (= 211 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
