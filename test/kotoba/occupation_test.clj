@@ -46,15 +46,18 @@
   (is (:ready? (occupation/readiness "9312" #{:robotics :forms :telemetry :dmn :bpmn :audit-ledger}))))
 
 (deftest maturity-tier
-  (testing "a published blueprint repo is :blueprint — wave-2
-            (coordination-logistics) batch #2 replenishes the tier
-            with 10 new entries after batch #1 fully cleared to
-            :implemented; 3313 is the first of batch #2 to clear"
-    (is (= :blueprint (occupation/maturity "3331")))
-    (is (= :blueprint (occupation/maturity "5419")))
-    (is (= :blueprint (occupation/maturity "8343")))
-    (is (= :blueprint (occupation/maturity "9321")))
-    (is (= :blueprint (occupation/maturity "9329"))))
+  (testing "wave-2 batch #2's final 5 entries -- 3331 (Independent
+            Customs Clearing & Freight Forwarding Practice), 5419
+            (Independent Protective Services Practice), 8343
+            (Independent Crane & Hoist Operations Practice), 9321
+            (Independent Packing & Fulfillment Practice), 9329
+            (Independent Manufacturing Support Labour Practice) --
+            all cleared to :implemented; blueprint tier is empty again"
+    (is (= :implemented (occupation/maturity "3331")))
+    (is (= :implemented (occupation/maturity "5419")))
+    (is (= :implemented (occupation/maturity "8343")))
+    (is (= :implemented (occupation/maturity "9321")))
+    (is (= :implemented (occupation/maturity "9329"))))
   (testing "the reference actors are :implemented"
     (is (= :implemented (occupation/maturity "3313")))
     (is (= :implemented (occupation/maturity "3314")))
@@ -716,9 +719,20 @@
       ;; promoted to :implemented (SalesRepresentationActor).
       ;; 7 -> 6 / 209 -> 210: 3324 trade brokers promoted to :implemented
       ;; (TradeBrokerageActor).
-      (is (= 5 (:blueprint m)))
+      ;; 6 -> 0 / 211 -> 216: the remaining 5 wave-2 batch #2 entries
+      ;; (3331/5419/8343/9321/9329) all cleared to :implemented in one
+      ;; verification-and-implementation pass (each independently built
+      ;; from a bare scaffold -- no src/test existed for any of them --
+      ;; against the real kotoba-lang/langgraph API, not the reference
+      ;; template's actor.cljc, which called a graph/state-graph-builder
+      ;; fn that does not exist in that library; every entry independently
+      ;; discovered and fixed the same latent defect). Counts re-verified
+      ;; live via a direct EDN parse of the registry (211+5=216
+      ;; implemented, 220 spec unchanged, 0 blueprint remaining). Blueprint
+      ;; tier is empty again.
+      (is (= 0 (:blueprint m)))
       (is (= 220 (:spec m)))
-      (is (= 211 (:implemented m))))))
+      (is (= 216 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -821,11 +835,12 @@
       (is (= :implemented (:maturity r)))
       (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
-  (testing "a blueprint entry's next step is implemented — wave-2
-            batch #2"
+  (testing "an implemented entry that was wave-2 batch #2's last
+            remaining :blueprint tier (8343, along with 3331/5419/9321/
+            9329) is at maturity ceiling like any other"
     (let [r (occupation/maturity-roadmap "8343")]
-      (is (= :blueprint (:maturity r)))
-      (is (= :implemented (:next-step r)))
+      (is (= :implemented (:maturity r)))
+      (is (nil? (:next-step r)))
       (is (true? (:has-repo r)))))
   (testing "a spec entry's next step is blueprint"
     (let [r (occupation/maturity-roadmap "1411")]
