@@ -791,9 +791,34 @@
       ;; 22 tests / 50 assertions green. 217 -> 216 spec, 219 -> 220
       ;; implemented. Counts re-verified live via maturity-summary
       ;; rather than hand-derived from a prior comment's delta.
+      ;; 3343 administrative and executive secretaries (Executive Support
+      ;; Advisor ⊣ ExecutiveSupportGovernor) promoted to :implemented --
+      ;; CORRESPONDENCE/CALENDAR/PROCUREMENT COORDINATION ONLY actor,
+      ;; never signing or commitment authority: a closed four-op proposal
+      ;; allowlist (log-correspondence-record / schedule-executive-
+      ;; operation / flag-authority-concern / coordinate-supply-order)
+      ;; plus executive/office-provenance and no-actuation HARD
+      ;; invariants, a permanent closed-op-allowlist HARD block outside
+      ;; the allowlist, and a content-based scope-exclusion HARD block on
+      ;; any proposal naming the finalization/execution action of a
+      ;; signature or financial/contractual commitment on the executive's
+      ;; behalf (phrased as the action, e.g. "finalize the signature on
+      ;; the executive's behalf", never the bare noun, to avoid the
+      ;; sibling-track self-tripping false-positive bug -- verified via a
+      ;; dedicated regression test that the default mock advisor's
+      ;; proposals for all four ops never self-trip it, plus a separate
+      ;; true-positive test that a hand-crafted finalize-signature
+      ;; rationale still hard-blocks). :flag-authority-concern always
+      ;; escalates and is never auto-commit-eligible; a
+      ;; :coordinate-supply-order above the executive's registered cost
+      ;; ceiling escalates (not a hard block -- routine procurement, not
+      ;; a signature/commitment finalization risk). 15 tests / 37
+      ;; assertions green. Counts re-verified live via
+      ;; (occupation/maturity-summary), not hand-derived from the prior
+      ;; comment's delta, per the Addendum 85/86 lesson.
       (is (= 0 (:blueprint m)))
-      (is (= 216 (:spec m)))
-      (is (= 220 (:implemented m))))))
+      (is (= 215 (:spec m)))
+      (is (= 221 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
