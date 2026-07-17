@@ -1230,3 +1230,58 @@
            (:repo (occupation/get-occupation "5412"))))
     (is (= "cloud-itonami-isco-5412"
            (:business-id (occupation/get-occupation "5412"))))))
+(deftest firefighters-5411-implemented
+  (testing "5411 (Firefighters) promoted to :implemented --
+            FirestationActor (Station Logistics Advisor ⊣
+            FirestationGovernor); closed four-op proposal allowlist
+            (:log-equipment-record, :schedule-crew-operation,
+            :flag-readiness-concern, :coordinate-supply-order) -- a
+            station/equipment/administrative-logistics coordination
+            robot ONLY. This actor has NO structure-entry, casualty-
+            triage/resource-prioritization, medical-treatment, or
+            active-incident tactical/operational-command authority: no
+            op resembling deciding whether to enter a hazardous
+            structure, prioritizing casualties/resources under
+            scarcity, providing medical treatment, or issuing a
+            tactical/incident-command order exists anywhere in the
+            allowlist (structurally absent, not merely gated), backed
+            by two content-shape HARD blocks (a log entry can never
+            carry a tactical assessment/entry-decision field, a
+            schedule proposal can never carry an active-incident
+            tactical-assignment field) plus a defense-in-depth
+            scope-exclusion text scan phrased exclusively as
+            finalization/execution ACTIONS (e.g. \"commit to structure
+            entry\", \"make the triage decision\", \"provide medical
+            treatment\", \"issue the tactical command\"), never bare
+            nouns, so it cannot self-trip on the mock advisor's own
+            legitimate rationale -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            ops (including both the station-id-present and
+            station-id-nil variants of :flag-readiness-concern) never
+            self-trip it, plus an end-to-end actor-level test that a
+            rogue advisor forcing each of thirteen named
+            scope-excluded ops (:enter-structure,
+            :authorize-structure-entry, :commit-to-structure-entry,
+            :decide-structure-entry, :perform-triage,
+            :make-triage-decision, :prioritize-casualty-rescue,
+            :prioritize-rescue, :provide-medical-treatment,
+            :administer-medical-treatment, :issue-tactical-command,
+            :direct-incident-response, :issue-incident-command-order)
+            through the full langgraph.graph StateGraph always resolves
+            to :hold with zero records committed. :flag-readiness-
+            concern always escalates and is never auto-commit-eligible;
+            an over-cost-ceiling :coordinate-supply-order escalates
+            (not a hard block -- routine procurement above a station's
+            registered threshold, not a tactical-authority risk). One
+            of the three highest-stakes occupation actors landed in
+            this session's batch (alongside ISCO-5412 Police Officers,
+            ISCO-5413 Prison Guards). 43 tests / 150 assertions green
+            (cloud-itonami-isco-5411, ADR-2799005411). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main rather than hand-derived
+            from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "5411")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-5411"
+           (:repo (occupation/get-occupation "5411"))))
+    (is (= "cloud-itonami-isco-5411"
+           (:business-id (occupation/get-occupation "5411"))))))
