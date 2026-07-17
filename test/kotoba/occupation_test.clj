@@ -972,9 +972,28 @@
       ;; (occupation/maturity-summary) against a freshly re-fetched
       ;; origin/main immediately before this edit, not assumed
       ;; (cloud-itonami-isco-8321 batch, ADR-2799008321).
+            ;; cloud-itonami-isco-8341 (Mobile Farm and Forestry Plant
+      ;; Operators) promoted to :implemented -- FarmForestryOpsActor
+      ;; (Farm/Forestry Ops Advisor ⊣ FarmForestryOpsGovernor); closed
+      ;; four-op allowlist (:log-service-record,
+      ;; :schedule-crew-operation, :flag-safety-concern,
+      ;; :coordinate-maintenance-order) -- a scheduling/logistics
+      ;; coordination robot ONLY, with NO equipment-operation/movement-
+      ;; finalization or operator-safety-judgment-override authority
+      ;; anywhere in its allowlist (structurally absent, not merely
+      ;; gated), backed by a content-based scope-exclusion HARD block
+      ;; phrased exclusively as finalization/execution actions, never
+      ;; bare nouns, to avoid the sibling-track self-tripping
+      ;; false-positive bug (dedicated regression test verifies the
+      ;; default mock advisor never self-trips). 19 tests / 44
+      ;; assertions green (cloud-itonami-isco-8341, ADR-2799008341).
+      ;; Counts re-verified live via (occupation/maturity-summary)
+      ;; against a freshly re-fetched origin/main immediately before
+      ;; this edit: 200 -> 199 spec, 236 -> 237
+      ;; implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 200 (:spec m)))
-      (is (= 236 (:implemented m))))))
+      (is (= 199 (:spec m)))
+      (is (= 237 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1374,3 +1393,43 @@
            (:repo (occupation/get-occupation "8311"))))
     (is (= "cloud-itonami-isco-8311"
            (:business-id (occupation/get-occupation "8311"))))))
+
+(deftest mobile-farm-forestry-plant-operators-8341-implemented
+  (testing "8341 (Mobile Farm and Forestry Plant Operators) promoted to
+            :implemented -- FarmForestryOpsActor (Farm/Forestry Ops
+            Advisor ⊣ FarmForestryOpsGovernor); closed four-op proposal
+            allowlist (:log-service-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-maintenance-order) -- a
+            scheduling/logistics coordination robot ONLY. Mobile farm
+            and forestry plant operators run heavy equipment (tractors,
+            harvesters, forestry skidders) with real physical-safety
+            stakes (rollover, entanglement), so this actor has NO
+            equipment-operation/movement-finalization or
+            operator-safety-judgment-override authority anywhere in its
+            allowlist -- structurally absent, not merely gated -- backed
+            by a content-based scope-exclusion HARD block phrased
+            exclusively as finalization/execution ACTIONS (e.g.
+            \"initiate the equipment movement\", \"override the
+            operator's on-site safety judgment\"), never bare nouns like
+            \"equipment\"/\"movement\", so it cannot self-trip on the
+            mock advisor's own legitimate rationale (which necessarily
+            names equipment by id) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip it, plus an end-to-end
+            actor-level test that a rogue advisor forcing an
+            equipment-movement-finalizing rationale through the full
+            langgraph.graph StateGraph always resolves to :hold with
+            zero records committed. :flag-safety-concern always
+            escalates and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-maintenance-order
+            escalates (not a hard block -- routine over-budget
+            procurement, not a safety risk). 19 tests / 44 assertions
+            green (cloud-itonami-isco-8341, ADR-2799008341). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main rather than hand-derived
+            from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "8341")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8341"
+           (:repo (occupation/get-occupation "8341"))))
+    (is (= "cloud-itonami-isco-8341"
+           (:business-id (occupation/get-occupation "8341"))))))
