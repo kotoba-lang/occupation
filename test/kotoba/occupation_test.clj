@@ -1021,8 +1021,8 @@
       ;; 198 spec, 238 -> 238 implemented, 436 total
       ;; unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 198 (:spec m)))
-      (is (= 238 (:implemented m))))))
+      (is (= 197 (:spec m)))
+      (is (= 239 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1530,3 +1530,42 @@
            (:repo (occupation/get-occupation "8344"))))
     (is (= "cloud-itonami-isco-8344"
            (:business-id (occupation/get-occupation "8344"))))))
+
+(deftest railway-brake-signal-switch-operators-8312-implemented
+  (testing "8312 (Railway Brake, Signal and Switch Operators) promoted to
+            :implemented -- RailSignalCrewActor (Rail Signal Crew Advisor
+            ⊣ RailSignalCrewGovernor); closed four-op proposal allowlist
+            (:log-service-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-maintenance-order) -- an
+            administrative/logistics-scheduling coordination robot ONLY,
+            never direct switch/signal-operation authority. This actor
+            has ZERO switch-throw/signal-clearance/track-routing
+            finalization authority: no op resembling any of those
+            categories exists anywhere in the allowlist (structurally
+            absent, not merely gated), confirmed by the governor's closed
+            op-allowlist HARD check plus a content-based
+            :finalizes-switch-or-signal HARD block scoped to a dedicated
+            :action-text field and phrased exclusively as
+            finalization/execution ACTIONS (never bare nouns -- e.g.
+            \"throw the track switch\", \"clear the signal\", \"set the
+            route\", never bare \"switch\"/\"signal\"/\"track\") --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops, against a section
+            literally named \"Switch and Signal Box 4\", never self-trip
+            it. :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-maintenance-order whose
+            cost exceeds the cited section's registered
+            :max-maintenance-cost ceiling escalates -- not a hard block,
+            a legitimate business action that just requires sign-off,
+            unlike a switch/signal-finalization decision which is always
+            a hard, permanent refusal with no approval path. 21 tests /
+            49 assertions green (cloud-itonami-isco-8312,
+            ADR-2799008312). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main rather than hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "8312")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8312"
+           (:repo (occupation/get-occupation "8312"))))
+    (is (= "cloud-itonami-isco-8312"
+           (:business-id (occupation/get-occupation "8312"))))))
