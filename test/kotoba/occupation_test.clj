@@ -2567,3 +2567,57 @@
            (:repo (occupation/get-occupation "7221"))))
     (is (= "cloud-itonami-isco-7221"
            (:business-id (occupation/get-occupation "7221"))))))
+(deftest metal-moulders-coremakers-7211-implemented
+  (testing "7211 (Metal Moulders and Coremakers) promoted to :implemented --
+            FoundryCoordActor (Foundry Coordination Advisor ⊣
+            FoundryCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a foundry
+            scheduling/logistics coordination robot ONLY, never direct
+            casting-execution authority. Metal moulders and coremakers
+            work with molten-metal casting processes on active foundry
+            floors (heat exposure, molten-metal handling, respiratory/
+            fume hazards from mould/core materials and binders), so this
+            actor has ZERO authority to directly finalize a
+            casting/pouring-execution decision or override a foundry
+            safety officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming six
+            concretely-forbidden ops (:finalize-pour-decision,
+            :authorize-casting-pour, :proceed-with-casting-pour,
+            :finalize-casting-decision,
+            :override-foundry-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the casting pour\", \"override the foundry
+            safety officer's judgment\"), and independently-verified
+            moulder/foundry provenance HARD checks (:no-moulder,
+            :no-foundry -- a registered record alone is not enough) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"casting\",
+            \"pour\" and \"safety\" (e.g. a :schedule-crew-operation
+            rationale \"scheduled crew operation for coremaking task\",
+            a :flag-safety-concern rationale \"routed for foundry safety
+            officer review\"). :flag-safety-concern always escalates and
+            is never auto-commit-eligible; a :coordinate-supply-order
+            above the registered per-foundry cost ceiling (2000,
+            inclusive boundary) escalates -- not a hard block, routine
+            casting-materials procurement above the registered threshold,
+            not itself unsafe unlike a casting/pouring-execution or
+            safety-officer-override attempt. 21 tests / 45 assertions
+            green (cloud-itonami-isco-7211, ADR-2799007211). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this edit,
+            reflecting cumulative concurrent sibling landings in this
+            same batch (the maturity-tier test's spec/implemented split
+            above already reflects this promotion, not hand-derived from
+            a prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7211")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7211"
+           (:repo (occupation/get-occupation "7211"))))
+    (is (= "cloud-itonami-isco-7211"
+           (:business-id (occupation/get-occupation "7211"))))))
