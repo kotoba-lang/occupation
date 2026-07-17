@@ -730,9 +730,22 @@
       ;; live via a direct EDN parse of the registry (211+5=216
       ;; implemented, 220 spec unchanged, 0 blueprint remaining). Blueprint
       ;; tier is empty again.
+      ;; 3344 medical secretaries (Medical Secretary Advisor ⊣
+      ;; MedicalSecretaryGovernor) promoted to :implemented -- SCHEDULING/
+      ;; FILING LOGISTICS ONLY actor, the strictest medical-privacy
+      ;; guardrail in the ISCO batch: a permanent, hard scope exclusion
+      ;; (never finalize disclosure of a patient's medical record, never
+      ;; provide clinical judgment/advice, never authorize a
+      ;; prescription/refill) enforced twice -- op-keyword denylist plus a
+      ;; defense-in-depth rationale-text scan phrased as action-phrases,
+      ;; not bare nouns, to avoid the sibling-track self-tripping
+      ;; false-positive bug. :flag-privacy-concern always escalates and is
+      ;; never auto-commit-eligible; :coordinate-supply-order escalates
+      ;; above a registered cost threshold. 25 tests / 58 assertions
+      ;; green. 220 -> 219 spec, 216 -> 217 implemented.
       (is (= 0 (:blueprint m)))
-      (is (= 220 (:spec m)))
-      (is (= 216 (:implemented m))))))
+      (is (= 219 (:spec m)))
+      (is (= 217 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
