@@ -1637,3 +1637,53 @@
            (:repo (occupation/get-occupation "8350"))))
     (is (= "cloud-itonami-isco-8350"
            (:business-id (occupation/get-occupation "8350"))))))
+
+(deftest mining-quarrying-labourers-9311-implemented
+  (testing "9311 (Mining and Quarrying Labourers) promoted to
+            :implemented -- MiningLaborActor (Mining Labor Advisor ⊣
+            MiningLaborGovernor); closed four-op proposal allowlist
+            (:log-labor-record, :schedule-labor-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            labor-scheduling/logistics coordination robot ONLY, never
+            direct mine/quarry-site-operation authority. Mining and
+            quarrying labourers work in a hazardous physical
+            environment (cave-in risk, blast-zone proximity,
+            heavy-equipment proximity, dust/gas exposure), so this
+            actor has ZERO blast-authorization, mine-entry/
+            area-clearance, or site-safety-officer-judgment-override
+            authority: no op resembling any of those three categories
+            exists anywhere in the allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check, a second independent HARD check
+            naming five concretely-forbidden ops
+            (:authorize-blast, :finalize-blast-authorization,
+            :clear-area-for-mine-entry, :authorize-mine-entry,
+            :override-site-safety-officer), and a content-based
+            scope-exclusion HARD block phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"authorize the
+            blast\", \"clear the area for mine entry\", \"override
+            the site safety officer\") -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip it, even though the
+            advisor's own default rationale text legitimately contains
+            the bare nouns \"entry\"/\"blast\"/\"officer\" (e.g.
+            \"logged shift entry\", \"blast-adjacent task\", \"site
+            safety officer review\"). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates --
+            not a hard block, routine procurement above the registered
+            threshold, not itself unsafe unlike a blast-authorization/
+            mine-entry-clearance attempt. 17 tests / 36 assertions
+            green (cloud-itonami-isco-9311, ADR-2799009311). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same retry batch, not solely this promotion's own
+            +1; the maturity-tier test's 197 spec / 239 implemented
+            already reflected this promotion at the time of this
+            addition, so no further numeric bump was needed here."
+    (is (= :implemented (occupation/maturity "9311")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9311"
+           (:repo (occupation/get-occupation "9311"))))
+    (is (= "cloud-itonami-isco-9311"
+           (:business-id (occupation/get-occupation "9311"))))))
