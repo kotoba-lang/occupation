@@ -1147,9 +1147,17 @@
       ;; registry.edn immediately before this edit, not hand-derived
       ;; from any prior comment's delta -- several sibling promotions
       ;; have landed concurrently in this same batch.
+      ;; cloud-itonami-isco-7214 (Structural Metal Preparers and
+      ;; Erectors) promoted to :implemented (ADR-2799007214, see
+      ;; structural-metal-preparers-erectors-7214-implemented test below
+      ;; for detail). This number (184 spec / 252 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) taken immediately
+      ;; before this edit, not hand-derived from any prior comment's
+      ;; delta -- several sibling promotions may have landed
+      ;; concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 185 (:spec m)))
-      (is (= 251 (:implemented m))))))
+      (is (= 184 (:spec m)))
+      (is (= 252 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2389,3 +2397,57 @@
            (:repo (occupation/get-occupation "7122"))))
     (is (= "cloud-itonami-isco-7122"
            (:business-id (occupation/get-occupation "7122"))))))
+
+(deftest structural-metal-preparers-erectors-7214-implemented
+  (testing "7214 (Structural Metal Preparers and Erectors) promoted to
+            :implemented -- SteelCoordActor (Steel Erection Coordination
+            Advisor ⊣ SteelCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct structural-steel-erection-execution authority.
+            Structural metal preparers and erectors assemble steel-frame
+            structures at height and handle crane-lifted loads -- one of
+            the highest fall-risk/crane-hazard trades -- so this actor
+            has ZERO authority to directly finalize a
+            structural-steel-erection-execution decision, authorize a
+            crane lift, or override a site safety officer's judgment:
+            no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"proceed with
+            the structural-steel erection\", \"authorize the crane
+            lift\", \"override the site safety officer's judgment\"),
+            and independently-verified worker/site provenance HARD
+            checks (:no-site, :unknown-worker, :worker-wrong-site -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"steel\",
+            \"crane\" and \"beam\" (e.g. a :schedule-crew-operation
+            rationale naming \"stage crane for column set\", a
+            :flag-safety-concern description naming a hazard \"near an
+            open edge at height\" and an unsecured load \"near the
+            crane path\"). :flag-safety-concern always escalates and is
+            never auto-commit-eligible; a :coordinate-supply-order above
+            the registered per-site cost ceiling (15000) escalates --
+            not a hard block, routine structural-steel-materials
+            procurement above the registered threshold, not itself
+            unsafe unlike a structural-steel-erection-execution,
+            crane-lift-authorization or safety-officer-override
+            attempt. 24 tests / 59 assertions green
+            (cloud-itonami-isco-7214, ADR-2799007214). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch (the maturity-tier test's spec/implemented
+            split above already reflects this promotion, not
+            hand-derived from a prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7214")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7214"
+           (:repo (occupation/get-occupation "7214"))))
+    (is (= "cloud-itonami-isco-7214"
+           (:business-id (occupation/get-occupation "7214"))))))
