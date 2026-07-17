@@ -851,8 +851,8 @@
       ;; origin/main: 213 -> 212 spec, 223 -> 224 implemented, 436 total
       ;; unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 212 (:spec m)))
-      (is (= 224 (:implemented m))))))
+      (is (= 211 (:spec m)))
+      (is (= 225 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1021,4 +1021,32 @@
            (:repo (occupation/get-occupation "3354"))))
     (is (= "cloud-itonami-isco-3354"
            (:business-id (occupation/get-occupation "3354"))))))
+
+(deftest government-tax-excise-officials-3352-implemented
+  (testing "3352 (Government Tax and Excise Officials) promoted to
+            :implemented -- TaxExciseActor (TaxFilingAdvisor ⊣
+            TaxExciseGovernor); closed proposal-op allowlist
+            (:log-filing-record, :schedule-audit-appointment,
+            :flag-compliance-concern, :coordinate-supply-order) -- a
+            documentation/logistics-coordination robot ONLY. This actor
+            has NO tax-assessment, penalty or collection authority: no
+            op that finalizes a tax assessment, imposes a penalty, or
+            orders a collection/lien action exists anywhere in the
+            allowlist (structurally absent, not merely gated), backed
+            by a defense-in-depth enforcement-scope text scan phrased
+            as finalize/impose/order ACTIONS (never bare nouns) so it
+            cannot self-trip on :flag-compliance-concern's own
+            legitimate descriptive rationale.
+            :flag-compliance-concern always escalates and is never
+            auto-commit-eligible; over-cost-ceiling supply orders and
+            over-capacity audit-appointment scheduling escalate/hard-
+            block respectively. 24 tests / 54 assertions green
+            (cloud-itonami-isco-3352, ADR-2790003352). Counts
+            re-verified live via maturity-summary rather than
+            hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "3352")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-3352"
+           (:repo (occupation/get-occupation "3352"))))
+    (is (= "cloud-itonami-isco-3352"
+           (:business-id (occupation/get-occupation "3352"))))))
 
