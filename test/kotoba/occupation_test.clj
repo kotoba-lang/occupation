@@ -1107,9 +1107,17 @@
       ;; promotions landed in this same retry batch. Counts
       ;; re-verified live via (occupation/maturity-summary) against a
       ;; freshly re-fetched origin/main immediately before this edit.
+      ;; cloud-itonami-isco-7123 (Plasterers) promoted to :implemented
+      ;; (ADR-2799007123, see plasterers-7123-implemented test below for
+      ;; detail). This number (187 spec / 0 blueprint /
+      ;; 249 implemented) is a live re-fetch of
+      ;; (occupation/maturity-summary) taken immediately before this edit,
+      ;; not hand-derived from any prior comment's delta -- several
+      ;; sibling promotions may have landed concurrently in this same
+      ;; batch.
       (is (= 0 (:blueprint m)))
-      (is (= 191 (:spec m)))
-      (is (= 245 (:implemented m))))))
+      (is (= 187 (:spec m)))
+      (is (= 249 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
