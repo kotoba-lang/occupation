@@ -1944,3 +1944,70 @@
            (:repo (occupation/get-occupation "7112"))))
     (is (= "cloud-itonami-isco-7112"
            (:business-id (occupation/get-occupation "7112"))))))
+(deftest stonemasons-7113-implemented
+  (testing "7113 (Stonemasons, Stone Cutters, Splitters and Carvers)
+            promoted to :implemented -- StonemasonryActor (Workshop
+            Coordination Advisor ⊣ StonemasonryGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a WORKSHOP SCHEDULING/
+            LOGISTICS COORDINATION robot ONLY, never direct
+            stonework-execution authority. Stonemasons operate
+            cutting/carving tools and handle heavy stone materials
+            (silica dust exposure, blade injury, material-handling
+            strain risk), so this actor has ZERO authority to
+            directly finalize a stone-cutting/carving-execution
+            decision or override a workshop safety officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD
+            check, a second independent HARD check naming ten
+            concretely-forbidden ops
+            (:finalize-stone-cutting-execution,
+            :finalize-carving-execution, :commit-to-the-cut,
+            :proceed-with-the-cut, :execute-stone-cutting-operation,
+            :execute-carving-operation,
+            :override-safety-officer-judgment,
+            :override-workshop-safety-officer-decision,
+            :authorize-unsafe-operation, :bypass-safety-hold), and a
+            content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the stone-cutting work\", \"override the
+            workshop safety officer's judgment\") -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip it, even
+            though the advisor's own default rationale text
+            legitimately contains the bare nouns \"cutting\"/
+            \"carving\"/\"safety\" (e.g. \"cut to spec, polished\",
+            \"flagging a safety concern for review\"). Two-sided
+            provenance (independently registered AND verified
+            workshop AND craftsperson), a daily task-hour scheduling
+            ceiling HARD block (overwork/fatigue risk, inclusive
+            boundary), and two content-shape forbidden-key guardrails
+            (work-record-decision, schedule-override) round out the
+            nine HARD checks. :flag-safety-concern always escalates
+            and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates
+            -- not a hard block, routine stone-materials procurement
+            above the registered threshold, not itself unsafe unlike
+            a stone-cutting/carving-execution or safety-officer-
+            override attempt. Rogue-advisor end-to-end tests prove
+            the full compiled StateGraph always resolves to :hold
+            with zero records committed for every one of the ten
+            forbidden ops, a scope-excluded rationale, a smuggled
+            work-record-decision key, and a smuggled schedule-
+            override key -- the governor, not the advisor, enforces
+            safety. 31 tests / 106 assertions green
+            (cloud-itonami-isco-7113, ADR-2799007113). Counts
+            re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately
+            before this edit, reflecting cumulative concurrent
+            sibling landings in this same retry batch (the
+            maturity-tier test's spec/implemented split above
+            already reflects this promotion, not hand-derived from a
+            prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7113")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7113"
+           (:repo (occupation/get-occupation "7113"))))
+    (is (= "cloud-itonami-isco-7113"
+           (:business-id (occupation/get-occupation "7113"))))))
