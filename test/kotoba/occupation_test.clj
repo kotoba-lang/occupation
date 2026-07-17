@@ -845,9 +845,14 @@
       ;; (occupation/maturity-summary) against a freshly re-fetched
       ;; origin/main rather than hand-derived: 214 -> 213 spec, 222 ->
       ;; 223 implemented, 436 total unchanged.
+      ;; another concurrent sibling ISCO-track session landed a further
+      ;; promotion in the same window; re-verified live once more via
+      ;; (occupation/maturity-summary) against a freshly re-fetched
+      ;; origin/main: 213 -> 212 spec, 223 -> 224 implemented, 436 total
+      ;; unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 213 (:spec m)))
-      (is (= 223 (:implemented m))))))
+      (is (= 212 (:spec m)))
+      (is (= 224 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
