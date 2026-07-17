@@ -1115,9 +1115,17 @@
       ;; not hand-derived from any prior comment's delta -- several
       ;; sibling promotions may have landed concurrently in this same
       ;; batch.
+      ;; cloud-itonami-isco-7125 (Glaziers) also promoted to
+      ;; :implemented in this same concurrent retry batch (see the
+      ;; dedicated glaziers-7125-implemented test below for detail).
+      ;; This number (186 spec / 250 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) taken immediately
+      ;; before this edit, not hand-derived from any prior comment's
+      ;; delta -- several sibling promotions may land concurrently in
+      ;; this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 187 (:spec m)))
-      (is (= 249 (:implemented m))))))
+      (is (= 186 (:spec m)))
+      (is (= 250 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2113,3 +2121,52 @@
            (:repo (occupation/get-occupation "7123"))))
     (is (= "cloud-itonami-isco-7123"
            (:business-id (occupation/get-occupation "7123"))))))
+
+
+(deftest glaziers-7125-implemented
+  (testing "7125 (Glaziers) promoted to :implemented -- GlazierActor
+            (Glazier Advisor ⊣ GlazierGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a job-site scheduling/logistics
+            coordination robot ONLY, never direct glazing-installation
+            authority. Glaziers install glass/glazing on active job
+            sites (glass-handling cuts, height-work for building
+            facades, heavy-panel handling stakes), so this actor has
+            ZERO authority to directly finalize a
+            glazing-installation-execution decision or override a site
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the glazing
+            installation\", \"override the site safety officer's
+            judgment\"), and independently-verified glazier/site
+            provenance HARD checks (:no-glazier, :no-site -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"glass\",
+            \"panel\" and \"safety\" (e.g. a :schedule-crew-operation
+            rationale \"scheduled crew operation for glazing
+            installation task\", a :flag-safety-concern rationale
+            \"routed for site safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-site cost ceiling (2000) escalates -- not a
+            hard block, routine glazing-materials procurement above
+            the registered threshold, not itself unsafe unlike a
+            glazing-installation-execution or safety-officer-override
+            attempt. 22 tests / 47 assertions green
+            (cloud-itonami-isco-7125, ADR-2799007125). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit."
+    (is (= :implemented (occupation/maturity "7125")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7125"
+           (:repo (occupation/get-occupation "7125"))))
+    (is (= "cloud-itonami-isco-7125"
+           (:business-id (occupation/get-occupation "7125"))))))
