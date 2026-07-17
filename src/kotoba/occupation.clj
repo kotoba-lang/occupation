@@ -8,7 +8,7 @@
 (def registry-resource "kotoba/occupation/registry.edn")
 
 ;; registry.edn is stored as Datomic/Datascript tx-data (a single-entity
-;; vector, see scripts/edn-datomize.bb `wrap-generic`) rather than a raw map,
+;; vector, see scripts/edn-datomize.cljs `wrap-generic`) rather than a raw map,
 ;; so it is directly transactable/queryable. Keys that already carried their
 ;; own namespace (e.g. :kotoba.registry/id) were left untouched; only the
 ;; genuinely bare :occupations key was promoted under this ns. `registry`
