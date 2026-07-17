@@ -1123,6 +1123,13 @@
       ;; before this edit, not hand-derived from any prior comment's
       ;; delta -- several sibling promotions may land concurrently in
       ;; this same batch.
+      ;; cloud-itonami-isco-7124 (Insulation Workers) promoted to
+      ;; :implemented (ADR-2799007124, see
+      ;; insulation-workers-7124-implemented test below for detail).
+      ;; This count is a live re-fetch of (occupation/maturity-summary)
+      ;; taken immediately before this edit, not hand-derived from any
+      ;; prior comment's delta -- several sibling promotions may have
+      ;; landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
       (is (= 185 (:spec m)))
       (is (= 251 (:implemented m))))))
