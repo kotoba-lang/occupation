@@ -1074,9 +1074,17 @@
       ;; (cloud-itonami-isco-9331, ADR-2799009331). Counts re-verified
       ;; live via (occupation/maturity-summary) against a freshly
       ;; re-fetched origin/main immediately before this edit.
+      ;; 197 -> 195 spec / 239 -> 241 implemented with the
+      ;; cloud-itonami-isco-7111 (House Builders) promotion
+      ;; (ADR-2799007111) plus one other concurrent sibling promotion
+      ;; landed in this same retry batch (net +2 implemented / -2
+      ;; spec since the 9331 comment above was written). Counts
+      ;; re-verified live via (occupation/maturity-summary) against a
+      ;; freshly re-fetched origin/main immediately before this edit,
+      ;; not hand-derived from a prior comment's delta.
       (is (= 0 (:blueprint m)))
-      (is (= 197 (:spec m)))
-      (is (= 239 (:implemented m))))))
+      (is (= 195 (:spec m)))
+      (is (= 241 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1712,3 +1720,55 @@
            (:repo (occupation/get-occupation "9311"))))
     (is (= "cloud-itonami-isco-9311"
            (:business-id (occupation/get-occupation "9311"))))))
+
+(deftest house-builders-7111-implemented
+  (testing "7111 (House Builders) promoted to :implemented --
+            HouseBuilderActor (House Builder Advisor ⊣
+            HouseBuilderGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct construction-work-execution authority. House
+            Builders perform structural construction work on active
+            job sites (falls, structural collapse, equipment injury
+            risk), so this actor has ZERO authority to directly
+            finalize a structural-work-execution decision (e.g.
+            proceeding with a specific framing or foundation step) or
+            override a site safety officer's/foreman's judgment: no
+            such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check, a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-framing-decision,
+            :authorize-foundation-pour, :proceed-with-structural-work,
+            :override-safety-officer-judgment,
+            :override-foreman-judgment), and a content-based
+            scope-exclusion HARD block phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"proceed with
+            the framing work\", \"authorize the foundation pour\",
+            \"override the foreman's safety judgment\") -- verified
+            via a dedicated regression test that the default mock
+            advisor's proposals for all four ops never self-trip it,
+            even though the advisor's own default rationale text
+            legitimately contains the bare nouns \"framing\"/
+            \"foundation\"/\"safety officer\" (e.g. \"scheduled crew
+            operation for framing task\", \"routed for site safety
+            officer review\"). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates --
+            not a hard block, routine procurement above the registered
+            threshold, not itself unsafe unlike a
+            structural-work-execution or safety-officer-override
+            attempt. 21 tests / 45 assertions green
+            (cloud-itonami-isco-7111, ADR-2799007111). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same retry batch (the maturity-tier test's 195 spec /
+            241 implemented above already reflects this promotion, not
+            hand-derived from a prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7111")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7111"
+           (:repo (occupation/get-occupation "7111"))))
+    (is (= "cloud-itonami-isco-7111"
+           (:business-id (occupation/get-occupation "7111"))))))
