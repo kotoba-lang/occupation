@@ -1020,6 +1020,35 @@
       ;; re-fetched origin/main immediately before this edit: 198 ->
       ;; 198 spec, 238 -> 238 implemented, 436 total
       ;; unchanged.
+            ;; cloud-itonami-isco-9332 (Drivers of Animal-drawn Vehicles and
+      ;; Machinery) promoted to :implemented -- CartageActor (Dispatch
+      ;; Logistics Advisor ⊣ CartageGovernor); a dispatch/logistics
+      ;; SCHEDULING-COORDINATION ONLY actor with NO route/traffic-
+      ;; navigation-finalization, animal-welfare/treatment-decision, or
+      ;; driver-on-road/animal-handling-judgment-override authority
+      ;; anywhere in its closed four-op allowlist (:log-trip-record,
+      ;; :schedule-dispatch-operation, :flag-welfare-concern,
+      ;; :coordinate-maintenance-order) -- this actor never operates the
+      ;; vehicle and never directly handles the animal, and carries BOTH
+      ;; a road-safety dimension AND an animal-welfare dimension
+      ;; simultaneously excluded from the closed op allowlist. Verified
+      ;; via a closed op-allowlist, independently-verified driver/depot
+      ;; provenance, two content-shape forbidden-key guardrails
+      ;; (trip-record-decision, dispatch-schedule-override), and a
+      ;; content-based scope-exclusion HARD block (phrased as
+      ;; finalization/execution actions, e.g. "finalize the route",
+      ;; "determine the animal's fitness for work", never bare nouns --
+      ;; the op is literally named :flag-welfare-concern, so a bare
+      ;; "welfare" term would self-trip every legitimate proposal --
+      ;; verified via a dedicated regression test). :flag-welfare-concern
+      ;; always escalates and is never auto-commit-eligible; an
+      ;; above-cost-threshold :coordinate-maintenance-order always
+      ;; escalates. 45 tests / 154 assertions green
+      ;; (cloud-itonami-isco-9332, ADR-2799009332). Counts re-verified
+      ;; live via (occupation/maturity-summary) against a freshly
+      ;; re-fetched origin/main immediately before this edit: 197 ->
+      ;; 197 spec, 239 -> 239 implemented, 436 total
+      ;; unchanged.
       (is (= 0 (:blueprint m)))
       (is (= 197 (:spec m)))
       (is (= 239 (:implemented m))))))
