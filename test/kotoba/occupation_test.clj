@@ -966,9 +966,15 @@
       ;; registry promotions in this same window, e.g. 8321 Motorcycle
       ;; Drivers immediately prior): 204 -> 203 spec, 232 -> 233
       ;; implemented, 436 total unchanged.
+      ;; catch-up: 203 -> 200 spec, 233 -> 236
+      ;; implemented -- further sibling ISCO-track promotion(s) landed
+      ;; concurrently in this fleet batch; recomputed live via
+      ;; (occupation/maturity-summary) against a freshly re-fetched
+      ;; origin/main immediately before this edit, not assumed
+      ;; (cloud-itonami-isco-8321 batch, ADR-2799008321).
       (is (= 0 (:blueprint m)))
-      (is (= 203 (:spec m)))
-      (is (= 233 (:implemented m))))))
+      (is (= 200 (:spec m)))
+      (is (= 236 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
