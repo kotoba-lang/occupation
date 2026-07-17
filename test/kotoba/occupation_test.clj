@@ -1598,3 +1598,42 @@
            (:repo (occupation/get-occupation "8312"))))
     (is (= "cloud-itonami-isco-8312"
            (:business-id (occupation/get-occupation "8312"))))))
+
+(deftest ships-deck-crews-8350-implemented
+  (testing "8350 (Ships' Deck Crews and Related Workers) promoted to
+            :implemented -- DeckCrewActor (Deck Crew Advisor ⊣
+            DeckCrewGovernor); closed four-op proposal allowlist
+            (:log-service-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            crew-scheduling/equipment-logistics coordination robot
+            ONLY. This actor has NO authority to directly finalize a
+            mooring/cargo-handling operational decision, decide a
+            heavy-weather deck-work go/no-go, or override a deck
+            officer's safety judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), backed by a content-based scope-exclusion HARD
+            block phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"initiate the mooring operation\", \"commence
+            deck work in heavy weather\", \"override the deck officer's
+            safety judgment\") -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            ops (including ones whose default rationale mentions
+            \"mooring\"/\"weather\" bare nouns in ordinary in-scope
+            proposals, e.g. ordering mooring lines or flagging a
+            weather hazard) never self-trip the scope-exclusion check.
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; an over-threshold
+            :coordinate-supply-order escalates (not a hard block --
+            routine procurement above the registered cost threshold,
+            not itself unsafe). This actor coordinates crew
+            scheduling/logistics ONLY -- it never performs a deck
+            operation itself. 20 tests / 45 assertions green
+            (cloud-itonami-isco-8350, ADR-2799008350). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "8350")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8350"
+           (:repo (occupation/get-occupation "8350"))))
+    (is (= "cloud-itonami-isco-8350"
+           (:business-id (occupation/get-occupation "8350"))))))
