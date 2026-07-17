@@ -992,8 +992,8 @@
       ;; this edit: 200 -> 199 spec, 236 -> 237
       ;; implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 199 (:spec m)))
-      (is (= 237 (:implemented m))))))
+      (is (= 198 (:spec m)))
+      (is (= 238 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1456,3 +1456,48 @@
     (is (= "cloud-itonami-isco-8321"
            (:business-id (occupation/get-occupation "8321"))))))
 
+(deftest lifting-truck-operators-8344-implemented
+  (testing "8344 (Lifting Truck Operators) promoted to :implemented --
+            LiftingTruckOpsActor (Warehouse Logistics Advisor ⊣
+            LiftingTruckOpsGovernor); closed four-op proposal allowlist
+            (:log-service-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-maintenance-order) -- a
+            warehouse-crew scheduling/logistics-coordination robot
+            ONLY, never direct lift-operation authority. This actor
+            has NO op, anywhere in its allowlist, that resembles
+            operating a lifting truck or finalizing a load movement:
+            structurally absent, not merely gated, confirmed by the
+            governor's closed op-allowlist HARD check plus a
+            content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"initiate the lift operation\", \"move the load\",
+            \"override the operator's safety judgment\") -- verified
+            via a dedicated regression test that the default mock
+            advisor's proposals for all four ops never self-trip it,
+            plus an end-to-end rogue-advisor test driving the full
+            compiled langgraph.graph StateGraph proving every
+            forbidden op/rationale/detail hard-blocks even when the
+            advisor node itself is compromised.
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-maintenance-order
+            above the cited equipment's own registered
+            :max-maintenance-cost escalates -- not a hard block, a
+            legitimate business action that just requires sign-off,
+            unlike a lift-operation/load-movement decision. 27 tests /
+            76 assertions green (cloud-itonami-isco-8344,
+            ADR-2799008344). This ADR/registry edit is a RETRY
+            completion: a prior attempt was cut off by a session rate
+            limit after creating the repo but before pushing any
+            source; a concurrent sibling agent in this retry batch
+            pushed the actor implementation, independently re-cloned,
+            read in full and re-tested from a clean checkout before
+            this registry promotion. Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not solely this ADR's own +1."
+    (is (= :implemented (occupation/maturity "8344")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8344"
+           (:repo (occupation/get-occupation "8344"))))
+    (is (= "cloud-itonami-isco-8344"
+           (:business-id (occupation/get-occupation "8344"))))))
