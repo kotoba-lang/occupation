@@ -758,9 +758,24 @@
       ;; always escalates and is never auto-commit-eligible; a high-stake
       ;; :propose-placement-match always escalates. 20 tests / 51
       ;; assertions green. 219 -> 218 spec, 217 -> 218 implemented.
+      ;; 3341 office supervisors (Office Supervision Advisor ⊣
+      ;; OfficeSupervisionGovernor) promoted to :implemented -- a closed
+      ;; four-op proposal allowlist (log-workflow-record /
+      ;; schedule-staff-operation / flag-hr-concern /
+      ;; coordinate-supply-order) plus office/workflow/staff-member
+      ;; provenance-verification HARD invariants, a permanent
+      ;; op-not-allowed HARD block outside the allowlist, and a
+      ;; finalization-language HARD block phrased as the finalize-ACTION
+      ;; (never a bare noun) so it cannot self-trip on flag-hr-concern's
+      ;; own default rationale, which necessarily discusses
+      ;; disciplinary/termination/performance-review topics.
+      ;; :flag-hr-concern always escalates and is never auto-commit-
+      ;; eligible; a :coordinate-supply-order above the workflow's
+      ;; registered cost ceiling always escalates too. 20 tests / 61
+      ;; assertions green. 218 -> 217 spec, 218 -> 219 implemented.
       (is (= 0 (:blueprint m)))
-      (is (= 218 (:spec m)))
-      (is (= 218 (:implemented m))))))
+      (is (= 217 (:spec m)))
+      (is (= 219 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
