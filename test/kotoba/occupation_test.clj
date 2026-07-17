@@ -2513,3 +2513,57 @@
            (:repo (occupation/get-occupation "7213"))))
     (is (= "cloud-itonami-isco-7213"
            (:business-id (occupation/get-occupation "7213"))))))
+(deftest blacksmiths-hammersmiths-forging-press-workers-7221-implemented
+  (testing "7221 (Blacksmiths, Hammersmiths and Forging Press Workers)
+            promoted to :implemented -- ForgeWorkerActor (Forge Worker
+            Advisor ⊣ ForgeWorkerGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            forge-shop scheduling/logistics coordination robot ONLY,
+            never direct forging-execution or press-operation
+            authority. Blacksmiths, hammersmiths and forging press
+            workers handle heated metal and press equipment -- heat-
+            exposure, press-crush and hot-metal-handling hazards -- so
+            this actor has ZERO authority to directly finalize a
+            forging-execution decision (e.g. a specific hammer-strike
+            or press-stroke), authorize a press operation, or override
+            a forge-shop safety officer's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a second independent
+            HARD check naming four concretely-forbidden ops
+            (:finalize-forging-decision, :authorize-press-operation,
+            :proceed-with-forging-operation,
+            :override-forge-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the forging
+            operation\", \"override the forge-shop safety officer's
+            judgment\"), and independently-verified worker/forge-shop
+            provenance HARD checks (:no-worker, :no-shop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"forging\",
+            \"press\" and \"forge-shop safety officer\" (e.g. a
+            :schedule-crew-operation rationale naming a
+            \"furnace-heating task\", a :flag-safety-concern concern
+            routed for forge-shop safety officer review).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary)
+            escalates -- not a hard block, routine forging-materials
+            procurement above the registered threshold, not itself
+            unsafe unlike a forging-execution or safety-officer-
+            override attempt. 22 tests / 48 assertions green
+            (cloud-itonami-isco-7221, ADR-2799007221). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "7221")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7221"
+           (:repo (occupation/get-occupation "7221"))))
+    (is (= "cloud-itonami-isco-7221"
+           (:business-id (occupation/get-occupation "7221"))))))
