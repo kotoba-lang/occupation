@@ -839,9 +839,15 @@
       ;; Counts re-verified live via (occupation/maturity-summary) rather
       ;; than hand-derived from a prior comment's delta, per the Addendum
       ;; 85/86 lesson.
+      ;; a concurrent sibling ISCO-track session landed another
+      ;; promotion between this session's registry PUT and this
+      ;; assertion bump; re-verified live via
+      ;; (occupation/maturity-summary) against a freshly re-fetched
+      ;; origin/main rather than hand-derived: 214 -> 213 spec, 222 ->
+      ;; 223 implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 214 (:spec m)))
-      (is (= 222 (:implemented m))))))
+      (is (= 213 (:spec m)))
+      (is (= 223 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
