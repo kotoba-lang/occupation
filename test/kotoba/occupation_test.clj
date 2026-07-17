@@ -868,6 +868,16 @@
       ;; assertions green (cloud-itonami-isco-3353, ADR-2790003353).
       ;; Counts re-verified live via maturity-summary rather than
       ;; hand-derived from a prior comment's delta.
+      ;; cloud-itonami-isco-3351 (Customs and Border Inspectors --
+      ;; documentation/logistics-coordination only, no search/seizure/
+      ;; detention/entry-denial authority anywhere in its op-allowlist)
+      ;; was promoted to :implemented in this same registry-edit window;
+      ;; its registry PUT (211 -> 210 spec, 225 -> 226 implemented) is
+      ;; the transition already reflected in the totals directly below --
+      ;; re-verified live via (occupation/maturity-summary) against a
+      ;; freshly re-fetched origin/main immediately before this edit
+      ;; (registry blob sha unchanged since that PUT, so no further
+      ;; sibling registry change landed in between), 436 total unchanged.
       (is (= 0 (:blueprint m)))
       (is (= 210 (:spec m)))
       (is (= 226 (:implemented m))))))
@@ -1093,3 +1103,43 @@
            (:repo (occupation/get-occupation "3353"))))
     (is (= "cloud-itonami-isco-3353"
            (:business-id (occupation/get-occupation "3353"))))))
+(deftest customs-border-inspectors-3351-implemented
+  (testing "3351 (Customs and Border Inspectors) promoted to
+            :implemented -- CustomsInspectionActor (Customs Inspection
+            Advisor ⊣ CustomsInspectionGovernor); closed four-op
+            proposal allowlist (:log-inspection-record,
+            :schedule-lane-operation, :flag-inspection-concern,
+            :coordinate-supply-order) -- a documentation/logistics-
+            coordination robot ONLY. This actor has NO search, seizure,
+            detention, entry-denial or citation/penalty authority: no op
+            resembling authorizing a search, ordering a seizure,
+            ordering a detention, denying entry, or issuing a
+            citation/penalty exists anywhere in the allowlist
+            (structurally absent, not merely gated), backed by a
+            defense-in-depth enforcement-scope text scan phrased as
+            finalize/order/deny/issue ACTIONS (never bare nouns, e.g.
+            \"authorize the search\", \"order the seizure\", \"deny
+            entry\") so it cannot self-trip on the mock advisor's own
+            legitimate descriptive rationale (which necessarily mentions
+            those bare nouns while explicitly disclaiming them) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            it, plus a separate true-positive test that a hand-crafted
+            finalize-the-search/order-the-seizure/deny-entry rationale
+            still hard-blocks, and an end-to-end actor-level test that a
+            directly-constructed request for a phantom enforcement op
+            (:authorize-search) holds rather than commits.
+            :flag-inspection-concern always escalates and is never
+            auto-commit-eligible; an over-cost-ceiling
+            :coordinate-supply-order escalates (not a hard block --
+            routine procurement above a facility's registered threshold,
+            not an enforcement-authority risk). 22 tests / 70 assertions
+            green (cloud-itonami-isco-3351, ADR-2791003351). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main rather than hand-derived from
+            a prior comment's delta."
+    (is (= :implemented (occupation/maturity "3351")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-3351"
+           (:repo (occupation/get-occupation "3351"))))
+    (is (= "cloud-itonami-isco-3351"
+           (:business-id (occupation/get-occupation "3351"))))))
