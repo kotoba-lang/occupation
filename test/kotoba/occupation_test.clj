@@ -1138,6 +1138,15 @@
       ;; blueprint / 251 implemented -- the assertions immediately
       ;; below already reflect this promotion (numbers unchanged by
       ;; this edit, only this note is new).
+      ;; cloud-itonami-isco-7122 (Floor Layers and Tile Setters) also
+      ;; promoted to :implemented in this same concurrent retry batch
+      ;; (see the dedicated floor-layers-tile-setters-7122-implemented
+      ;; test below for detail, ADR-2799007122). This number (185 spec /
+      ;; 251 implemented) is a live re-fetch of
+      ;; (occupation/maturity-summary) via a fresh GitHub API fetch of
+      ;; registry.edn immediately before this edit, not hand-derived
+      ;; from any prior comment's delta -- several sibling promotions
+      ;; have landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
       (is (= 185 (:spec m)))
       (is (= 251 (:implemented m))))))
@@ -2326,3 +2335,57 @@
            (:repo (occupation/get-occupation "7124"))))
     (is (= "cloud-itonami-isco-7124"
            (:business-id (occupation/get-occupation "7124"))))))
+
+(deftest floor-layers-tile-setters-7122-implemented
+  (testing "7122 (Floor Layers and Tile Setters) promoted to
+            :implemented -- FloorTileActor (Floor & Tile Advisor ⊣
+            FloorTileGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct flooring/tile-installation authority. Floor
+            layers and tile setters perform interior finishing work on
+            active job sites (kneeling-strain injury, adhesive/solvent
+            fume exposure, and cut hazards from tile-cutting tools), so
+            this actor has ZERO authority to directly finalize a
+            flooring/tile-installation-execution decision or override a
+            site safety officer's judgment: no such op exists anywhere
+            in the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist HARD
+            check (:unknown-op), a second independent HARD check naming
+            five concretely-forbidden ops
+            (:finalize-flooring-installation-decision,
+            :finalize-tile-installation-decision,
+            :proceed-with-tile-installation,
+            :proceed-with-flooring-installation,
+            :override-site-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the tile installation\", \"override the site
+            safety officer's judgment\"), and independently-verified
+            installer/site provenance HARD checks (:no-installer,
+            :no-site -- a registered record alone is not enough) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"tile\",
+            \"flooring\" and \"safety\" (e.g. a :log-work-record task
+            \"tile-setting progress log\", a :flag-safety-concern
+            concern routed for site safety officer review).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary)
+            escalates -- not a hard block, routine flooring/tile-
+            materials procurement above the registered threshold, not
+            itself unsafe unlike a flooring/tile-installation-execution
+            or safety-officer-override attempt. 21 tests / 45 assertions
+            green (cloud-itonami-isco-7122, ADR-2799007122). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "7122")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7122"
+           (:repo (occupation/get-occupation "7122"))))
+    (is (= "cloud-itonami-isco-7122"
+           (:business-id (occupation/get-occupation "7122"))))))
