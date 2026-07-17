@@ -918,9 +918,32 @@
       ;; blob sha unchanged since that PUT, so no further sibling
       ;; registry change landed in between): 207 -> 206 spec, 229 -> 230
       ;; implemented, 436 total unchanged.
+      ;; cloud-itonami-isco-8321 (Motorcycle Drivers) promoted to
+      ;; :implemented -- MotorcycleDispatchActor (Motorcycle Dispatch
+      ;; Advisor ⊣ MotorcycleDispatchGovernor); a dispatch/logistics-
+      ;; SCHEDULING-COORDINATION ONLY actor with NO route/traffic-
+      ;; navigation-finalization or rider-safety-judgment-override
+      ;; authority anywhere in its closed four-op allowlist
+      ;; (:log-delivery-record, :schedule-dispatch-operation,
+      ;; :flag-safety-concern, :coordinate-maintenance-order) -- this
+      ;; actor never operates the motorcycle. Verified via a closed
+      ;; op-allowlist, independently-verified rider/license provenance,
+      ;; and a content-based scope-exclusion HARD block (phrased as
+      ;; finalization/execution actions, e.g. "finalize the route
+      ;; decision", "override the rider's on-road safety judgment",
+      ;; never bare nouns, to avoid the sibling-track self-tripping
+      ;; false-positive bug -- verified via a dedicated regression
+      ;; test). :flag-safety-concern always escalates and is never
+      ;; auto-commit-eligible; an above-cost-threshold
+      ;; :coordinate-maintenance-order always escalates. 22 tests / 49
+      ;; assertions green (cloud-itonami-isco-8321, ADR-2799008321).
+      ;; Counts re-verified live via (occupation/maturity-summary)
+      ;; against a freshly re-fetched origin/main immediately before
+      ;; this edit: 206 -> 204 spec, 230 -> 232
+      ;; implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 206 (:spec m)))
-      (is (= 230 (:implemented m))))))
+      (is (= 204 (:spec m)))
+      (is (= 232 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
