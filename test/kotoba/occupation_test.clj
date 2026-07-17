@@ -1108,8 +1108,8 @@
       ;; re-verified live via (occupation/maturity-summary) against a
       ;; freshly re-fetched origin/main immediately before this edit.
       (is (= 0 (:blueprint m)))
-      (is (= 192 (:spec m)))
-      (is (= 244 (:implemented m))))))
+      (is (= 191 (:spec m)))
+      (is (= 245 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2011,3 +2011,50 @@
            (:repo (occupation/get-occupation "7113"))))
     (is (= "cloud-itonami-isco-7113"
            (:business-id (occupation/get-occupation "7113"))))))
+
+(deftest concrete-placers-7114-implemented
+  (testing "7114 (Concrete Placers, Concrete Finishers and Related
+            Workers) promoted to :implemented -- ConcreteCrewActor
+            (Concrete Crew Coordination Advisor ⊣ ConcreteCrewGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a job-site scheduling/logistics
+            coordination robot ONLY, never direct concrete-work
+            authority. Concrete Placers and Finishers pour and finish
+            concrete on active job sites (material-handling and
+            pour-timing coordination stakes, effectively irreversible
+            once poured), so this actor has ZERO authority to directly
+            finalize a concrete-pour/finishing-execution decision or
+            override a site-safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:op-not-allowlisted), a
+            second independent content-based scope-exclusion HARD check
+            (:scope-exclusion) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the concrete
+            pour\", \"override the site safety officer's judgment\"),
+            and independently-verified site/worker provenance HARD
+            checks (:site-not-verified, :worker-not-verified -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"pour\" and
+            \"safety\" (e.g. a :log-work-record task \"pour-timing update
+            for footing pour\", a :flag-safety-concern concern \"site
+            safety inspection pending before pour\"). :flag-safety-concern
+            always escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the site's registered
+            per-site cost ceiling escalates -- not a hard block, routine
+            procurement above the registered threshold, not itself
+            unsafe unlike a pour-finalization or
+            safety-officer-override attempt. 25 tests / 55 assertions
+            green (cloud-itonami-isco-7114, ADR-2799007114). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this
+            edit."
+    (is (= :implemented (occupation/maturity "7114")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7114"
+           (:repo (occupation/get-occupation "7114"))))
+    (is (= "cloud-itonami-isco-7114"
+           (:business-id (occupation/get-occupation "7114"))))))
