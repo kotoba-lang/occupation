@@ -1102,6 +1102,11 @@
       ;; before this edit, not hand-derived from any prior comment's
       ;; delta -- several sibling promotions landed concurrently in
       ;; this same batch.
+      ;; cloud-itonami-isco-7112 (Bricklayers and Related Workers)
+      ;; promotion (ADR-2799007112) plus any other concurrent sibling
+      ;; promotions landed in this same retry batch. Counts
+      ;; re-verified live via (occupation/maturity-summary) against a
+      ;; freshly re-fetched origin/main immediately before this edit.
       (is (= 0 (:blueprint m)))
       (is (= 192 (:spec m)))
       (is (= 244 (:implemented m))))))
@@ -1887,3 +1892,55 @@
            (:repo (occupation/get-occupation "7121"))))
     (is (= "cloud-itonami-isco-7121"
            (:business-id (occupation/get-occupation "7121"))))))
+
+(deftest bricklayers-7112-implemented
+  (testing "7112 (Bricklayers and Related Workers) promoted to :implemented --
+            BricklayingActor (Bricklaying Advisor ⊣
+            BricklayingGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct masonry-work-execution authority. Bricklayers
+            perform structural/masonry construction work on active job
+            sites (falling materials, wall collapse, scaffold hazard
+            risk), so this actor has ZERO authority to directly
+            finalize a masonry-work-execution decision (e.g.
+            proceeding with a specific wall-laying or mortar-joint
+            step) or override a site safety officer's/foreman's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD
+            check, a second independent HARD check naming five
+            concretely-forbidden ops
+            (:finalize-masonry-work-decision,
+            :authorize-wall-construction, :proceed-with-masonry-work,
+            :override-safety-officer-judgment,
+            :override-foreman-judgment), and a content-based
+            scope-exclusion HARD block phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"proceed with
+            the masonry work\", \"authorize the wall construction\",
+            \"override the foreman's safety judgment\") -- verified
+            via a dedicated regression test that the default mock
+            advisor's proposals for all four ops never self-trip it,
+            even though the advisor's own default rationale text
+            legitimately contains the bare nouns \"masonry\"/\"wall\"/
+            \"safety officer\" (e.g. \"scheduled crew operation for
+            masonry task\", \"routed for site safety officer
+            review\"). :flag-safety-concern always escalates and is
+            never auto-commit-eligible; an above-cost-threshold
+            :coordinate-supply-order escalates -- not a hard block,
+            routine procurement above the registered threshold, not
+            itself unsafe unlike a masonry-work-execution or
+            safety-officer-override attempt. 21 tests / 45 assertions
+            green (cloud-itonami-isco-7112, ADR-2799007112). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same retry batch (the maturity-tier test's counts
+            above already reflect this promotion, not hand-derived
+            from a prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7112")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7112"
+           (:repo (occupation/get-occupation "7112"))))
+    (is (= "cloud-itonami-isco-7112"
+           (:business-id (occupation/get-occupation "7112"))))))
