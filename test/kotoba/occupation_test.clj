@@ -2676,3 +2676,54 @@
            (:repo (occupation/get-occupation "7222"))))
     (is (= "cloud-itonami-isco-7222"
            (:business-id (occupation/get-occupation "7222"))))))
+
+(deftest riggers-cable-splicers-7215-implemented
+  (testing "7215 (Riggers and Cable Splicers) promoted to
+            :implemented -- RiggerCoordActor (Rigging Coordination
+            Advisor ⊣ RiggerCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct load-rigging/lift-readiness certification
+            authority. Riggers prepare loads for crane/hoist lifting
+            and cable splicers splice/inspect wire rope -- dropped-load
+            risk and cable-failure risk -- so this actor has ZERO
+            authority to directly finalize a load-rigging/
+            lift-readiness certification decision or override a site
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"certify the
+            load as lift-ready\", \"override the site-safety officer's
+            judgment\"), and independently-verified worker/site
+            provenance HARD checks (:no-site, :unknown-worker,
+            :worker-wrong-site -- a registered record alone is not
+            enough) -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare
+            nouns \"load\", \"cable\" and \"rigging\" (e.g. a
+            :schedule-crew-operation rationale naming \"schedule crane
+            lift for structural beam\", a :flag-safety-concern
+            description naming a hazard \"frayed strand on the hoist
+            cable near the load hook\"). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (10000, inclusive boundary) escalates -- not a
+            hard block, routine rigging-equipment procurement above
+            the registered threshold, not itself unsafe unlike a
+            load-rigging-certification or safety-officer-override
+            attempt. 22 tests / 52 assertions green
+            (cloud-itonami-isco-7215, ADR-2799007215). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "7215")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7215"
+           (:repo (occupation/get-occupation "7215"))))
+    (is (= "cloud-itonami-isco-7215"
+           (:business-id (occupation/get-occupation "7215"))))))
