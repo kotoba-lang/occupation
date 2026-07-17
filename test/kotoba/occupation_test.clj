@@ -886,9 +886,41 @@
       ;; may also have landed registry promotions in this same window):
       ;; 209 -> 207 spec, 227 -> 229 implemented,
       ;; 436 total unchanged.
+      ;; cloud-itonami-isco-5413 (Prison Guards) promoted to
+      ;; :implemented -- FacilityOpsActor (Facility Ops Advisor ⊣
+      ;; FacilityOpsGovernor); a facility/equipment/scheduling
+      ;; DOCUMENTATION/LOGISTICS-COORDINATION ONLY actor with NO
+      ;; use-of-force, physical-restraint, disciplinary-sanction or
+      ;; movement/confinement-condition-restriction authority anywhere
+      ;; in its closed four-op allowlist (:log-facility-record,
+      ;; :schedule-staff-operation, :flag-facility-concern,
+      ;; :coordinate-supply-order) -- given the captive-population
+      ;; vulnerability, this is held to at least the same guardrail
+      ;; strictness as the cloud-itonami-isco-3355 (Police Inspectors
+      ;; and Detectives) reference, PLUS a domain-specific HARD,
+      ;; cost-independent block on any weapon/restraint-device
+      ;; procurement item with no analogue in that reference. Verified
+      ;; via a closed op-allowlist, a content-based scope-exclusion
+      ;; HARD block (phrased as finalization/execution actions, e.g.
+      ;; "apply the physical restraint", "impose the disciplinary
+      ;; sanction", "restrict movement privileges", never bare nouns,
+      ;; to avoid the sibling-track self-tripping false-positive bug --
+      ;; verified via a dedicated regression test), and an end-to-end
+      ;; rogue-advisor test driving the full compiled StateGraph proving
+      ;; every forbidden op/rationale/item hard-blocks even when the
+      ;; advisor node itself is compromised. :flag-facility-concern
+      ;; always escalates and is never auto-commit-eligible; an
+      ;; above-cost-threshold, non-weapon :coordinate-supply-order
+      ;; always escalates. 51 tests / 172 assertions green
+      ;; (cloud-itonami-isco-5413, ADR-2799005413). Counts re-verified
+      ;; live via (occupation/maturity-summary) against a freshly
+      ;; re-fetched origin/main immediately before this edit (registry
+      ;; blob sha unchanged since that PUT, so no further sibling
+      ;; registry change landed in between): 207 -> 206 spec, 229 -> 230
+      ;; implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 207 (:spec m)))
-      (is (= 229 (:implemented m))))))
+      (is (= 206 (:spec m)))
+      (is (= 230 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
