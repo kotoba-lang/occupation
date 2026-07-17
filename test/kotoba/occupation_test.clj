@@ -2621,3 +2621,58 @@
            (:repo (occupation/get-occupation "7211"))))
     (is (= "cloud-itonami-isco-7211"
            (:business-id (occupation/get-occupation "7211"))))))
+(deftest toolmakers-and-related-workers-7222-implemented
+  (testing "7222 (Toolmakers and Related Workers) promoted to
+            :implemented -- ToolmakerActor (Toolmaker Advisor ⊣
+            ToolmakerGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            toolmaking-workshop scheduling/logistics coordination
+            robot ONLY, never direct machining-execution authority.
+            Toolmakers operate precision machine tools (lathes, mills,
+            grinders) to fabricate tools, dies and molds --
+            rotating-machinery and metal-shaving-injury hazards -- so
+            this actor has ZERO authority to directly finalize a
+            machining-execution decision (e.g. a specific lathe, mill
+            or grinder operation), authorize a machining operation, or
+            override a shop safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-machining-decision,
+            :authorize-machining-operation,
+            :proceed-with-machining-operation,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            machining operation\", \"override the shop safety
+            officer's judgment\"), and independently-verified
+            worker/workshop provenance HARD checks (:no-worker,
+            :no-workshop -- a registered record alone is not enough)
+            -- verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare
+            nouns \"machining\" and \"shop safety officer\" (e.g. a
+            :schedule-crew-operation rationale naming a \"machining
+            task\", a :flag-safety-concern concern routed for shop
+            safety officer review). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine tooling-materials procurement above
+            the registered threshold, not itself unsafe unlike a
+            machining-execution or safety-officer-override attempt.
+            22 tests / 47 assertions green (cloud-itonami-isco-7222,
+            ADR-2799007222). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch."
+    (is (= :implemented (occupation/maturity "7222")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7222"
+           (:repo (occupation/get-occupation "7222"))))
+    (is (= "cloud-itonami-isco-7222"
+           (:business-id (occupation/get-occupation "7222"))))))
