@@ -1130,6 +1130,14 @@
       ;; taken immediately before this edit, not hand-derived from any
       ;; prior comment's delta -- several sibling promotions may have
       ;; landed concurrently in this same batch.
+      ;; cloud-itonami-isco-7131 (Painters and Related Workers) promoted
+      ;; to :implemented (ADR-2799007131, see painters-7131-implemented
+      ;; test below for detail). Live-recomputed via
+      ;; (occupation/maturity-summary) against a freshly re-fetched
+      ;; origin/main immediately before this edit: 185 spec / 0
+      ;; blueprint / 251 implemented -- the assertions immediately
+      ;; below already reflect this promotion (numbers unchanged by
+      ;; this edit, only this note is new).
       (is (= 0 (:blueprint m)))
       (is (= 185 (:spec m)))
       (is (= 251 (:implemented m))))))
@@ -2226,3 +2234,47 @@
            (:repo (occupation/get-occupation "7127"))))
     (is (= "cloud-itonami-isco-7127"
            (:business-id (occupation/get-occupation "7127"))))))
+(deftest painters-7131-implemented
+  (testing "7131 (Painters and Related Workers) promoted to :implemented --
+            PaintCrewActor (Paint Crew Advisor ⊣ PaintCrewGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a job-site scheduling/logistics
+            coordination robot ONLY, never direct painting-execution
+            authority. Painters apply coatings/finishes on active job
+            sites (solvent/fume exposure, height-work for exteriors,
+            ventilation-requirement stakes), so this actor has ZERO
+            authority to directly finalize a painting-execution decision
+            or override a site safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the painting
+            work\", \"override the site safety officer's judgment\"),
+            and independently-verified painter/site provenance HARD
+            checks (:no-painter, :no-site -- a registered record alone
+            is not enough) -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare nouns
+            \"paint\", \"coating\" and \"safety\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for coating task\", a :flag-safety-concern
+            rationale \"routed for site safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-site cost ceiling (2000) escalates -- not a
+            hard block, routine paint/coating-materials procurement
+            above the registered threshold, not itself unsafe unlike a
+            painting-execution or safety-officer-override attempt. 21
+            tests / 45 assertions green (cloud-itonami-isco-7131,
+            ADR-2799007131). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit."
+    (is (= :implemented (occupation/maturity "7131")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7131"
+           (:repo (occupation/get-occupation "7131"))))
+    (is (= "cloud-itonami-isco-7131"
+           (:business-id (occupation/get-occupation "7131"))))))
