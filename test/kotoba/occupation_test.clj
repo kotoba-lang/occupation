@@ -1164,6 +1164,12 @@
       ;; registry.edn immediately before this edit, not hand-derived
       ;; from any prior comment's delta -- several sibling promotions
       ;; have landed concurrently in this same batch.
+      ;; Retry: live re-fetch of (occupation/maturity-summary) against
+      ;; origin/main (attempt 1) taken immediately before this retry-edit shows
+      ;; 179 spec / 257 implemented (was 179/257 in the
+      ;; just-fetched file) -- further sibling promotions landed
+      ;; concurrently in this same batch; this actor's own
+      ;; cloud-itonami-isco-7214 promotion remains reflected throughout.
       (is (= 0 (:blueprint m)))
       (is (= 179 (:spec m)))
       (is (= 257 (:implemented m))))))
