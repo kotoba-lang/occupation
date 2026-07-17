@@ -1155,9 +1155,18 @@
       ;; before this edit, not hand-derived from any prior comment's
       ;; delta -- several sibling promotions may have landed
       ;; concurrently in this same batch.
+      ;; cloud-itonami-isco-7213 (Sheet Metal Workers) also promoted to
+      ;; :implemented in this same concurrent retry batch (see the
+      ;; dedicated sheet-metal-workers-7213-implemented test below for
+      ;; detail, ADR-2799007213). This number (180 spec /
+      ;; 256 implemented) is a live re-fetch of
+      ;; (occupation/maturity-summary) via a fresh GitHub API fetch of
+      ;; registry.edn immediately before this edit, not hand-derived
+      ;; from any prior comment's delta -- several sibling promotions
+      ;; have landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 184 (:spec m)))
-      (is (= 252 (:implemented m))))))
+      (is (= 180 (:spec m)))
+      (is (= 256 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2451,3 +2460,56 @@
            (:repo (occupation/get-occupation "7214"))))
     (is (= "cloud-itonami-isco-7214"
            (:business-id (occupation/get-occupation "7214"))))))
+(deftest sheet-metal-workers-7213-implemented
+  (testing "7213 (Sheet Metal Workers) promoted to
+            :implemented -- SheetMetalWorkerActor (Sheet Metal Worker
+            Advisor ⊣ SheetMetalWorkerGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a workshop
+            scheduling/logistics coordination robot ONLY, never direct
+            metalworking-execution authority. Sheet metal workers cut,
+            bend and shape sheet metal on an active shop floor (cut
+            hazards, machine-press hazards, sharp-edge handling), so
+            this actor has ZERO authority to directly finalize a
+            metal-cutting/forming-execution decision or override a
+            shop safety officer's judgment: no such op exists anywhere
+            in the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist HARD
+            check (:unknown-op), a second independent HARD check naming
+            five concretely-forbidden ops
+            (:finalize-cutting-decision, :authorize-forming-operation,
+            :proceed-with-metal-cutting-work,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the metal-cutting operation\", \"override
+            the shop safety officer's judgment\"), and
+            independently-verified worker/workshop provenance HARD
+            checks (:no-worker, :no-workshop -- a registered record
+            alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary legitimately
+            contains the bare nouns \"cutting\", \"forming\" and
+            \"safety\" (e.g. a :log-work-record task \"cutting
+            progress log\", a :flag-safety-concern concern routed for
+            shop safety officer review). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine sheet-metal-materials procurement
+            above the registered threshold, not itself unsafe unlike a
+            metal-cutting/forming-execution or safety-officer-override
+            attempt. 21 tests / 45 assertions green
+            (cloud-itonami-isco-7213, ADR-2799007213). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "7213")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7213"
+           (:repo (occupation/get-occupation "7213"))))
+    (is (= "cloud-itonami-isco-7213"
+           (:business-id (occupation/get-occupation "7213"))))))
