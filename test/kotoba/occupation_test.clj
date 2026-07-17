@@ -1082,9 +1082,21 @@
       ;; re-verified live via (occupation/maturity-summary) against a
       ;; freshly re-fetched origin/main immediately before this edit,
       ;; not hand-derived from a prior comment's delta.
+      ;; 7119 (Building Frame and Related Trades Workers NEC) promoted
+      ;; to :implemented -- FramingCrewActor (Framing Crew Advisor ⊣
+      ;; FramingCrewGovernor); closed four-op proposal allowlist
+      ;; (:log-work-record, :schedule-crew-operation,
+      ;; :flag-safety-concern, :coordinate-supply-order) -- a job-site
+      ;; scheduling/logistics coordination robot ONLY, never direct
+      ;; framing-work-execution authority. Counts re-verified live via
+      ;; (occupation/maturity-summary) against a freshly re-fetched
+      ;; origin/main immediately before this edit: 195 -> 194 spec /
+      ;; 241 -> 242 implemented (net +1/-1, this promotion only -- no
+      ;; other concurrent sibling landed between the prior comment and
+      ;; this edit).
       (is (= 0 (:blueprint m)))
-      (is (= 195 (:spec m)))
-      (is (= 241 (:implemented m))))))
+      (is (= 194 (:spec m)))
+      (is (= 242 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1772,3 +1784,55 @@
            (:repo (occupation/get-occupation "7111"))))
     (is (= "cloud-itonami-isco-7111"
            (:business-id (occupation/get-occupation "7111"))))))
+
+(deftest building-frame-trades-7119-implemented
+  (testing "7119 (Building Frame and Related Trades Workers Not
+            Elsewhere Classified) promoted to :implemented --
+            FramingCrewActor (Framing Crew Advisor ⊣
+            FramingCrewGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct framing-work-execution authority. Building
+            Frame Trades Workers perform structural framing
+            construction work on active job sites (falls, structural
+            collapse, equipment injury risk), so this actor has ZERO
+            authority to directly finalize a
+            structural-framing-execution decision or override a site
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent HARD check
+            naming seven concretely-forbidden ops
+            (:finalize-framing-execution, :authorize-structural-work,
+            :proceed-with-framing-work, :commit-framing-decision,
+            :finalize-structural-framing-decision,
+            :override-safety-officer-judgment,
+            :override-site-safety-officer-judgment)
+            (:scope-excluded-op), and a content-based scope-exclusion
+            HARD block (:scope-excluded-rationale) phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the framing work\", \"override the site
+            safety officer's judgment\") -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip it, even though this
+            actor's own :flag-safety-concern op literally contains the
+            bare noun \"safety\". :flag-safety-concern always
+            escalates and is never auto-commit-eligible; an
+            above-ceiling :coordinate-supply-order escalates -- not a
+            hard block, routine procurement above the crew's
+            registered cost ceiling, not itself unsafe unlike a
+            structural-framing-execution or safety-officer-override
+            attempt. 20 tests / 54 assertions green
+            (cloud-itonami-isco-7119, ADR-2799007119). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit: 195 -> 194 spec / 241 -> 242 implemented (this
+            promotion only -- no other concurrent sibling landed
+            between the prior comment above and this edit)."
+    (is (= :implemented (occupation/maturity "7119")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7119"
+           (:repo (occupation/get-occupation "7119"))))
+    (is (= "cloud-itonami-isco-7119"
+           (:business-id (occupation/get-occupation "7119"))))))
+
