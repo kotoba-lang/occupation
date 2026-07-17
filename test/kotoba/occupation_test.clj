@@ -743,9 +743,24 @@
       ;; never auto-commit-eligible; :coordinate-supply-order escalates
       ;; above a registered cost threshold. 25 tests / 58 assertions
       ;; green. 220 -> 219 spec, 216 -> 217 implemented.
+      ;; 3333 employment agents and contractors (Placement Advisor ⊣
+      ;; PlacementOps Governor) promoted to :implemented -- placement-
+      ;; COORDINATION ONLY actor: a closed four-op proposal allowlist
+      ;; (log-candidate-record / propose-placement-match /
+      ;; flag-compliance-concern / coordinate-interview-schedule) plus
+      ;; candidate/employer provenance-verification HARD invariants, a
+      ;; permanent op-not-allowed HARD block outside the allowlist, and a
+      ;; content-based scope-exclusion HARD block on any proposal naming a
+      ;; finalization/execution action for a hiring, rejection or other
+      ;; placement decision that could constitute discriminatory
+      ;; screening (never a bare noun, to avoid the sibling-track
+      ;; self-tripping false-positive bug). :flag-compliance-concern
+      ;; always escalates and is never auto-commit-eligible; a high-stake
+      ;; :propose-placement-match always escalates. 20 tests / 51
+      ;; assertions green. 219 -> 218 spec, 217 -> 218 implemented.
       (is (= 0 (:blueprint m)))
-      (is (= 219 (:spec m)))
-      (is (= 217 (:implemented m))))))
+      (is (= 218 (:spec m)))
+      (is (= 218 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
