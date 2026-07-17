@@ -1124,8 +1124,8 @@
       ;; delta -- several sibling promotions may land concurrently in
       ;; this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 186 (:spec m)))
-      (is (= 250 (:implemented m))))))
+      (is (= 185 (:spec m)))
+      (is (= 251 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2170,3 +2170,52 @@
            (:repo (occupation/get-occupation "7125"))))
     (is (= "cloud-itonami-isco-7125"
            (:business-id (occupation/get-occupation "7125"))))))
+
+(deftest ac-refrigeration-mechanics-7127-implemented
+  (testing "7127 (Air Conditioning and Refrigeration Mechanics) promoted
+            to :implemented -- HvacMechActor (HVAC Mechanic Advisor ⊣
+            HvacMechGovernor); closed four-op proposal allowlist
+            (:log-service-record, :schedule-service-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a service
+            scheduling/logistics coordination robot ONLY, never direct
+            refrigeration-system-service-execution authority. AC and
+            Refrigeration Mechanics service pressurized refrigerant
+            systems (refrigerant exposure, pressurized-system and
+            electrical hazards), so this actor has ZERO authority to
+            directly finalize a refrigerant-system-service-execution
+            decision or override/bypass a technician-certification
+            requirement: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated), confirmed
+            by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the refrigerant-system service\", \"override
+            the technician-certification requirement\"), and
+            independently-verified technician/service-account
+            provenance HARD checks (:no-technician, :no-service-account
+            -- a registered record alone is not enough, technician
+            registration includes certification status) -- verified via
+            a dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"refrigerant\", \"certification\" and \"technician\" (e.g. a
+            :schedule-service-operation task \"refrigerant diagnostic
+            task\", a :flag-safety-concern concern routed for certified
+            technician review). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; a :coordinate-supply-order
+            above the registered cost threshold escalates -- not a hard
+            block, routine refrigerant/parts procurement above the
+            registered threshold, not itself unsafe unlike a
+            refrigerant-system-service-execution or
+            technician-certification-override/bypass attempt. 22 tests /
+            47 assertions green (cloud-itonami-isco-7127,
+            ADR-2799007127). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit."
+    (is (= :implemented (occupation/maturity "7127")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7127"
+           (:repo (occupation/get-occupation "7127"))))
+    (is (= "cloud-itonami-isco-7127"
+           (:business-id (occupation/get-occupation "7127"))))))
