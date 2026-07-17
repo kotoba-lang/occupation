@@ -941,9 +941,34 @@
       ;; against a freshly re-fetched origin/main immediately before
       ;; this edit: 206 -> 204 spec, 230 -> 232
       ;; implemented, 436 total unchanged.
+      ;; cloud-itonami-isco-8311 (Locomotive Engine Drivers) promoted to
+      ;; :implemented -- RailCrewActor (Rail Crew Advisor ⊣
+      ;; RailCrewGovernor); a rail-crew scheduling/logistics
+      ;; COORDINATION ONLY actor with NO locomotive-movement/throttle/
+      ;; brake-control or signal-override/stop-signal-departure
+      ;; authority anywhere in its closed four-op allowlist
+      ;; (:log-service-record, :schedule-crew-operation,
+      ;; :flag-safety-concern, :coordinate-maintenance-order) -- this
+      ;; actor never operates the locomotive. Verified via a closed
+      ;; op-allowlist, independently-verified driver/route-license
+      ;; provenance, and a content-based scope-exclusion HARD block
+      ;; (phrased as finalization/execution actions, e.g. "initiate the
+      ;; locomotive movement", "override the stop signal", never bare
+      ;; nouns, to avoid the sibling-track self-tripping false-positive
+      ;; bug -- verified via a dedicated regression test).
+      ;; :flag-safety-concern always escalates and is never
+      ;; auto-commit-eligible; an above-cost-ceiling
+      ;; :coordinate-maintenance-order always escalates. 22 tests / 48
+      ;; assertions green (cloud-itonami-isco-8311, ADR-2799008311).
+      ;; Counts re-verified live via (occupation/maturity-summary)
+      ;; against a freshly re-fetched origin/main immediately before
+      ;; this edit (other concurrent sibling ISCO-track sessions landed
+      ;; registry promotions in this same window, e.g. 8321 Motorcycle
+      ;; Drivers immediately prior): 204 -> 203 spec, 232 -> 233
+      ;; implemented, 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 204 (:spec m)))
-      (is (= 232 (:implemented m))))))
+      (is (= 203 (:spec m)))
+      (is (= 233 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1308,3 +1333,38 @@
            (:repo (occupation/get-occupation "5411"))))
     (is (= "cloud-itonami-isco-5411"
            (:business-id (occupation/get-occupation "5411"))))))
+
+(deftest locomotive-engine-drivers-8311-implemented
+  (testing "8311 (Locomotive Engine Drivers) promoted to :implemented --
+            RailCrewActor (Rail Crew Advisor ⊣ RailCrewGovernor);
+            closed four-op proposal allowlist (:log-service-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-maintenance-order) -- a rail-crew
+            scheduling/logistics-coordination robot ONLY, never direct
+            locomotive-operation authority. This actor has ZERO
+            locomotive-movement/throttle/brake-control or
+            signal-override/stop-signal-departure authority: no op
+            resembling either category exists anywhere in the
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            plus a content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"initiate the locomotive movement\", \"override the
+            stop signal\", \"depart against the stop signal\") --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            it. :flag-safety-concern always escalates and is never
+            auto-commit-eligible; an over-ceiling
+            :coordinate-maintenance-order escalates -- not a hard
+            block, a legitimate business action that just requires
+            sign-off, unlike a locomotive-movement/signal-override
+            decision. 22 tests / 48 assertions green
+            (cloud-itonami-isco-8311, ADR-2799008311). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main rather than hand-derived
+            from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "8311")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8311"
+           (:repo (occupation/get-occupation "8311"))))
+    (is (= "cloud-itonami-isco-8311"
+           (:business-id (occupation/get-occupation "8311"))))))
