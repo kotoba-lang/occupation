@@ -773,9 +773,27 @@
       ;; eligible; a :coordinate-supply-order above the workflow's
       ;; registered cost ceiling always escalates too. 20 tests / 61
       ;; assertions green. 218 -> 217 spec, 218 -> 219 implemented.
+      ;; 3342 legal secretaries (Legal Secretary Advisor ⊣
+      ;; LegalSecretaryGovernor) promoted to :implemented --
+      ;; coordination-ONLY actor: closed four-op proposal allowlist
+      ;; (log-document-record / schedule-court-operation /
+      ;; flag-confidentiality-concern / coordinate-supply-order) plus
+      ;; attorney/case provenance-verification HARD invariants, an
+      ;; attorney-supplied-deadline HARD invariant for scheduling
+      ;; proposals, a permanent unknown-op HARD block outside the
+      ;; allowlist, and a content-based scope-exclusion HARD block on
+      ;; any proposal naming a finalization/execution action for
+      ;; privileged-disclosure/legal-advice/deadline-without-sign-off
+      ;; (never a bare noun, to avoid the sibling-track self-tripping
+      ;; false-positive bug). :flag-confidentiality-concern always
+      ;; escalates and is never auto-commit-eligible; an
+      ;; over-cost-ceiling :coordinate-supply-order always escalates.
+      ;; 22 tests / 50 assertions green. 217 -> 216 spec, 219 -> 220
+      ;; implemented. Counts re-verified live via maturity-summary
+      ;; rather than hand-derived from a prior comment's delta.
       (is (= 0 (:blueprint m)))
-      (is (= 217 (:spec m)))
-      (is (= 219 (:implemented m))))))
+      (is (= 216 (:spec m)))
+      (is (= 220 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -895,3 +913,26 @@
   (let [p (occupation/execution-plan "6112")]
     (is (map? p))
     (is (seq (:technology-stack p)))))
+
+(deftest legal-secretaries-3342-implemented
+  (testing "3342 (Legal Secretaries) promoted to :implemented --
+            LegalSecretaryActor (Legal Secretary Advisor ⊣
+            LegalSecretaryGovernor); closed proposal-op allowlist
+            (:log-document-record, :schedule-court-operation,
+            :flag-confidentiality-concern, :coordinate-supply-order)
+            with attorney/case provenance + attorney-supplied-deadline
+            + scope-exclusion HARD invariants (no op can finalize
+            disclosure of privileged/confidential case information,
+            provide legal advice, or set a filing deadline/legal
+            strategy without attorney sign-off);
+            :flag-confidentiality-concern always escalates and is
+            never auto-commit-eligible; over-cost-ceiling supply
+            orders escalate. 22 tests / 50 assertions green
+            (cloud-itonami-isco-3342, ADR-2790003342). Counts
+            re-verified live via maturity-summary rather than
+            hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "3342")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-3342"
+           (:repo (occupation/get-occupation "3342"))))
+    (is (= "cloud-itonami-isco-3342"
+           (:business-id (occupation/get-occupation "3342"))))))
