@@ -1433,3 +1433,26 @@
            (:repo (occupation/get-occupation "8341"))))
     (is (= "cloud-itonami-isco-8341"
            (:business-id (occupation/get-occupation "8341"))))))
+
+(deftest cloud-itonami-isco-8321-motorcycle-drivers-promoted-to-implemented
+  (testing "cloud-itonami-isco-8321 (Motorcycle Drivers) promoted to
+            :implemented -- MotorcycleDispatchActor (Motorcycle Dispatch
+            Advisor ⊣ MotorcycleDispatchGovernor); a dispatch/
+            logistics-SCHEDULING-COORDINATION ONLY actor with NO route/
+            traffic-navigation-finalization or rider-safety-judgment-
+            override authority anywhere in its closed four-op allowlist
+            (:log-delivery-record, :schedule-dispatch-operation,
+            :flag-safety-concern, :coordinate-maintenance-order) -- this
+            actor never operates the motorcycle. A route/traffic-
+            navigation finalization or rider-safety-judgment override is
+            a hard, permanent block regardless of confidence or op.
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; an above-cost-threshold
+            :coordinate-maintenance-order always escalates. 22 tests / 49
+            assertions green (cloud-itonami-isco-8321, ADR-2799008321)."
+    (is (= :implemented (occupation/maturity "8321")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8321"
+           (:repo (occupation/get-occupation "8321"))))
+    (is (= "cloud-itonami-isco-8321"
+           (:business-id (occupation/get-occupation "8321"))))))
+
