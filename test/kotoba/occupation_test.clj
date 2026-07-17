@@ -850,9 +850,27 @@
       ;; (occupation/maturity-summary) against a freshly re-fetched
       ;; origin/main: 213 -> 212 spec, 223 -> 224 implemented, 436 total
       ;; unchanged.
+      ;; 3353 (Government Social Benefits Officials) promoted to
+      ;; :implemented -- SocialBenefitsActor (Case Documentation Advisor
+      ;; ⊣ SocialBenefitsGovernor); a DOCUMENTATION/LOGISTICS-
+      ;; COORDINATION ONLY actor with NO benefits-eligibility-
+      ;; determination authority anywhere in its closed four-op
+      ;; allowlist (:log-application-record, :schedule-caseworker-
+      ;; appointment, :flag-eligibility-review, :coordinate-supply-
+      ;; order) -- no op resembling approving, denying or terminating a
+      ;; benefit exists structurally, reinforced by a content-based
+      ;; scope-exclusion HARD block (phrased as finalization/execution
+      ;; actions, never bare nouns, to avoid the sibling-track
+      ;; self-tripping false-positive bug -- verified via a dedicated
+      ;; regression test). :flag-eligibility-review always escalates
+      ;; and is never auto-commit-eligible; an above-cost-threshold
+      ;; :coordinate-supply-order always escalates. 25 tests / 60
+      ;; assertions green (cloud-itonami-isco-3353, ADR-2790003353).
+      ;; Counts re-verified live via maturity-summary rather than
+      ;; hand-derived from a prior comment's delta.
       (is (= 0 (:blueprint m)))
-      (is (= 211 (:spec m)))
-      (is (= 225 (:implemented m))))))
+      (is (= 210 (:spec m)))
+      (is (= 226 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1049,4 +1067,29 @@
            (:repo (occupation/get-occupation "3352"))))
     (is (= "cloud-itonami-isco-3352"
            (:business-id (occupation/get-occupation "3352"))))))
-
+(deftest government-social-benefits-officials-3353-implemented
+  (testing "3353 (Government Social Benefits Officials) promoted to
+            :implemented -- SocialBenefitsActor (Case Documentation
+            Advisor ⊣ SocialBenefitsGovernor); a DOCUMENTATION/
+            LOGISTICS-COORDINATION ONLY actor. This occupation directly
+            controls people's livelihoods (benefits eligibility), so it
+            has NO op, anywhere in its closed four-op allowlist
+            (:log-application-record, :schedule-caseworker-appointment,
+            :flag-eligibility-review, :coordinate-supply-order), that
+            resembles approving, denying or terminating a benefit -- that
+            capability is structurally absent, not merely gated, and is
+            reinforced by an independent content-based scope-exclusion
+            HARD check on proposal rationale text.
+            :flag-eligibility-review is the ONLY channel by which an
+            eligibility-adjacent observation may be surfaced, and it
+            ALWAYS escalates to a human caseworker, never auto-commit-
+            eligible at any phase; an above-cost-threshold
+            :coordinate-supply-order always escalates. 25 tests / 60
+            assertions green (cloud-itonami-isco-3353, ADR-2790003353).
+            Counts re-verified live via maturity-summary rather than
+            hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "3353")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-3353"
+           (:repo (occupation/get-occupation "3353"))))
+    (is (= "cloud-itonami-isco-3353"
+           (:business-id (occupation/get-occupation "3353"))))))
