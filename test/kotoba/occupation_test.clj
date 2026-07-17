@@ -878,9 +878,17 @@
       ;; freshly re-fetched origin/main immediately before this edit
       ;; (registry blob sha unchanged since that PUT, so no further
       ;; sibling registry change landed in between), 436 total unchanged.
+      ;; cloud-itonami-isco-5412 (Police Officers) promoted to
+      ;; :implemented in this same registry-edit window; re-verified
+      ;; live via (occupation/maturity-summary) against a freshly
+      ;; re-fetched origin/main rather than hand-derived from a prior
+      ;; comment's delta (other concurrent sibling ISCO-track sessions
+      ;; may also have landed registry promotions in this same window):
+      ;; 209 -> 207 spec, 227 -> 229 implemented,
+      ;; 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 209 (:spec m)))
-      (is (= 227 (:implemented m))))))
+      (is (= 207 (:spec m)))
+      (is (= 229 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1143,3 +1151,50 @@
            (:repo (occupation/get-occupation "3351"))))
     (is (= "cloud-itonami-isco-3351"
            (:business-id (occupation/get-occupation "3351"))))))
+
+(deftest police-officers-5412-implemented
+  (testing "5412 (Police Officers) promoted to :implemented --
+            PrecinctOpsActor (Precinct Coordination Advisor ⊣
+            PrecinctOpsGovernor); closed four-op proposal allowlist
+            (:log-equipment-record, :schedule-patrol-operation,
+            :flag-precinct-concern, :coordinate-supply-order) -- a
+            precinct/equipment/patrol-scheduling documentation/
+            logistics-coordination robot ONLY, mirroring the sibling
+            3355 (Police Inspectors and Detectives) safety pattern at
+            equal or greater rigor. This actor has ZERO use-of-force,
+            weapon-deployment, arrest, detention, search/seizure-
+            authorization, or suspect-pursuit/engagement authority: no
+            op resembling any of those six categories exists anywhere
+            in the allowlist (structurally absent, not merely gated),
+            confirmed by fifteen concretely-named forbidden-op
+            fixtures rejected at both the governor-unit level and the
+            full-actor-graph level via a rogue advisor, backed by a
+            content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"use force\", \"deploy the weapon\", \"make the
+            arrest\", \"detain the suspect\", \"authorize the
+            search\", \"pursue the suspect\") plus a DEDICATED
+            hard block on :coordinate-supply-order naming any weapon/
+            ammunition/lethal-equipment item (independent of and in
+            addition to the cost-threshold escalation -- blocked even
+            at $1) -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops
+            never self-trip either check, plus an end-to-end
+            rogue-advisor integration test driving the full compiled
+            StateGraph, proving :commit can never be reached for any
+            of the fifteen forbidden ops.
+            :flag-precinct-concern always escalates and is never
+            auto-commit-eligible; an over-cost-ceiling
+            :coordinate-supply-order (for allowed, non-weapon items
+            only) escalates -- not a hard block, routine procurement
+            above a unit's registered threshold, not itself unsafe.
+            54 tests / 203 assertions green (cloud-itonami-isco-5412,
+            ADR-2792005412). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main rather than hand-derived from a prior
+            comment's delta."
+    (is (= :implemented (occupation/maturity "5412")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-5412"
+           (:repo (occupation/get-occupation "5412"))))
+    (is (= "cloud-itonami-isco-5412"
+           (:business-id (occupation/get-occupation "5412"))))))
