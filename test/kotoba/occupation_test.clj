@@ -1165,8 +1165,8 @@
       ;; from any prior comment's delta -- several sibling promotions
       ;; have landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 180 (:spec m)))
-      (is (= 256 (:implemented m))))))
+      (is (= 179 (:spec m)))
+      (is (= 257 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
