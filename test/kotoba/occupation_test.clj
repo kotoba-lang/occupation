@@ -816,9 +816,32 @@
       ;; assertions green. Counts re-verified live via
       ;; (occupation/maturity-summary), not hand-derived from the prior
       ;; comment's delta, per the Addendum 85/86 lesson.
+      ;; 3354 government licensing officials promoted to :implemented --
+      ;; LicensingCoordinationActor (Licensing Coordination Advisor ⊣
+      ;; LicensingCoordinationGovernor); closed four-op proposal allowlist
+      ;; (:log-application-record, :schedule-review-appointment,
+      ;; :flag-licensing-review, :coordinate-supply-order) -- a
+      ;; documentation/logistics-coordination robot ONLY, with NO
+      ;; licensing/permitting-decision authority: issuing, denying,
+      ;; renewing or revoking a license or permit is structurally absent
+      ;; from the closed op-allowlist (not merely gated), plus a
+      ;; defense-in-depth finalization-language HARD block phrased as the
+      ;; finalize-ACTION (e.g. "issue the license", "deny the license
+      ;; application", "revoke the license"), never a bare noun, to
+      ;; avoid the sibling-track self-tripping false-positive bug --
+      ;; verified via a dedicated regression test that the default mock
+      ;; advisor's proposals for all four ops (including
+      ;; :flag-licensing-review's own disclaiming rationale) never
+      ;; self-trip it. :flag-licensing-review always escalates and is
+      ;; never auto-commit-eligible; an over-cost-ceiling
+      ;; :coordinate-supply-order always escalates too. 18 tests / 68
+      ;; assertions green (cloud-itonami-isco-3354, ADR-2791003354).
+      ;; Counts re-verified live via (occupation/maturity-summary) rather
+      ;; than hand-derived from a prior comment's delta, per the Addendum
+      ;; 85/86 lesson.
       (is (= 0 (:blueprint m)))
-      (is (= 215 (:spec m)))
-      (is (= 221 (:implemented m))))))
+      (is (= 214 (:spec m)))
+      (is (= 222 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -961,3 +984,30 @@
            (:repo (occupation/get-occupation "3342"))))
     (is (= "cloud-itonami-isco-3342"
            (:business-id (occupation/get-occupation "3342"))))))
+
+(deftest government-licensing-officials-3354-implemented
+  (testing "3354 (Government Licensing Officials) promoted to
+            :implemented -- LicensingCoordinationActor (Licensing
+            Coordination Advisor ⊣ LicensingCoordinationGovernor); closed
+            proposal-op allowlist (:log-application-record,
+            :schedule-review-appointment, :flag-licensing-review,
+            :coordinate-supply-order) -- a documentation/logistics-
+            coordination robot ONLY. This actor has NO licensing/
+            permitting-decision authority: no op that issues, denies,
+            renews or revokes a license or permit exists anywhere in the
+            allowlist (structurally absent, not merely gated), backed by
+            a finalization-language HARD block phrased as the
+            finalize-ACTION (never a bare noun) so it cannot self-trip on
+            :flag-licensing-review's own disclaiming default rationale.
+            :flag-licensing-review always escalates and is never
+            auto-commit-eligible; over-cost-ceiling supply orders
+            escalate. 18 tests / 68 assertions green
+            (cloud-itonami-isco-3354, ADR-2791003354). Counts
+            re-verified live via maturity-summary rather than
+            hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "3354")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-3354"
+           (:repo (occupation/get-occupation "3354"))))
+    (is (= "cloud-itonami-isco-3354"
+           (:business-id (occupation/get-occupation "3354"))))))
+
