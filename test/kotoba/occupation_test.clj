@@ -2278,3 +2278,51 @@
            (:repo (occupation/get-occupation "7131"))))
     (is (= "cloud-itonami-isco-7131"
            (:business-id (occupation/get-occupation "7131"))))))
+
+(deftest insulation-workers-7124-implemented
+  (testing "7124 (Insulation Workers) promoted to :implemented --
+            InsulationCrewActor (Insulation Crew Advisor ⊣
+            InsulationCrewGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct insulation-installation-execution authority.
+            Insulation Workers install thermal/acoustic insulation
+            materials on active job sites (fiber/particulate exposure,
+            confined-space work, ventilation hazards), so this actor
+            has ZERO authority to directly finalize an
+            insulation-installation-execution decision or override a
+            site safety officer's judgment -- no op resembling either
+            category exists anywhere in the allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check, independently-verified
+            worker/site provenance, and a content-based scope-exclusion
+            HARD block phrased as finalization/execution ACTIONS (never
+            bare nouns, e.g. \"proceed with the insulation
+            installation\", \"override the site safety officer's
+            judgment\") -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare nouns
+            \"insulation\" and \"safety officer\" (e.g. a
+            :log-work-record task \"routine insulation task\", a
+            :flag-safety-concern concern routed for site safety officer
+            review). :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold escalates -- not a hard block,
+            routine procurement above the registered threshold, not
+            itself unsafe unlike an insulation-installation-execution
+            or safety-officer-override attempt. 23 tests / 50
+            assertions green (cloud-itonami-isco-7124,
+            ADR-2799007124). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch
+            (the maturity-tier test's spec/implemented split above
+            already reflects this promotion, not hand-derived from a
+            prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7124")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7124"
+           (:repo (occupation/get-occupation "7124"))))
+    (is (= "cloud-itonami-isco-7124"
+           (:business-id (occupation/get-occupation "7124"))))))
