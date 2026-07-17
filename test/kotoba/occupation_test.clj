@@ -1094,9 +1094,17 @@
       ;; 241 -> 242 implemented (net +1/-1, this promotion only -- no
       ;; other concurrent sibling landed between the prior comment and
       ;; this edit).
+      ;; cloud-itonami-isco-7121 (Roofers) also promoted to
+      ;; :implemented in this same concurrent retry batch (see the
+      ;; dedicated roofers-7121-implemented test below for detail).
+      ;; This number (192 spec / 244 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) taken immediately
+      ;; before this edit, not hand-derived from any prior comment's
+      ;; delta -- several sibling promotions landed concurrently in
+      ;; this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 194 (:spec m)))
-      (is (= 242 (:implemented m))))))
+      (is (= 192 (:spec m)))
+      (is (= 244 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -1836,3 +1844,46 @@
     (is (= "cloud-itonami-isco-7119"
            (:business-id (occupation/get-occupation "7119"))))))
 
+
+
+(deftest roofers-7121-implemented
+  (testing "7121 (Roofers) promoted to :implemented -- RoofCoordActor
+            (Roof Coordination Advisor ⊣ RoofCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a job-site
+            scheduling/logistics coordination robot ONLY, never direct
+            roofing-work authority. Roofers work at height on active
+            job sites, one of the highest fall-risk trades: this actor
+            has ZERO authority to finalize a roofing-work-execution
+            decision or override a site-safety officer's
+            fall-protection judgment -- no op resembling either
+            category exists anywhere in the allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check, a site-mismatch
+            defense-in-depth check, independently-verified site/worker
+            provenance, and a content-based scope-exclusion HARD block
+            phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"proceed with the roof-work\", \"override
+            the site-safety officer\") -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip it, even though the
+            advisor's own default rationale/description text
+            legitimately contains the bare nouns \"roof\"/\"height\"
+            (e.g. a safety-concern flag describing a hazard \"near the
+            roof edge at height\"). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates --
+            not a hard block, routine procurement above the registered
+            threshold, not itself unsafe unlike a
+            roofing-work-execution or fall-protection-override
+            attempt. 22 tests / 52 assertions green
+            (cloud-itonami-isco-7121, ADR-2799007121). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit."
+    (is (= :implemented (occupation/maturity "7121")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7121"
+           (:repo (occupation/get-occupation "7121"))))
+    (is (= "cloud-itonami-isco-7121"
+           (:business-id (occupation/get-occupation "7121"))))))
