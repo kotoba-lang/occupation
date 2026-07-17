@@ -879,8 +879,8 @@
       ;; (registry blob sha unchanged since that PUT, so no further
       ;; sibling registry change landed in between), 436 total unchanged.
       (is (= 0 (:blueprint m)))
-      (is (= 210 (:spec m)))
-      (is (= 226 (:implemented m))))))
+      (is (= 209 (:spec m)))
+      (is (= 227 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
