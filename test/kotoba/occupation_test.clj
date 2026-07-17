@@ -1049,6 +1049,31 @@
       ;; re-fetched origin/main immediately before this edit: 197 ->
       ;; 197 spec, 239 -> 239 implemented, 436 total
       ;; unchanged.
+      ;; cloud-itonami-isco-9331 (Hand and Pedal Vehicle Drivers)
+      ;; promoted to :implemented -- HandPedalDispatchActor (Hand/Pedal
+      ;; Vehicle Dispatch Advisor ⊣ HandPedalDispatchGovernor); a
+      ;; dispatch/logistics SCHEDULING-COORDINATION ONLY actor with NO
+      ;; route/traffic-navigation-finalization or driver-on-road-safety-
+      ;; judgment-override authority anywhere in its closed four-op
+      ;; allowlist (:log-trip-record, :schedule-dispatch-operation,
+      ;; :flag-safety-concern, :coordinate-maintenance-order) -- this
+      ;; actor never operates the rickshaw/pedicab/hand-cart. Verified
+      ;; via the closed op-allowlist, independently-verified driver
+      ;; permit provenance, a registered-vehicle basis for maintenance
+      ;; orders, and a content-based route/traffic-navigation
+      ;; scope-exclusion HARD block phrased as finalization/execution
+      ;; actions (e.g. "override the driver's route judgment", "finalize
+      ;; the traffic-navigation decision"), never bare nouns -- a
+      ;; dedicated regression test proves the default mock advisor's own
+      ;; proposals across all four allowlisted ops never self-trip that
+      ;; block. :flag-safety-concern always escalates and is never
+      ;; auto-commit-eligible; an above-cost-threshold
+      ;; :coordinate-maintenance-order always escalates instead of
+      ;; hard-blocking (a cost overrun is a business decision, not a
+      ;; safety violation). 20 tests / 46 assertions green
+      ;; (cloud-itonami-isco-9331, ADR-2799009331). Counts re-verified
+      ;; live via (occupation/maturity-summary) against a freshly
+      ;; re-fetched origin/main immediately before this edit.
       (is (= 0 (:blueprint m)))
       (is (= 197 (:spec m)))
       (is (= 239 (:implemented m))))))
