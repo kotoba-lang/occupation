@@ -7950,3 +7950,77 @@
            (:repo (occupation/get-occupation "9612"))))
     (is (= "cloud-itonami-isco-9612"
            (:business-id (occupation/get-occupation "9612"))))))
+
+
+(deftest cloud-itonami-isco-9613-sweepers-and-related-labourers-promoted-to-implemented
+  (testing "cloud-itonami-isco-9613 (Sweepers and Related Labourers)
+            promoted to :implemented -- StreetCleaningActor (Sweeper
+            and Related Labourer Advisor ⊣ StreetCleaningGovernor); a
+            street/site-cleaning route scheduling/logistics
+            COORDINATION ONLY actor with NO cleaning-work-execution-
+            finalization, route-safety-clearance-finalization, or
+            route-safety-supervisor-judgment-override authority
+            anywhere in its closed four-op allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- this
+            actor never sweeps/cleans a street or site itself and
+            never declares a route safety-cleared. Sweepers and
+            Related Labourers is an ISCO major group 9 elementary
+            occupation performing outdoor street/site-cleaning work,
+            often near or in roadways, so the real-world safety stakes
+            stack two independent ways: vehicle-traffic hazard
+            (working near or in moving traffic) and outdoor
+            weather/terrain-exposure hazard (weather conditions,
+            uneven or hazardous terrain) -- so the governance SHAPE
+            (independent Governor, closed allowlist, hard/escalate
+            split) is NOT simplified relative to the higher-skill-tier
+            actors. Verified via a closed op-allowlist,
+            independently-verified worker/route provenance, a
+            no-actuation HARD invariant (:effect must be :propose),
+            and a content-based scope-exclusion HARD block covering
+            both independent out-of-scope decision classes (phrased as
+            finalization/execution actions, e.g. \"authorize the
+            sweeping operation to proceed\", \"declare the route
+            safety cleared\", \"override the route safety
+            supervisor's judgment\", never bare nouns like
+            \"street\"/\"broom\"/\"debris\", to avoid the sibling-track
+            self-tripping false-positive bug -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four allowlisted ops never self-trip
+            it). :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible for either hazard dimension
+            (vehicle-traffic-hazard and weather-terrain-exposure-
+            hazard both exercised by dedicated tests), no
+            confidence-level exception, ever; a :coordinate-supply-order
+            above the registered cost threshold (2000, boundary
+            verified exclusive by ok-supply-order-at-threshold-boundary
+            -- exactly-at-threshold commits, over-threshold escalates)
+            escalates -- not a hard block. The reference repo mirrored
+            for module SHAPE was cloud-itonami-isco-9611 (Garbage and
+            Recycling Collectors -- the closest comparable outdoor/
+            route-based elementary-occupation vehicle-traffic-hazard
+            actor, already landed at scaffold time), independently
+            re-cloned and read in full before mirroring, adapted to
+            the weather-terrain-exposure-hazard second hazard-scope
+            dimension of street/site-cleaning work. 26 tests / 56
+            assertions green (cloud-itonami-isco-9613, ADR-2799009613,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this entry's own promotion
+            ({:total 436, :spec 100, :blueprint 0, :implemented 336}
+            at that fetch, already reflecting this entry's own
+            promotion and cumulative concurrent sibling landings in
+            this same batch) -- not hand-derived from a prior comment's
+            delta -- this deftest deliberately does NOT touch the
+            maturity-tier aggregate count assertion above, which was
+            not yet stale relative to the true final Wave3-complete
+            count (4 sibling gaps in this same final batch had not yet
+            landed at the time of this fetch) -- left exactly as found
+            rather than fought over, per the race-safe convention for
+            this hot-contention batch."
+    (is (= :implemented (occupation/maturity "9613")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9613"
+           (:repo (occupation/get-occupation "9613"))))
+    (is (= "cloud-itonami-isco-9613"
+           (:business-id (occupation/get-occupation "9613"))))))
