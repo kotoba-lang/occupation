@@ -3611,3 +3611,66 @@
            (:repo (occupation/get-occupation "7311"))))
     (is (= "cloud-itonami-isco-7311"
            (:business-id (occupation/get-occupation "7311"))))))
+
+(deftest handicraft-workers-wood-basketry-7317-implemented
+  (testing "7317 (Handicraft Workers in Wood, Basketry and Related
+            Materials) promoted to :implemented -- WoodBasketryActor
+            (Wood & Basketry Handicraft Workshop Advisor ⊣
+            WoodBasketryGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            wood-and-basketry handicraft workshop scheduling/logistics
+            coordination robot ONLY, never direct
+            craft-fabrication-execution authority. Handicraft workers
+            in wood and basketry use hand tools and cutting equipment
+            on natural fiber/wood materials (cut hazards, dust
+            exposure, repetitive-strain injury), so this actor has
+            ZERO authority to directly finalize a
+            craft-fabrication-execution decision or override a
+            workshop safety officer's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-craft-fabrication-decision,
+            :finalize-carving-decision, :proceed-with-craft-fabrication,
+            :override-safety-officer-judgment,
+            :override-workshop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD block
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            craft-fabrication work\", \"finalize the weaving decision\",
+            \"override the workshop safety officer's judgment\") --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four allowlisted ops
+            never self-trip it, even though the advisor's own default
+            rationale text legitimately contains the bare nouns
+            \"craft\"/\"wood\"/\"basketry\"/\"weaving\"/\"safety
+            officer\" (e.g. \"scheduled crew operation for
+            basketry-weaving task ...\", \"... routed for workshop
+            safety officer review\"). Independently-verified
+            worker/workshop provenance HARD checks (:no-worker,
+            :no-workshop) ensure a proposal must resolve to an
+            independently registered crew member AND workshop before
+            any action; :effect must be :propose (:no-actuation).
+            :flag-safety-concern (a cut-hazard/dust-exposure/
+            repetitive-strain-injury concern) always escalates and is
+            NEVER auto-commit-eligible, regardless of confidence; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine wood/basketry-materials procurement
+            above the registered threshold, not itself unsafe unlike a
+            craft-fabrication-execution or safety-officer-override
+            attempt. 21 tests / 45 assertions green
+            (cloud-itonami-isco-7317, ADR-2799007317). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7317")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7317"
+           (:repo (occupation/get-occupation "7317"))))
+    (is (= "cloud-itonami-isco-7317"
+           (:business-id (occupation/get-occupation "7317"))))))
