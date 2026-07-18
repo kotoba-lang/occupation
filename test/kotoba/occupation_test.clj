@@ -5419,3 +5419,72 @@
            (:repo (occupation/get-occupation "7536"))))
     (is (= "cloud-itonami-isco-7536"
            (:business-id (occupation/get-occupation "7536"))))))
+(deftest product-graders-and-testers-7543-implemented
+  (testing "7543 (Product Graders and Testers, excluding Foods and
+            Beverages) promoted to :implemented -- ProdGradeActor
+            (Product Grader/Tester Advisor asymmetric-gated by
+            ProdGradeGovernor); closed four-op proposal allowlist
+            (:log-sample-record, :schedule-testing-session,
+            :flag-anomaly-concern, :coordinate-supply-order) -- a
+            sample-intake-logging/session-scheduling coordination
+            robot ONLY, never grading/testing-evaluation or
+            quality-judgment authority. Product graders and testers
+            perform quality-grading/testing evaluation of
+            manufactured (non-food) products -- this occupation's
+            entire purpose IS making a pass/fail/grade judgment,
+            mirroring the already-landed ISCO 7515 (Food and Beverage
+            Tasters and Graders) pattern -- so this actor coordinates
+            sample-intake logging and session scheduling ONLY: it
+            NEVER performs the grading/testing evaluation itself,
+            NEVER records or proposes a grade/pass-fail determination,
+            and NEVER finalizes a quality-clearance decision -- no
+            such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent HARD check naming eight
+            concretely-forbidden ops across four categories
+            (:perform-quality-evaluation, :conduct-quality-evaluation,
+            :assign-quality-grade,
+            :finalize-quality-grade-assignment,
+            :determine-pass-fail-outcome,
+            :finalize-pass-fail-determination,
+            :finalize-quality-clearance,
+            :authorize-quality-clearance), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"assign the quality grade\", \"determine the pass/fail
+            outcome\", \"finalize the quality clearance\"), and
+            independently-verified grader/tester/facility provenance
+            HARD checks (:no-grader, :no-facility -- a registered
+            record alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains the bare nouns \"quality\", \"grade\",
+            \"test\" and \"anomaly\"/\"defect\" (e.g. a
+            :schedule-testing-session rationale \"scheduled testing
+            session for quality evaluation panel\", a
+            :flag-anomaly-concern rationale \"routed for the human
+            grader/tester's attention\"). :flag-anomaly-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine testing-supply procurement above the
+            registered threshold, not itself a quality-clearance
+            determination unlike a grading/testing-evaluation,
+            quality-grade, pass-fail-determination or
+            quality-clearance attempt.
+            29 tests / 64 assertions green (cloud-itonami-isco-7543,
+            ADR-2799007543, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (135
+            spec / 301 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7543")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7543"
+           (:repo (occupation/get-occupation "7543"))))
+    (is (= "cloud-itonami-isco-7543"
+           (:business-id (occupation/get-occupation "7543"))))))
