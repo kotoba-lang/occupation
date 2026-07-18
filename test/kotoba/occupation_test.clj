@@ -1221,9 +1221,18 @@
       ;; fetch of registry.edn immediately before this edit -- other
       ;; sibling promotions landed concurrently in this same batch (6
       ;; sibling agents landing concurrently).
+      ;; cloud-itonami-isco-8122 (Metal Finishing, Plating and Coating
+      ;; Machine Operators) promoted to :implemented in this batch
+      ;; (ADR-2799008122, see the dedicated
+      ;; metal-finishing-plating-coating-machine-operators-8122-implemented
+      ;; test below for detail). This number (125 spec / 311
+      ;; implemented) is a live re-fetch of (occupation/maturity-summary)
+      ;; via a fresh GitHub API fetch of registry.edn immediately before
+      ;; this edit -- other sibling promotions landed concurrently in
+      ;; this same batch (6 sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 131 (:spec m)))
-      (is (= 305 (:implemented m))))))
+      (is (= 125 (:spec m)))
+      (is (= 311 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
