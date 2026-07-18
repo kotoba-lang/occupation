@@ -7265,3 +7265,80 @@
            (:repo (occupation/get-occupation "8211"))))
     (is (= "cloud-itonami-isco-8211"
            (:business-id (occupation/get-occupation "8211"))))))
+
+(deftest assemblers-not-elsewhere-classified-8219-implemented
+  (testing "8219 (Assemblers Not Elsewhere Classified) promoted to
+            :implemented -- AssemblyCoordActor (Assembly Line
+            Scheduling Coordination Advisor ⊣ AssemblyCoordGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a line scheduling/logistics
+            coordination robot ONLY, never assembly-execution or
+            line-safety-clearance authority. 8219 is a residual 'Not
+            Elsewhere Classified' unit group covering diverse
+            assembly-line work not captured by the more specific 8211
+            (Mechanical Machinery Assemblers) or 8212 (Electrical and
+            Electronic Equipment Assemblers), so standard
+            assembly-line hazards apply generically here (pinch-point/
+            crush hazard from moving parts and fixtures, hand-tool
+            injury) without a single dominant hazard type, and
+            :hazard-type on a :flag-safety-concern proposal is kept as
+            a free-form keyword rather than a fixed enum. This actor
+            has ZERO authority to finalize an assembly-execution
+            decision, finalize a line-safety-clearance decision, or
+            override a plant safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTION PHRASES (never bare nouns, e.g. \"finalize the
+            assembly operation\", \"declare the line safety cleared\",
+            \"override the plant safety officer's judgment\"), and
+            independently-verified assembler/line provenance HARD
+            checks (:no-assembler, :no-line -- a registered record
+            alone is not enough). Verified via a dedicated regression
+            test that the default mock advisor's proposals for all
+            four ops never self-trip the scope-exclusion guard, even
+            though this actor's own vocabulary legitimately contains
+            bare nouns like \"assembly\", \"component\" and
+            \"fixture\" (e.g. a self-trip regression task literally
+            reading \"routine assembly task with pinch-point and
+            hand-tool hazards near the component fixture\"). This
+            actor never performs assembly work itself:
+            :log-work-record covers production-run/inventory/progress
+            data logging only, :schedule-crew-operation covers
+            crew/shift/task scheduling only, :coordinate-supply-order
+            covers components/materials-stock procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 31 tests / 67 assertions green
+            (cloud-itonami-isco-8219, ADR-2799008219, independently
+            re-verified against a fresh clone of the pushed
+            repository). This entry's reference implementation was the
+            task brief's documented fallback,
+            cloud-itonami-isco-8122 (Metal Finishing, Plating and
+            Coating Machine Operators), since cloud-itonami-isco-8211
+            did not yet exist (a clean 404) at the time this actor was
+            scaffolded. Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own promotion
+            (108 spec / 328 implemented / 0 blueprint at that fetch,
+            already reflecting this entry's own promotion and
+            cumulative concurrent sibling landings in this same batch
+            of 6) -- not hand-derived from a prior comment's delta --
+            this deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split -- that assertion is
+            left exactly as found rather than fought over, per the
+            race-safe convention for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "8219")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8219"
+           (:repo (occupation/get-occupation "8219"))))
+    (is (= "cloud-itonami-isco-8219"
+           (:business-id (occupation/get-occupation "8219"))))))
