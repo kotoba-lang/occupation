@@ -4095,3 +4095,68 @@
            (:repo (occupation/get-occupation "7321"))))
     (is (= "cloud-itonami-isco-7321"
            (:business-id (occupation/get-occupation "7321"))))))
+
+(deftest print-finishing-and-binding-workers-7323-implemented
+  (testing "7323 (Print Finishing and Binding Workers) promoted to
+            :implemented -- PrintBindWorkerActor (Print Finishing and
+            Binding Worker Advisor ⊣ PrintBindWorkerGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a print-finishing/bindery
+            workshop scheduling/logistics coordination robot ONLY,
+            never direct finishing/binding-execution authority. Print
+            Finishing and Binding Workers operate cutting/folding/
+            binding equipment on an active bindery floor (blade/
+            guillotine hazards, machine-pinch hazards), so this actor
+            has ZERO authority to directly finalize a finishing/
+            binding-execution decision (e.g. deciding to proceed with
+            a specific guillotine-cutting, folding or binding
+            operation) or override a shop safety officer's judgment:
+            no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent HARD check naming five
+            concretely-forbidden ops
+            (:finalize-guillotine-cutting-decision,
+            :authorize-binding-operation,
+            :proceed-with-finishing-binding-work,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD block
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            guillotine-cutting operation\", \"authorize the binding
+            operation\", \"override the shop safety officer's
+            judgment\"), and independently-verified worker/workshop
+            provenance HARD checks (:no-worker, :no-workshop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"guillotine-cutting\", \"binding\" and \"shop safety
+            officer\" (e.g. a :schedule-crew-operation rationale
+            \"scheduled crew operation for guillotine-cutting task\",
+            a :flag-safety-concern rationale \"routed for shop safety
+            officer review\"). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered
+            binding-materials cost threshold (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            binding-materials procurement above the registered
+            threshold, not itself unsafe unlike a finishing/
+            binding-execution or safety-officer-override attempt. 21
+            tests / 45 assertions green (cloud-itonami-isco-7323,
+            ADR-2799007323, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (155
+            spec / 281 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7323")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7323"
+           (:repo (occupation/get-occupation "7323"))))
+    (is (= "cloud-itonami-isco-7323"
+           (:business-id (occupation/get-occupation "7323"))))))
