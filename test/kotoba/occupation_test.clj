@@ -1186,9 +1186,19 @@
       ;; immediately before this edit, not hand-derived from any prior
       ;; comment's delta -- several sibling promotions may have landed
       ;; concurrently in this same batch.
+      ;; cloud-itonami-isco-7223 (Metal Working Machine Tool Setters
+      ;; and Operators) promoted to :implemented in this batch
+      ;; (ADR-2799007223, see the dedicated
+      ;; metal-working-machine-tool-setters-operators-7223-implemented
+      ;; test below for detail). This number (171 spec / 265
+      ;; implemented) is a live re-fetch of (occupation/maturity-summary)
+      ;; via a fresh GitHub API fetch of registry.edn immediately before
+      ;; this edit, not hand-derived from any prior comment's delta --
+      ;; other sibling promotions have landed concurrently in this same
+      ;; batch (6 sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 173 (:spec m)))
-      (is (= 263 (:implemented m))))))
+      (is (= 171 (:spec m)))
+      (is (= 265 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -3052,3 +3062,61 @@
            (:repo (occupation/get-occupation "6129"))))
     (is (= "cloud-itonami-isco-6129"
            (:business-id (occupation/get-occupation "6129"))))))
+
+(deftest metal-working-machine-tool-setters-operators-7223-implemented
+  (testing "7223 (Metal Working Machine Tool Setters and Operators)
+            promoted to :implemented -- MachinistActor (Machinist
+            Advisor ⊣ MachinistGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            metal-working machine-shop scheduling/logistics
+            coordination robot ONLY, never direct machine-setup or
+            machining-execution authority. Metal Working Machine Tool
+            Setters and Operators set up and operate CNC/manual
+            machine tools (lathes, mills, presses) to shape and finish
+            metal parts -- rotating-machinery, tooling-change-injury
+            and metal-shaving hazards -- so this actor has ZERO
+            authority to directly finalize a machine-setup or
+            machining-execution decision (e.g. a specific lathe, mill
+            or press setup/run), authorize a machining operation, or
+            override a shop safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-machine-setup-decision,
+            :authorize-machining-operation,
+            :proceed-with-machine-setup,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the machine
+            setup\", \"override the shop safety officer's judgment\"),
+            and independently-verified worker/workshop provenance HARD
+            checks (:no-worker, :no-workshop -- a registered record
+            alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains the bare nouns \"machine\" and \"shop
+            safety officer\" (e.g. a :schedule-crew-operation rationale
+            naming a \"machine tool changeover\", a :flag-safety-concern
+            concern routed for shop safety officer review).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary)
+            escalates -- not a hard block, routine tooling-materials
+            procurement above the registered threshold, not itself
+            unsafe unlike a machine-setup/machining-execution or
+            safety-officer-override attempt. 22 tests / 47 assertions
+            green (cloud-itonami-isco-7223, ADR-2799007223). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "7223")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7223"
+           (:repo (occupation/get-occupation "7223"))))
+    (is (= "cloud-itonami-isco-7223"
+           (:business-id (occupation/get-occupation "7223"))))))
