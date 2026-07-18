@@ -5632,3 +5632,71 @@
            (:repo (occupation/get-occupation "7544"))))
     (is (= "cloud-itonami-isco-7544"
            (:business-id (occupation/get-occupation "7544"))))))
+(deftest craft-and-related-workers-nec-7549-implemented
+  (testing "7549 (Craft and Related Workers Not Elsewhere Classified)
+            promoted to :implemented -- CraftNecActor (Craft Trades
+            Coordination Advisor ⊣ CraftNecGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a generic craft workshop
+            scheduling/logistics coordination robot ONLY, never
+            direct craft-execution or quality/safety-clearance
+            authority. ISCO-08 7549 is a broad, generic residual
+            \"Not Elsewhere Classified\" category (varied hand-tools,
+            varied materials, no single dominant hazard type,
+            completing the entire ISCO-08 75xx craft-trades range),
+            so this actor has ZERO authority to directly finalize a
+            craft-execution decision, declare a product quality- or
+            safety-clearance decision, or override a shop safety
+            officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming six
+            concretely-forbidden ops (:finalize-craft-item,
+            :finalize-craft-execution-decision,
+            :declare-product-quality-cleared,
+            :declare-safety-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action)
+            phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"finalize the craft item\", \"declare the
+            product quality-cleared\", \"override the shop safety
+            officer's judgment\") -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four allowlisted ops never self-trip it, even
+            though the advisor's own default rationale text
+            legitimately contains the bare nouns
+            \"craft\"/\"quality\"/\"safety officer\" (e.g. \"scheduled
+            crew operation for craft task ...\", \"... routed for shop
+            safety officer review\"). Independently-verified
+            worker/workshop provenance HARD checks (:no-worker,
+            :no-workshop) ensure a proposal must resolve to an
+            independently registered crew member AND workshop before
+            any action; :effect must be :propose (:no-actuation).
+            :flag-safety-concern (a hand-tool-hazard/
+            material-handling/equipment-condition concern) always
+            escalates and is NEVER auto-commit-eligible, regardless of
+            confidence; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine craft-materials
+            procurement above the registered threshold, not itself
+            unsafe unlike a craft-execution/quality-clearance/
+            safety-officer-override attempt. 24 tests / 52 assertions
+            green (cloud-itonami-isco-7549, ADR-2799007549,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own promotion
+            (132 spec / 304 implemented / 0 blueprint at that fetch,
+            already reflecting this entry's own edit -- this deftest
+            deliberately does NOT touch the maturity-tier aggregate
+            count assertion above, which only asserts :total 436
+            (invariant across maturity promotions), not a
+            hand-derived spec/implemented split)."
+    (is (= :implemented (occupation/maturity "7549")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7549"
+           (:repo (occupation/get-occupation "7549"))))
+    (is (= "cloud-itonami-isco-7549"
+           (:business-id (occupation/get-occupation "7549"))))))
