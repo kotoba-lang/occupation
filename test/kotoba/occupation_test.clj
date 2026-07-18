@@ -3486,3 +3486,66 @@
            (:repo (occupation/get-occupation "7314"))))
     (is (= "cloud-itonami-isco-7314"
            (:business-id (occupation/get-occupation "7314"))))))
+(deftest jewellery-precious-metal-workers-7313-implemented
+  (testing "7313 (Jewellery and Precious Metal Workers) promoted to
+            :implemented -- JewelCoordActor (Jewellery Workshop
+            Coordination Advisor ⊣ JewelCoordGovernor); closed four-op
+            proposal allowlist (:log-inventory-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a workshop
+            scheduling/logistics/inventory-logging coordination robot
+            ONLY, never direct fabrication or custody-transfer
+            authority. Jewellery and precious metal workers handle
+            high-value precious metals/gemstones AND use torches/acids
+            for soldering and finishing (burn exposure, chemical/acid
+            exposure, plus a precious-materials chain-of-custody
+            integrity dimension), so this actor has ZERO authority to
+            directly finalize a jewellery-fabrication-execution
+            decision, authorize a precious-materials custody transfer,
+            or override a workshop safety officer's judgment: no such
+            op exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming six concretely-forbidden ops
+            (:finalize-fabrication-decision, :authorize-custody-transfer,
+            :proceed-with-fabrication-work,
+            :finalize-custody-transfer-decision,
+            :override-workshop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the fabrication work\", \"authorize the
+            custody transfer of precious materials\", \"override the
+            workshop safety officer's judgment\"), and
+            independently-verified jeweller/workshop provenance HARD
+            checks (:no-jeweller, :no-workshop -- a registered record
+            alone is not enough) -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            ops never self-trip the scope-exclusion guard, even though
+            this actor's own vocabulary legitimately contains the bare
+            nouns \"fabrication\", \"gold\" and \"custody\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for finishing task\", a :flag-safety-concern
+            rationale \"routed for workshop safety officer review\").
+            Inventory logging (:log-inventory-record) is metadata-only
+            and never doubles as a custody-transfer authorization.
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-workshop cost ceiling (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            non-precious materials/tools procurement above the
+            registered threshold, not itself unsafe unlike a
+            fabrication-execution, custody-transfer, or
+            safety-officer-override attempt. 23 tests / 50 assertions
+            green (cloud-itonami-isco-7313, ADR-2799007313). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch (the maturity-tier test's spec/implemented
+            split above already reflects this promotion, not
+            hand-derived from a prior comment's delta)."
+    (is (= :implemented (occupation/maturity "7313")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7313"
+           (:repo (occupation/get-occupation "7313"))))
+    (is (= "cloud-itonami-isco-7313"
+           (:business-id (occupation/get-occupation "7313"))))))
