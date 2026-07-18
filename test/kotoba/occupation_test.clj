@@ -5079,3 +5079,72 @@
            (:repo (occupation/get-occupation "7522"))))
     (is (= "cloud-itonami-isco-7522"
            (:business-id (occupation/get-occupation "7522"))))))
+
+(deftest pelt-dressers-tanners-fellmongers-7535-implemented
+  (testing "7535 (Pelt Dressers, Tanners and Fellmongers) promoted to
+            :implemented -- TanneryCoordActor (Tannery Scheduling
+            Coordination Advisor ⊣ TanneryCoordGovernor); closed
+            proposal-op allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a tannery scheduling/
+            logistics-coordination robot ONLY. Pelt dressers, tanners
+            and fellmongers process raw hides/pelts using tanning
+            chemicals (historically including chromium compounds and
+            other hazardous agents) -- real chemical-exposure hazard,
+            alongside biological-material handling -- so this actor
+            has ZERO authority to directly finalize a
+            tanning-execution decision (e.g. deciding to proceed with
+            a specific pelt-tanning run) or a chemical-safety-
+            clearance decision (e.g. declaring a tanned batch safe for
+            handling or shipment), or override a shop safety officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming
+            eleven concretely-forbidden ops
+            (:finalize-tanning-decision, :finalize-tanning-operation,
+            :authorize-tanning-run, :proceed-with-tanning-run,
+            :finalize-chemical-safety-clearance,
+            :declare-batch-safe-for-handling,
+            :declare-tanned-batch-safe-for-handling,
+            :declare-batch-safe-for-shipment, :clear-batch-for-shipment,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD check (:scope-excluded-action)
+            phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"finalize the tanning operation\", \"declare
+            the tannery chemical-safety cleared\", \"override the shop
+            safety officer's judgment\"), and independently-verified
+            tanner/facility provenance HARD checks (:no-tanner,
+            :no-facility -- a registered record alone is not enough)
+            -- verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare
+            nouns \"pelt\", \"hide\", \"tanning\", \"chromium\" and
+            \"shop safety officer\" (e.g. a :schedule-crew-operation
+            rationale naming a \"tannery task\", a
+            :flag-safety-concern concern routed for shop safety
+            officer review). :flag-safety-concern always escalates and
+            is never auto-commit-eligible; a :coordinate-supply-order
+            above the registered cost threshold (2000, inclusive
+            boundary verified by ok-supply-order-at-threshold-
+            boundary) escalates -- not a hard block, routine
+            tanning-chemicals/raw-hide procurement above the
+            registered threshold, not itself unsafe unlike a
+            tanning-execution, chemical-safety-clearance, or
+            safety-officer-override attempt. 32 tests / 69 assertions
+            green (cloud-itonami-isco-7535, ADR-2799007535,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (139 spec / 297
+            implemented / 0 blueprint at that fetch, before this
+            entry's own promotion), reflecting cumulative concurrent
+            sibling landings in this same batch, not hand-derived from
+            a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7535")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7535"
+           (:repo (occupation/get-occupation "7535"))))
+    (is (= "cloud-itonami-isco-7535"
+           (:business-id (occupation/get-occupation "7535"))))))
