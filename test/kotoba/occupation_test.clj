@@ -1231,8 +1231,8 @@
       ;; this edit -- other sibling promotions landed concurrently in
       ;; this same batch (6 sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 125 (:spec m)))
-      (is (= 311 (:implemented m))))))
+      (is (= 119 (:spec m)))
+      (is (= 317 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
