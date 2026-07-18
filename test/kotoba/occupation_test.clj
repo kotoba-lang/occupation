@@ -1214,8 +1214,8 @@
       ;; landed) -- other sibling promotions landed concurrently in this
       ;; same batch (6 sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 149 (:spec m)))
-      (is (= 287 (:implemented m))))))
+      (is (= 148 (:spec m)))
+      (is (= 288 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -4558,3 +4558,56 @@
            (:repo (occupation/get-occupation "7515"))))
     (is (= "cloud-itonami-isco-7515"
            (:business-id (occupation/get-occupation "7515"))))))
+
+(deftest ict-installers-servicers-7422-implemented
+  (testing "7422 (Information and Communications Technology Installers
+            and Servicers) promoted to :implemented --
+            ICTInstallActor (ICT Installation Advisor ⊣
+            ICTInstallGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a site
+            scheduling/logistics coordination robot ONLY, never direct
+            installation-execution or compliance-clearance authority.
+            ICT Installers and Servicers install and service network
+            cabling and equipment (electrical-shock and
+            working-at-height hazards), so this actor has ZERO
+            authority to directly finalize an installation-execution
+            decision, authorize or finalize a network/electrical-
+            compliance-clearance determination, or override a site
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            installation\", \"authorize the network/electrical
+            compliance clearance\", \"override the site safety
+            officer's judgment\"), and independently-verified
+            installer/site provenance HARD checks (:no-installer,
+            :no-site -- a registered record alone is not enough,
+            installer registration includes certification status) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"installation\", \"electrical\", \"network\" and \"safety
+            officer\" (e.g. a :schedule-crew-operation task \"network
+            cabling installation task\", a :flag-safety-concern
+            concern routed for certified site safety officer review).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold escalates -- not a hard block,
+            routine cabling/networking-equipment procurement above the
+            registered threshold, not itself unsafe unlike an
+            installation-execution or network/electrical-compliance-
+            clearance attempt. 27 tests / 59 assertions green
+            (cloud-itonami-isco-7422, ADR-2799007422). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit."
+    (is (= :implemented (occupation/maturity "7422")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7422"
+           (:repo (occupation/get-occupation "7422"))))
+    (is (= "cloud-itonami-isco-7422"
+           (:business-id (occupation/get-occupation "7422"))))))
