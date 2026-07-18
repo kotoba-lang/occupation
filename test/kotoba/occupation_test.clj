@@ -7574,3 +7574,82 @@
            (:repo (occupation/get-occupation "9214"))))
     (is (= "cloud-itonami-isco-9214"
            (:business-id (occupation/get-occupation "9214"))))))
+
+
+(deftest fishery-and-aquaculture-labourers-9216-implemented
+  (testing "9216 (Fishery and Aquaculture Labourers) promoted to
+            :implemented -- FisheryAquacultureActor (Fishery and
+            Aquaculture Labourer Advisor ⊣ FisheryAquacultureGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a site scheduling/logistics
+            coordination robot ONLY, never fishery/aquaculture-work-
+            execution or site-safety-clearance authority. Fishery and
+            Aquaculture Labourers is an ISCO major group 9 elementary
+            occupation (lower nominal formal-skill requirement than the
+            7xxx/8xxx trades/plant-operator groups already landed), but
+            the real-world safety stakes stack three ways: drowning-risk
+            hazard (water-based work, a category comparable in stakes to
+            a diving-hazard domain), aquatic-environment-exposure hazard
+            (water quality/current/temperature), and outdoor weather/
+            terrain-exposure hazard -- so the governance SHAPE (independent
+            Governor, closed allowlist, hard/escalate split) is NOT
+            simplified relative to the higher-skill-tier actors. This
+            actor has ZERO authority to finalize a fishery/aquaculture-
+            work-execution decision (e.g. authorizing a water-based
+            operation to proceed), finalize a site-safety-clearance
+            decision (e.g. declaring a site cleared for safety), or
+            override a site safety supervisor's judgment: no such op
+            exists anywhere in the closed allowlist (structurally absent,
+            not merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns, e.g.
+            \"authorize the water-based operation to proceed\", \"declare
+            the site safety cleared\", \"override the site safety
+            supervisor's judgment\"), and independently-verified worker/
+            site provenance HARD checks (:no-worker, :no-site -- a
+            registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary legitimately
+            contains bare nouns like \"fish\", \"net\", \"boat\" and \"site
+            safety supervisor\" (e.g. a self-trip regression task
+            literally reading \"routine fish net and boat maintenance
+            task\" with hazard-type :drowning-risk). This actor never
+            performs fishery or aquaculture work itself: :log-work-record
+            covers harvest/task/progress data logging only,
+            :schedule-crew-operation covers crew/task scheduling only,
+            :coordinate-supply-order covers feed/equipment procurement
+            only, and :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost threshold
+            (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-threshold
+            commits, over-threshold escalates) escalates -- not a hard
+            block. The reference repo mirrored for module SHAPE was
+            cloud-itonami-isco-9212 (Livestock Farm Labourers -- the
+            closest comparable elementary-occupation outdoor-labour
+            hazard-domain analog), independently re-cloned and read in
+            full before mirroring, extended with an independent
+            drowning-risk/aquatic-environment-exposure hazard-scope
+            dimension. 24 tests / 52 assertions green
+            (cloud-itonami-isco-9216, ADR-2799009216, independently
+            re-verified against a fresh clone of the pushed repository).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately before
+            this entry's own append ({:total 436, :spec 102, :blueprint 0,
+            :implemented 334} at that fetch, already reflecting this
+            entry's own promotion and cumulative concurrent sibling
+            landings in this same batch) -- not hand-derived from a prior
+            comment's delta -- this deftest deliberately does NOT touch
+            the maturity-tier aggregate count assertion above, which only
+            asserts :total 436 (invariant across maturity promotions), not
+            a hand-derived spec/implemented split -- that assertion is
+            left exactly as found rather than fought over, per the
+            race-safe convention for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "9216")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9216"
+           (:repo (occupation/get-occupation "9216"))))
+    (is (= "cloud-itonami-isco-9216"
+           (:business-id (occupation/get-occupation "9216"))))))
