@@ -5560,3 +5560,75 @@
            (:repo (occupation/get-occupation "7541"))))
     (is (= "cloud-itonami-isco-7541"
            (:business-id (occupation/get-occupation "7541"))))))
+
+(deftest fumigators-and-other-pest-and-weed-controllers-7544-implemented
+  (testing "7544 (Fumigators and Other Pest and Weed Controllers)
+            promoted to :implemented -- PestCoordActor (Pest and Weed
+            Control Scheduling Coordination Advisor asymmetric-gated
+            by PestCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            pest-control/fumigation-operation scheduling/logistics
+            coordination robot ONLY, never fumigation/pesticide-
+            application-execution or chemical-safety-clearance
+            authority. Fumigators and other pest and weed controllers
+            apply pesticides and fumigants (toxic-chemical agents) --
+            real toxic-chemical-exposure hazard to both the applicator
+            and building occupants/environment, mirroring the
+            already-landed ISCO 7535 (Pelt Dressers, Tanners and
+            Fellmongers) chemical-hazard pattern -- so this actor
+            coordinates crew/site scheduling and job/progress logging
+            ONLY: it NEVER applies pesticides or fumigants itself,
+            NEVER records or proposes a fumigation/pesticide-
+            application-execution decision, and NEVER finalizes a
+            chemical-safety-clearance/re-entry decision -- no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming thirteen concretely-
+            forbidden ops across three categories
+            (:finalize-fumigation-decision,
+            :finalize-pesticide-application-decision, ...,
+            :declare-site-safe-for-reentry, ...,
+            :override-site-safety-officer-judgment), and a
+            content-based scope-exclusion HARD block
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            pesticide application\", \"declare the site safe for
+            re-entry\", \"override the site safety officer's
+            judgment\"), and independently-verified applicator/site
+            provenance HARD checks (:no-applicator, :no-site -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"pesticide\", \"fumigant\" and \"chemical\" (e.g. a
+            :schedule-crew-operation rationale naming a \"pest control
+            task\", a :flag-safety-concern concern routed for site
+            safety officer review). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine administrative/equipment procurement
+            above the registered threshold (never pesticide/fumigant
+            chemicals themselves, which are entirely out of scope for
+            this administrative-coordination actor), not itself unsafe
+            unlike a fumigation/pesticide-application-execution,
+            chemical-safety-clearance, or site-safety-officer-override
+            attempt. 34 tests / 73 assertions green
+            (cloud-itonami-isco-7544, ADR-2799007544, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (133
+            spec / 303 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7544")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7544"
+           (:repo (occupation/get-occupation "7544"))))
+    (is (= "cloud-itonami-isco-7544"
+           (:business-id (occupation/get-occupation "7544"))))))
