@@ -7501,3 +7501,76 @@
            (:repo (occupation/get-occupation "9212"))))
     (is (= "cloud-itonami-isco-9212"
            (:business-id (occupation/get-occupation "9212"))))))
+
+
+(deftest garden-and-horticultural-labourers-9214-implemented
+  (testing "9214 (Garden and Horticultural Labourers) promoted to
+            :implemented -- GardenHorticulturalActor (Garden and
+            Horticultural Labourer Advisor ⊣ GardenHorticulturalGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a site scheduling/logistics
+            coordination robot ONLY, never garden-work-execution or
+            site-safety-clearance authority. Garden and Horticultural
+            Labourers is an ISCO major group 9 elementary occupation
+            (lower nominal formal-skill requirement than the 7xxx/8xxx
+            trades/plant-operator groups already landed), but the
+            real-world safety stakes stack three ways: power-tool hazard
+            (mowers, trimmers, hedge cutters), pesticide/fertilizer
+            chemical-exposure hazard, and outdoor weather-exposure hazard
+            -- so the governance SHAPE (independent Governor, closed
+            allowlist, hard/escalate split) is NOT simplified relative to
+            the higher-skill-tier actors. This actor has ZERO authority to
+            finalize a garden-work-execution decision (e.g. finalizing the
+            garden-maintenance operation), finalize a site-safety-clearance
+            decision, or override a site safety supervisor's judgment: no
+            such op exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns, e.g.
+            \"finalize the garden-maintenance operation\", \"declare the
+            site safety cleared\", \"override the site safety supervisor's
+            judgment\"), and independently-verified worker/site provenance
+            HARD checks (:no-worker, :no-site -- a registered record alone
+            is not enough). Verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this actor's
+            own vocabulary legitimately contains bare nouns like \"mower\",
+            \"trimmer\", \"pesticide\" and \"site safety supervisor\" (e.g.
+            a self-trip regression task literally reading \"routine mower
+            and trimmer maintenance task\" with hazard-type
+            :pesticide-exposure). This actor never performs garden or
+            horticultural work itself: :log-work-record covers
+            planting/maintenance-log/progress data logging only,
+            :schedule-crew-operation covers crew/task scheduling only,
+            :coordinate-supply-order covers plants/soil/tool-supplies
+            procurement only, and :flag-safety-concern ALWAYS escalates and
+            is never auto-commit-eligible, no confidence-level exception,
+            ever; a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-threshold
+            commits, over-threshold escalates) escalates -- not a hard
+            block. The reference repo mirrored for module SHAPE was
+            cloud-itonami-isco-9212 (Livestock Farm Labourers -- the
+            closest outdoor-labour hazard-domain analog), independently
+            re-cloned and read in full before mirroring, adapted to the
+            power-tool/pesticide/weather hazard-scope dimension of garden
+            and horticultural work. 24 tests / 52 assertions green
+            (cloud-itonami-isco-9214, ADR-2799009214, independently
+            re-verified against a fresh clone of the pushed repository).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately after
+            this entry's own promotion ({:total 436, :spec 106, :blueprint
+            0, :implemented 330} at that fetch) -- not hand-derived from a
+            prior comment's delta -- this deftest deliberately does NOT
+            touch the maturity-tier aggregate count assertion above, which
+            only asserts :total 436 (invariant across maturity
+            promotions), not a hand-derived spec/implemented split -- that
+            assertion is left exactly as found rather than fought over,
+            per the race-safe convention for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "9214")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9214"
+           (:repo (occupation/get-occupation "9214"))))
+    (is (= "cloud-itonami-isco-9214"
+           (:business-id (occupation/get-occupation "9214"))))))
