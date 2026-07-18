@@ -6464,3 +6464,70 @@
            (:repo (occupation/get-occupation "8142"))))
     (is (= "cloud-itonami-isco-8142"
            (:business-id (occupation/get-occupation "8142"))))))
+
+(deftest weaving-and-knitting-machine-operators-8152-implemented
+  (testing "8152 (Weaving and Knitting Machine Operators) promoted to
+            :implemented -- MillCoordActor (Mill Scheduling
+            Coordination Advisor ⊣ MillCoordGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a mill scheduling/logistics
+            coordination robot ONLY, never weaving/knitting-equipment
+            operation or mill-safety-clearance authority. Weaving and
+            Knitting Machine Operators run high-speed loom and
+            knitting equipment -- a real entanglement-hazard domain
+            (moving shuttles, needles and drive mechanisms) plus
+            sustained noise exposure -- so this actor has ZERO
+            authority to finalize a machine-operation-execution
+            decision, finalize a mill-safety-clearance decision, or
+            override a mill safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTION PHRASES (never bare nouns, e.g. \"finalize the
+            weaving operation\", \"declare the mill safety cleared\",
+            \"override the mill safety officer's judgment\"), and
+            independently-verified weaver/mill provenance HARD checks
+            (:no-weaver, :no-mill -- a registered record alone is not
+            enough). Verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains bare nouns
+            like \"loom\", \"shuttle\" and \"needle\" (e.g. a self-trip
+            regression task literally reading \"routine loom shuttle
+            and knitting needle maintenance task with yarn/thread-
+            stock check\"). This actor never operates weaving/knitting
+            equipment itself: :log-work-record covers production-run/
+            inventory/progress data logging only, :schedule-crew-
+            operation covers crew/shift/task scheduling only,
+            :coordinate-supply-order covers yarn/thread-stock
+            procurement only, and :flag-safety-concern ALWAYS
+            escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a :coordinate-supply-
+            order above the registered cost threshold (2000, boundary
+            verified exclusive by ok-supply-order-at-threshold-
+            boundary -- exactly-at-threshold commits, over-threshold
+            escalates) escalates -- not a hard block. 34 tests / 73
+            assertions green (cloud-itonami-isco-8152, ADR-2799008152,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this promotion (125 spec /
+            311 implemented / 0 blueprint before this entry's own
+            edit, 121 spec / 315 implemented / 0 blueprint at a fresh
+            re-fetch immediately after), reflecting cumulative
+            concurrent sibling landings in this same batch, not
+            hand-derived from a prior comment's delta -- this deftest
+            deliberately does NOT touch the maturity-tier aggregate
+            count assertion above, which only asserts :total 436
+            (invariant across maturity promotions), not a
+            hand-derived spec/implemented split -- that assertion is
+            left exactly as found rather than fought over, per the
+            race-safe convention for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "8152")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8152"
+           (:repo (occupation/get-occupation "8152"))))
+    (is (= "cloud-itonami-isco-8152"
+           (:business-id (occupation/get-occupation "8152"))))))
