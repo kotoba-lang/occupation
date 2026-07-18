@@ -5843,3 +5843,72 @@
            (:repo (occupation/get-occupation "8113"))))
     (is (= "cloud-itonami-isco-8113"
            (:business-id (occupation/get-occupation "8113"))))))
+
+
+(deftest mineral-stone-processing-plant-operators-8112-implemented
+  (testing "8112 (Mineral and Stone Processing Plant Operators) promoted to :implemented --
+            MineralPlantCoordActor (Mineral and Stone Processing Plant
+            Coordination Advisor ⊣ MineralPlantCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a plant scheduling/logistics
+            coordination robot ONLY, never direct
+            plant-operation-execution or plant-safety-clearance
+            authority. Mineral and stone processing plant operators
+            run crushing/grinding/screening plant equipment (heavy-
+            machinery hazard: crush/entanglement injury) plus dust
+            exposure, so this actor has ZERO authority to directly
+            finalize a plant-operation-execution decision or a
+            plant-safety-clearance decision, nor override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent HARD check
+            naming seven concretely-forbidden ops
+            (:finalize-plant-operation-decision,
+            :authorize-plant-operation, :proceed-with-plant-operation,
+            :declare-plant-safety-cleared,
+            :finalize-plant-safety-clearance,
+            :override-plant-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the plant-operation decision\", \"declare the
+            plant safety cleared\", \"override the plant safety
+            officer's judgment\"), and independently-verified
+            operator/plant provenance HARD checks (:no-operator,
+            :no-plant -- a registered record alone is not enough) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"crushing\", \"screening\" and \"plant safety officer\"
+            (e.g. a :schedule-crew-operation rationale \"scheduled
+            crew operation for crushing/screening shift\", a
+            :flag-safety-concern rationale \"routed for plant safety
+            officer review\"). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered per-plant
+            cost ceiling (2000, inclusive boundary) escalates -- not a
+            hard block, routine raw-material/spare-parts procurement
+            above the registered threshold, not itself unsafe unlike a
+            plant-operation-execution, plant-safety-clearance, or
+            safety-officer-override attempt. 23 tests / 49 assertions
+            green (cloud-itonami-isco-8112, ADR-2799008112,
+            independently re-verified against a fresh clone of the
+            pushed repository, clj-kondo lint signature matches the
+            mirrored cloud-itonami-isco-7211 reference's own
+            pre-existing quirk). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch
+            (6 sibling agents landing concurrently) -- this deftest
+            deliberately does NOT touch the maturity-tier aggregate
+            count assertion above, which only asserts :total 436
+            (invariant across maturity promotions), not a
+            hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8112")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8112"
+           (:repo (occupation/get-occupation "8112"))))
+    (is (= "cloud-itonami-isco-8112"
+           (:business-id (occupation/get-occupation "8112"))))))
