@@ -3734,3 +3734,73 @@
            (:repo (occupation/get-occupation "7315"))))
     (is (= "cloud-itonami-isco-7315"
            (:business-id (occupation/get-occupation "7315"))))))
+
+(deftest musical-instrument-makers-and-tuners-7312-implemented
+  (testing "7312 (Musical Instrument Makers and Tuners) promoted to
+            :implemented -- InstrumentMakerActor (Instrument Maker
+            Advisor ⊣ InstrumentMakerGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a musical-instrument-making/
+            tuning workshop scheduling/logistics coordination robot
+            ONLY, never direct instrument-construction/tuning-
+            execution authority. Musical Instrument Makers and Tuners
+            use woodworking/metalworking tools and materials
+            (lacquers, adhesives) -- tool-hazard and fume-exposure
+            risk -- so this actor has ZERO authority to directly
+            finalize an instrument-construction/tuning-execution
+            decision (e.g. deciding to proceed with the instrument-
+            construction step or the tuning execution of a specific
+            instrument), authorize an instrument-construction step or
+            a tuning execution, or override a workshop safety
+            officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming
+            eight concretely-forbidden ops
+            (:finalize-instrument-construction-decision,
+            :authorize-instrument-construction-step,
+            :proceed-with-instrument-construction-step,
+            :finalize-tuning-decision, :authorize-tuning-execution,
+            :proceed-with-tuning-execution,
+            :override-safety-officer-judgment,
+            :override-workshop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            instrument-construction step\", \"authorize the tuning
+            execution\", \"override the workshop safety officer's
+            judgment\"), and independently-verified worker/workshop
+            provenance HARD checks (:no-worker, :no-workshop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"instrument-making\", \"tuning\" and \"workshop safety
+            officer\" (e.g. a :schedule-crew-operation rationale
+            naming an \"instrument-making task\", a
+            :flag-safety-concern concern routed for workshop safety
+            officer review). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine instrument-materials procurement
+            above the registered threshold, not itself unsafe unlike
+            an instrument-construction/tuning-execution or
+            safety-officer-override attempt. 27 tests / 58 assertions
+            green (cloud-itonami-isco-7312, ADR-2799007312). This
+            actor's scope-excluded-ops/phrases and test suite
+            independently cover both the instrument-construction and
+            the tuning-execution dimensions of ISCO-08 7312's
+            'makers and tuners' scope. Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (161 spec / 275
+            implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7312")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7312"
+           (:repo (occupation/get-occupation "7312"))))
+    (is (= "cloud-itonami-isco-7312"
+           (:business-id (occupation/get-occupation "7312"))))))
