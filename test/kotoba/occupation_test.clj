@@ -1170,9 +1170,17 @@
       ;; just-fetched file) -- further sibling promotions landed
       ;; concurrently in this same batch; this actor's own
       ;; cloud-itonami-isco-7214 promotion remains reflected throughout.
+      ;; cloud-itonami-isco-6310 (Subsistence Crop Farmers) promoted to
+      ;; :implemented in this batch (ADR-2799006310, see the dedicated
+      ;; subsistence-crop-farmers-6310-implemented test below for detail).
+      ;; This number (175 spec / 261 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) via a fresh GitHub API
+      ;; fetch of registry.edn immediately before this edit, not hand-derived
+      ;; from any prior comment's delta -- other sibling promotions may have
+      ;; landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 179 (:spec m)))
-      (is (= 257 (:implemented m))))))
+      (is (= 175 (:spec m)))
+      (is (= 261 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2772,3 +2780,64 @@
            (:repo (occupation/get-occupation "6223"))))
     (is (= "cloud-itonami-isco-6223"
            (:business-id (occupation/get-occupation "6223"))))))
+
+(deftest subsistence-crop-farmers-6310-implemented
+  (testing "6310 (Subsistence Crop Farmers) promoted to :implemented --
+            SubsistenceFarmActor (Subsistence Farm Advisor ⊣
+            SubsistenceFarmGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-farm-operation,
+            :flag-livelihood-concern, :coordinate-supply-order) -- a
+            household record-keeping/logistics coordination robot ONLY,
+            never direct agronomic-decision authority. Subsistence Crop
+            Farmers grow crops primarily for household consumption, not
+            commercial sale, so this vertical carries a distinct
+            livelihood-vulnerability dimension on top of standard
+            agricultural physical-safety hazards: a crop-failure risk
+            here threatens the household's own food security directly.
+            This actor has ZERO authority to directly finalize a
+            planting/harvest-timing decision or override the farmer's
+            own judgment about their household's crops: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden ops
+            (:finalize-planting-decision,
+            :finalize-harvest-timing-decision,
+            :proceed-with-planting-decision,
+            :proceed-with-harvest-decision,
+            :override-farmer-crop-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the planting decision\", \"finalize the
+            harvest timing decision\", \"override the farmer's crop
+            judgment\") -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip it, even though the advisor's own default
+            rationale text legitimately contains the bare nouns
+            \"planting\"/\"harvest\"/\"farmer\" (e.g. \"scheduled farm
+            operation for planting task\", \"routed for human
+            review\"). Independently-verified farmer/plot provenance
+            HARD checks (:no-farmer, :no-plot) ensure a proposal must
+            resolve to an independently registered farmer AND farm plot
+            before any action. :flag-livelihood-concern (a
+            crop-failure-risk/food-security concern) always escalates
+            and is NEVER auto-commit-eligible, regardless of
+            confidence -- the subsistence-farming livelihood
+            dimension's controlling constraint; a :coordinate-supply-
+            order above the registered cost threshold (300, household
+            scale, inclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine seeds/tools procurement above the
+            registered threshold, not itself a livelihood-threatening
+            agronomic decision unlike a planting/harvest-finalization
+            or farmer-judgment-override attempt. 23 tests / 50
+            assertions green (cloud-itonami-isco-6310,
+            ADR-2799006310). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch."
+    (is (= :implemented (occupation/maturity "6310")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6310"
+           (:repo (occupation/get-occupation "6310"))))
+    (is (= "cloud-itonami-isco-6310"
+           (:business-id (occupation/get-occupation "6310"))))))
