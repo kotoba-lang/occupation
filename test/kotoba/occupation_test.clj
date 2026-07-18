@@ -3176,3 +3176,79 @@
            (:repo (occupation/get-occupation "7132"))))
     (is (= "cloud-itonami-isco-7132"
            (:business-id (occupation/get-occupation "7132"))))))
+
+(deftest subsistence-mixed-crop-and-livestock-farmers-6330-implemented
+  (testing "6330 (Subsistence Mixed Crop and Livestock Farmers) promoted
+            to :implemented -- MixedFarmActor (Farm Operations Advisor
+            ⊣ MixedFarmGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-farm-operation,
+            :flag-livelihood-concern, :coordinate-supply-order) -- a
+            farm record-keeping/logistics coordination robot ONLY,
+            never direct agronomic-decision or animal-treatment
+            authority. Subsistence Mixed Crop and Livestock Farmers
+            grow crops AND raise animals for household consumption,
+            combining sibling 6310's livelihood-vulnerability +
+            agronomic-decision dimension with sibling 6320's
+            animal-welfare dimension in a single mixed-holding actor.
+            This actor has ZERO authority to directly finalize a
+            planting/harvest-timing decision, an animal-treatment/
+            welfare/breeding decision, or override the farmer's own
+            judgment about their household's crops or livestock: no
+            such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check
+            (:op-not-allowed), a second independent HARD check naming
+            seventeen concretely-forbidden ops (combining 6310's five
+            agronomic exclusions -- :finalize-planting-decision,
+            :finalize-harvest-timing-decision,
+            :proceed-with-planting-decision,
+            :proceed-with-harvest-decision,
+            :override-farmer-crop-judgment -- with 6320's twelve
+            animal-treatment/welfare/breeding exclusions --
+            :determine-animal-fitness-for-breeding,
+            :decide-animal-fitness-for-breeding,
+            :authorize-veterinary-treatment,
+            :order-veterinary-treatment,
+            :administer-veterinary-treatment,
+            :decide-animal-welfare-disposition,
+            :determine-animal-welfare-disposition,
+            :finalize-breeding-decision, :determine-breeding-decision,
+            :authorize-livestock-cull, :order-livestock-cull,
+            :override-farmer-livestock-judgment,
+            :override-household-livestock-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            planting decision\", \"determine the animal's fitness for
+            breeding\", \"override the farmer's crop or livestock
+            judgment\") -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip it, even though the advisor's own default
+            rationale text and work-log details legitimately contain
+            bare nouns like \"planting\"/\"harvest\"/\"welfare\".
+            Independently-verified farmer/holding provenance HARD
+            checks (:unknown-farmer, :farmer-unverified,
+            :unknown-holding, :holding-unverified, :holding-mismatch)
+            ensure a proposal must resolve to an independently
+            registered AND verified farmer/holding record before any
+            action; :flag-livelihood-concern (a crop-failure/animal-
+            welfare/injury-risk/food-security concern) always
+            escalates and is NEVER auto-commit-eligible, regardless of
+            confidence; a :coordinate-supply-order above the
+            registered cost threshold (300, household scale, inclusive
+            boundary) escalates -- not a hard block, routine
+            seeds/feed/tools procurement above the registered
+            threshold is not itself a livelihood-threatening decision
+            unlike a planting/harvest-finalization, treatment/breeding-
+            finalization, or farmer-judgment-override attempt. 51
+            tests / 192 assertions green (cloud-itonami-isco-6330,
+            ADR-2799006330). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "6330")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6330"
+           (:repo (occupation/get-occupation "6330"))))
+    (is (= "cloud-itonami-isco-6330"
+           (:business-id (occupation/get-occupation "6330"))))))
