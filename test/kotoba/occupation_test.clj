@@ -7962,6 +7962,67 @@
     (is (= "cloud-itonami-isco-9612"
            (:business-id (occupation/get-occupation "9612"))))))
 
+(deftest cloud-itonami-isco-9621-messengers-package-deliverers-luggage-porters-promoted-to-implemented
+  (testing "cloud-itonami-isco-9621 (Messengers, Package Deliverers and
+            Luggage Porters) promoted to :implemented -- CourierRouteActor
+            (Messenger, Package Deliverer and Luggage Porter Advisor
+            ⊣ CourierRouteGovernor); a route scheduling/logistics
+            COORDINATION ONLY actor with NO delivery-execution-
+            finalization, route-safety-clearance-finalization, or
+            route-safety-supervisor-judgment-override authority anywhere
+            in its closed four-op allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- this actor never performs
+            delivery or portering work itself and never declares a route
+            safety-cleared. Verified via a closed op-allowlist,
+            independently-verified worker/route provenance, a
+            no-actuation HARD invariant (:effect must be :propose), and a
+            content-based scope-exclusion HARD block covering all three
+            independent out-of-scope decision classes (phrased as
+            finalization/execution actions, e.g. \"authorize the delivery
+            route to proceed\", \"declare the route safety cleared\",
+            \"override the route safety supervisor's judgment\", never
+            bare nouns like \"package\"/\"luggage\"/\"bicycle\", to avoid
+            the sibling-track self-tripping false-positive bug -- verified
+            via a dedicated regression test that the default mock
+            advisor's proposals for all four allowlisted ops never
+            self-trip it). :flag-safety-concern always escalates and is
+            never auto-commit-eligible (delivery-traffic hazard --
+            bicycle/vehicle/pedestrian delivery-route travel -- and
+            manual-lifting/back-injury hazard from carrying packages/
+            luggage stack independently on the base scheduling/logistics
+            scope); an above-cost-threshold :coordinate-supply-order
+            always escalates too. The reference repo mirrored for module
+            SHAPE was cloud-itonami-isco-9611 (Garbage and Recycling
+            Collectors -- already landed, the closest comparable outdoor/
+            route-based elementary-occupation hazard pattern),
+            independently re-cloned and read in full before mirroring,
+            adapted to the delivery-traffic/manual-lifting hazard-scope
+            dimension of messenger/package-delivery/luggage-portering
+            work. 24 tests / 52 assertions green (cloud-itonami-isco-9621,
+            ADR-2799009621, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this entry's own promotion
+            ({:total 436, :spec 96, :blueprint 0, :implemented 340} at
+            that fetch, matching the pre-batch reset baseline of
+            {:total 436, :spec 101, :implemented 335} minus exactly this
+            batch's 5 gap-closing promotions -- Wave 3 (production/
+            trades) is now fully complete: kotoba.occupation.wave groups
+            this occupation and its 126 siblings into wave 3, all 127 of
+            which now read :implemented, 0 remaining at :spec). This
+            deftest DOES touch the maturity-tier aggregate count
+            assertion below, updating it from the pre-batch reset
+            baseline (101/335) to this freshly re-verified final count
+            (96/340), since the live recompute above confirms the
+            assertion is now stale and this batch is Wave 3's final
+            gap-closing batch."
+    (is (= :implemented (occupation/maturity "9621")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9621"
+           (:repo (occupation/get-occupation "9621"))))
+    (is (= "cloud-itonami-isco-9621"
+           (:business-id (occupation/get-occupation "9621"))))))
+
 
 (deftest cloud-itonami-isco-9613-sweepers-and-related-labourers-promoted-to-implemented
   (testing "cloud-itonami-isco-9613 (Sweepers and Related Labourers)
