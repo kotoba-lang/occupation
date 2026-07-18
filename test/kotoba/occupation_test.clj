@@ -4802,3 +4802,75 @@
            (:repo (occupation/get-occupation "7234"))))
     (is (= "cloud-itonami-isco-7234"
            (:business-id (occupation/get-occupation "7234"))))))
+
+(deftest aircraft-engine-mechanics-7232-implemented
+  (testing "7232 (Aircraft Engine Mechanics and Repairers) promoted to
+            :implemented -- AeroCoordActor (Aircraft Engine
+            Maintenance-Bay Coordination Advisor ⊣ AeroCoordGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a maintenance-bay scheduling/
+            logistics coordination robot ONLY, never direct
+            aircraft-engine maintenance execution or airworthiness-
+            clearance authority. Aircraft engine mechanics and
+            repairers perform maintenance work where a single
+            undetected defect can cause loss of life in flight --
+            categorically higher-stakes than ordinary workshop
+            mechanical trades, the highest-stakes hazard framing of
+            any Wave3 batch so far -- so this actor has ZERO authority
+            to directly finalize a maintenance-execution decision
+            (performing/completing the actual repair), finalize an
+            airworthiness-clearance or return-to-service
+            determination, or override a certified aviation
+            inspector's or mechanic's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming ten concretely-forbidden ops
+            (:finalize-maintenance-execution-decision,
+            :perform-repair-directly, :execute-repair-directly,
+            :complete-repair-directly, :finalize-airworthiness-clearance,
+            :finalize-return-to-service-determination,
+            :override-certified-aviation-inspector-judgment,
+            :override-certified-mechanic-judgment,
+            :bypass-airworthiness-inspection,
+            :bypass-return-to-service-determination), and a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"declare the engine airworthy and cleared for return to
+            service\", \"finalize the repair\", \"override the certified
+            aviation inspector's judgment\"), and
+            independently-verified mechanic/aircraft provenance HARD
+            checks (:unknown-mechanic, :no-aircraft -- a registered
+            record alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains bare nouns like \"engine\",
+            \"airworthiness\", \"repair\" and \"inspection\" (e.g. a
+            :coordinate-supply-order rationale naming \"turbine blade
+            set and borescope consumables\", a :flag-safety-concern
+            concern naming an \"anomalous vibration reading near engine
+            2 turbine section\"). :flag-safety-concern ALWAYS escalates
+            and is never auto-commit-eligible, no confidence-level
+            exception, ever; a :coordinate-supply-order above the
+            registered cost threshold (20000, inclusive boundary)
+            escalates -- not a hard block, routine engine-parts
+            procurement above the registered threshold, not itself
+            unsafe unlike a maintenance-execution or
+            airworthiness-clearance-override attempt. 27 tests / 69
+            assertions green (cloud-itonami-isco-7232, ADR-2799007232).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately
+            before this edit (143 spec / 293 implemented / 0 blueprint
+            at that fetch), reflecting cumulative concurrent sibling
+            landings in this same batch, not hand-derived from a prior
+            comment's delta (the maturity-tier test's spec/implemented
+            split, if any remains, may lag this promotion -- not
+            fought per CLAUDE.md's explicit guidance for this batch)."
+    (is (= :implemented (occupation/maturity "7232")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7232"
+           (:repo (occupation/get-occupation "7232"))))
+    (is (= "cloud-itonami-isco-7232"
+           (:business-id (occupation/get-occupation "7232"))))))
