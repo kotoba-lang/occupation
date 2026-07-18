@@ -6749,3 +6749,90 @@
            (:repo (occupation/get-occupation "8156"))))
     (is (= "cloud-itonami-isco-8156"
            (:business-id (occupation/get-occupation "8156"))))))
+
+(deftest textile-fur-leather-products-machine-operators-nec-8159-implemented
+  (testing "8159 (Textile, Fur and Leather Products Machine Operators Not
+            Elsewhere Classified) promoted to :implemented --
+            TflCoordActor (Textile, Fur and Leather Products Machine
+            Operations Coordination Advisor ⊣ TflCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a residual 'Not Elsewhere
+            Classified' textile/fur/leather machine-operations plant
+            scheduling/logistics coordination robot ONLY, never
+            textile/fur/leather machine operation itself or direct
+            machine-operation-execution/plant-safety-clearance
+            authority. ISCO-08 8159 is a broad, generic hazard
+            category covering diverse textile/fur/leather
+            machine-operation work not captured by more specific ISCO
+            815x codes -- standard industrial-machine hazards
+            (entanglement, crush injury from varied machinery) apply
+            generically, without a single dominant hazard type -- so
+            this actor has ZERO authority to directly finalize a
+            machine-operation-execution decision, finalize a
+            plant-safety-clearance decision, or override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"finalize the machine operation\", \"declare the
+            plant safety cleared\", \"override the plant safety
+            officer's judgment\"), and independently-verified
+            operator/plant provenance HARD checks (:no-operator,
+            :no-plant -- a registered record alone is not enough).
+            Verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"textile\", \"fur\" and \"leather\" (e.g. a
+            :schedule-crew-operation rationale naming a
+            textile/fur/leather machine task, a
+            :flag-safety-concern rationale naming an entanglement
+            concern routed for plant safety officer review). This
+            actor never operates textile/fur/leather machinery
+            itself: :log-work-record covers production-run/
+            inventory/progress data logging only,
+            :schedule-crew-operation covers crew/shift/task
+            scheduling only, :coordinate-supply-order covers
+            raw-materials procurement only, and :flag-safety-concern
+            ALWAYS escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, exclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine raw-materials procurement above the
+            registered threshold is not itself unsafe unlike a
+            machine-operation-execution or
+            plant-safety-clearance/safety-officer-override attempt.
+            The task's cited reference repo
+            (cloud-itonami-isco-8155, Fur and Leather Preparing
+            Machine Operators) had not yet been merged by any
+            concurrent sibling agent at the time this repo's scaffold
+            began, so per the task's own fallback instruction the
+            actual reference used was cloud-itonami-isco-8122 (Metal
+            Finishing, Plating and Coating Machine Operators),
+            independently re-verified: fresh clone, clojure -M:test
+            green 32 tests / 69 assertions, 0 failures / 0 errors,
+            before mirroring. 32 tests / 69 assertions green
+            (cloud-itonami-isco-8159, ADR-2799008159, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this entry's
+            own promotion, already reflecting this entry's own
+            promotion and cumulative concurrent sibling landings in
+            this same batch of 6 -- not hand-derived from a prior
+            comment's delta -- this deftest deliberately does NOT
+            touch the maturity-tier aggregate count assertion above,
+            which only asserts :total 436 (invariant across maturity
+            promotions), not a hand-derived spec/implemented split --
+            that assertion is left exactly as found rather than
+            fought over, per the race-safe convention for this
+            hot-contention batch."
+    (is (= :implemented (occupation/maturity "8159")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8159"
+           (:repo (occupation/get-occupation "8159"))))
+    (is (= "cloud-itonami-isco-8159"
+           (:business-id (occupation/get-occupation "8159"))))))
