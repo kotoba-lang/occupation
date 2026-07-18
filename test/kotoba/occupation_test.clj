@@ -6038,3 +6038,81 @@
            (:repo (occupation/get-occupation "8122"))))
     (is (= "cloud-itonami-isco-8122"
            (:business-id (occupation/get-occupation "8122"))))))
+
+(deftest chemical-products-plant-and-machine-operators-8131-implemented
+  (testing "8131 (Chemical Products Plant and Machine Operators) promoted
+            to :implemented -- ChemCoordActor (Chemical-Plant Scheduling &
+            Logistics Coordination Advisor ⊣ ChemCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a chemical-plant scheduling/
+            logistics coordination robot ONLY, never chemical-processing-
+            equipment operation or direct chemical-process-execution/
+            plant-safety-clearance authority. Chemical Products Plant and
+            Machine Operators run industrial chemical processing plants --
+            real risk of toxic release, fire, explosion or reaction
+            hazards if process controls fail, categorically higher-stakes
+            than ordinary workshop trades, comparable to the already-
+            landed mining (8111, registry :spec) and blasting (7542,
+            :implemented) hazard framings -- so this actor has ZERO
+            authority to directly finalize a chemical-process-execution
+            decision (authorizing a process/reaction to proceed), finalize
+            a plant-safety-clearance decision, or override a plant safety
+            officer's judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated), confirmed
+            by the governor's closed op-allowlist HARD check (:unknown-op),
+            a content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as finalization/execution
+            ACTION PHRASES (never bare nouns, e.g. \"authorize the process
+            to proceed\", \"finalize the chemical-process operation\",
+            \"override the plant safety officer's judgment\"), and
+            independently-verified plant/operator provenance HARD checks
+            (:no-plant, :unknown-operator, :operator-wrong-plant,
+            :plant-mismatch -- a registered record alone is not enough).
+            Verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own vocabulary
+            legitimately contains bare nouns like \"chemical\",
+            \"reaction\", \"process\", \"batch\" and \"reagent\" (e.g. a
+            :schedule-crew-operation rationale naming a batch-12 shift
+            changeover, a :flag-safety-concern description naming an
+            unresolved leak-risk concern pending equipment-condition
+            review). This actor never operates chemical-processing
+            equipment itself: :log-work-record covers production-run/
+            batch/progress data logging only, :schedule-crew-operation
+            covers crew/shift/task scheduling only,
+            :coordinate-supply-order covers plant-equipment/
+            administrative-supply procurement only (never process
+            chemicals or reagents themselves), and :flag-safety-concern
+            ALWAYS escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a :coordinate-supply-order
+            above the registered cost threshold (20000, inclusive boundary
+            verified by ok-supply-order-at-or-below-cost-threshold)
+            escalates -- not a hard block, routine plant-equipment
+            procurement above the registered threshold is not itself
+            unsafe unlike a chemical-process-execution or plant-safety-
+            clearance attempt. The task's cited reference repo
+            (cloud-itonami-isco-8111, Miners and Quarriers) does not
+            actually exist (404 confirmed via both git clone and gh api,
+            registry still :spec) -- cloud-itonami-isco-7542 (Shotfirers
+            and Blasters) was used instead as the closest comparable
+            life-safety-critical hazard pattern, per the task's own
+            fallback guidance. 26 tests / 66 assertions green
+            (cloud-itonami-isco-8131, ADR-2799008131, independently
+            re-verified against a fresh clone of the pushed repository,
+            clj-kondo 0 errors / 0 warnings). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own promotion
+            (127 spec / 309 implemented / 0 blueprint at that fetch, prior
+            to this entry's own edit -- 126 spec / 310 implemented / 0
+            blueprint after), reflecting cumulative concurrent sibling
+            landings in this same batch, not hand-derived from a prior
+            comment's delta -- this deftest deliberately does NOT touch
+            the maturity-tier aggregate count assertion above, which only
+            asserts :total 436 (invariant across maturity promotions), not
+            a hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8131")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8131"
+           (:repo (occupation/get-occupation "8131"))))
+    (is (= "cloud-itonami-isco-8131"
+           (:business-id (occupation/get-occupation "8131"))))))
