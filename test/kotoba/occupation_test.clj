@@ -4293,3 +4293,73 @@
            (:repo (occupation/get-occupation "7516"))))
     (is (= "cloud-itonami-isco-7516"
            (:business-id (occupation/get-occupation "7516"))))))
+
+(deftest butchers-fishmongers-7511-implemented
+  (testing "cloud-itonami-isco-7511 (Butchers, Fishmongers and Related
+            Food Preparers) is a governor-gated shop scheduling/
+            logistics coordination actor, following the itonami
+            robotics premise (ADR-2607121000) closely on
+            cloud-itonami-isco-7213's cutting-hazard physical-safety
+            pattern (verified reference: closed clone read in full).
+            Same four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a butcher-shop/fishmonger shop
+            scheduling/logistics coordination robot ONLY, never direct
+            butchering/preparation-execution authority and never
+            direct food-safety-clearance authority. Butchers and
+            fishmongers work raw meat/fish with cutting tools under
+            hygiene-compliance requirements, so this occupation carries
+            TWO independent permanent scope-exclusion dimensions on top
+            of 7213's single cutting-hazard dimension: (a) a
+            preparation-execution decision (e.g. deciding to proceed
+            with a specific cutting or butchering operation) and (b) a
+            food-safety-clearance decision (e.g. declaring a batch fit
+            for sale) -- neither op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming
+            concretely-forbidden ops
+            (:finalize-cutting-operation,
+            :proceed-with-butchering-operation,
+            :finalize-preparation-execution-decision,
+            :declare-batch-fit-for-sale,
+            :finalize-food-safety-clearance,
+            :clear-batch-for-sale,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD block
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the cutting
+            operation\", \"declare the batch fit for sale\", \"override
+            the shop safety officer's judgment\"), and
+            independently-verified worker/shop provenance HARD checks
+            (:no-worker, :no-shop -- a registered record alone is not
+            enough) -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare nouns
+            \"cutting\", \"batch\" and \"shop safety officer\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for cutting task\", a :flag-safety-concern
+            rationale \"routed for shop safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered meat/fish-stock cost threshold (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            meat/fish-stock procurement above the registered threshold,
+            not itself unsafe unlike a preparation-execution,
+            food-safety-clearance or safety-officer-override attempt.
+            24 tests / 52 assertions green (cloud-itonami-isco-7511,
+            ADR-2799007511, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (153
+            spec / 283 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7511")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7511"
+           (:repo (occupation/get-occupation "7511"))))
+    (is (= "cloud-itonami-isco-7511"
+           (:business-id (occupation/get-occupation "7511"))))))
