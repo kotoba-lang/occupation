@@ -7200,3 +7200,68 @@
            (:repo (occupation/get-occupation "8212"))))
     (is (= "cloud-itonami-isco-8212"
            (:business-id (occupation/get-occupation "8212"))))))
+
+(deftest mechanical-machinery-assemblers-8211-implemented
+  (testing "8211 (Mechanical Machinery Assemblers) promoted to
+            :implemented -- MechAssemblyCoordActor (Mechanical
+            Assembly Line Scheduling Coordination Advisor ⊣
+            MechAssemblyCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a line
+            scheduling/logistics coordination robot ONLY, never
+            assembly-execution or line-safety-clearance authority.
+            Mechanical Machinery Assemblers assemble mechanical
+            components on production lines -- a standard workshop
+            hazard domain: hand-tool injury and pinch-point/crush
+            hazard from assembly fixtures and machinery -- so this
+            actor has ZERO authority to finalize an
+            assembly-execution decision, finalize a
+            line-safety-clearance decision, or override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. "finalize the assembly operation", "declare the
+            line safety cleared", "override the plant safety
+            officer's judgment"), and independently-verified
+            assembler/line provenance HARD checks (:no-assembler,
+            :no-line -- a registered record alone is not enough).
+            Verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            "assembly", "fixture" and "component" (e.g. a
+            self-trip regression task literally reading "routine
+            mechanical assembly task with pinch-point hazard and
+            crush hazard fixtures and fastener components"). This
+            actor never performs assembly work itself: :log-work-record
+            covers production-run/inventory/progress data logging
+            only, :schedule-crew-operation covers crew/shift/task
+            scheduling only, :coordinate-supply-order covers
+            components/fasteners-stock procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 32 tests / 69 assertions green
+            (cloud-itonami-isco-8211, ADR-2799008211, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this promotion (112 spec /
+            0 blueprint / 324 implemented at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8211")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8211"
+           (:repo (occupation/get-occupation "8211"))))
+    (is (= "cloud-itonami-isco-8211"
+           (:business-id (occupation/get-occupation "8211"))))))
