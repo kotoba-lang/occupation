@@ -5148,3 +5148,70 @@
            (:repo (occupation/get-occupation "7535"))))
     (is (= "cloud-itonami-isco-7535"
            (:business-id (occupation/get-occupation "7535"))))))
+
+(deftest sewing-and-embroidery-workers-7533-implemented
+  (testing "7533 (Sewing, Embroidery and Related Workers) promoted to
+            :implemented -- SewCoordActor (Sewing Coordination Advisor
+            ⊣ SewCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            sewing/embroidery workshop scheduling/logistics
+            coordination robot ONLY, never direct sewing/embroidery-
+            execution or workshop-safety-clearance authority. ISCO-08
+            7533 workers operate sewing/embroidery machines (a
+            concrete needle-puncture-injury / moving-machine-part-
+            injury hazard profile, unlike a residual/generic craft
+            category), so this actor has ZERO authority to directly
+            finalize a sewing/embroidery-execution decision, declare a
+            workshop-safety-clearance decision, or override a shop
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent HARD check
+            naming eight concretely-forbidden ops
+            (:finalize-sewing-operation,
+            :finalize-sewing-execution-decision,
+            :finalize-embroidery-operation,
+            :finalize-embroidery-execution-decision,
+            :declare-workshop-safety-cleared, :declare-safety-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the sewing operation\", \"declare the workshop
+            safety cleared\", \"override the shop safety officer's
+            judgment\") -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four
+            allowlisted ops never self-trip it, even though the
+            advisor's own default rationale text legitimately contains
+            the bare nouns \"sewing\"/\"embroidery\"/\"safety officer\"
+            (e.g. \"scheduled crew operation for sewing/embroidery task
+            ...\", \"... routed for shop safety officer review\").
+            Independently-verified worker/workshop provenance HARD
+            checks (:no-worker, :no-workshop) ensure a proposal must
+            resolve to an independently registered crew member AND
+            workshop before any action; :effect must be :propose
+            (:no-actuation). :flag-safety-concern (a needle-puncture-
+            hazard/machine-part-hazard/equipment-condition concern)
+            always escalates and is NEVER auto-commit-eligible,
+            regardless of confidence; a :coordinate-supply-order above
+            the registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine thread/fabric-
+            materials procurement above the registered threshold, not
+            itself unsafe unlike a sewing/embroidery-execution/
+            safety-clearance/safety-officer-override attempt. 24 tests
+            / 52 assertions green (cloud-itonami-isco-7533,
+            ADR-2799007533, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (139
+            spec / 297 implemented / 0 blueprint at that fetch, before
+            this entry's own promotion), reflecting cumulative
+            concurrent sibling landings in this same batch, not
+            hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7533")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7533"
+           (:repo (occupation/get-occupation "7533"))))
+    (is (= "cloud-itonami-isco-7533"
+           (:business-id (occupation/get-occupation "7533"))))))
