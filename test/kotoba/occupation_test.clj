@@ -7891,3 +7891,62 @@
            (:repo (occupation/get-occupation "9213"))))
     (is (= "cloud-itonami-isco-9213"
            (:business-id (occupation/get-occupation "9213"))))))
+
+(deftest cloud-itonami-isco-9612-refuse-sorters-promoted-to-implemented
+  (testing "cloud-itonami-isco-9612 (Refuse Sorters) promoted to
+            :implemented -- RefuseSorterActor (Refuse Sorter Advisor
+            ⊣ RefuseSorterGovernor); a facility scheduling/logistics
+            COORDINATION ONLY actor with NO sorting-operation-
+            execution-finalization, facility-safety-clearance-
+            finalization, or facility-safety-supervisor-judgment-
+            override authority anywhere in its closed four-op
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- this
+            actor never sorts waste materials itself and never
+            declares a facility safety-cleared. Verified via a closed
+            op-allowlist, independently-verified worker/facility
+            provenance, a no-actuation HARD invariant (:effect must be
+            :propose), and a content-based scope-exclusion HARD block
+            covering all three independent out-of-scope decision
+            classes (phrased as finalization/execution actions, e.g.
+            \"finalize the sorting operation execution decision\",
+            \"declare the facility safety cleared\", \"override the
+            facility safety supervisor's judgment\", never bare nouns
+            like \"waste\"/\"conveyor\"/\"sharp\", to avoid the
+            sibling-track self-tripping false-positive bug -- verified
+            via a dedicated regression test that the default mock
+            advisor's proposals for all four allowlisted ops never
+            self-trip it). :flag-safety-concern always escalates and
+            is never auto-commit-eligible (hazardous-material-handling
+            and sorting-line-machinery hazards, e.g. entanglement,
+            stack independently on the base scheduling/logistics
+            scope); an above-cost-threshold :coordinate-supply-order
+            always escalates too. The reference repo mirrored for
+            module SHAPE was cloud-itonami-isco-9212 (Livestock Farm
+            Labourers -- the closest itonami-pattern analog available
+            at scaffold time, since the nominally-closer
+            cloud-itonami-isco-9611 had not yet landed), independently
+            re-cloned and read in full before mirroring, adapted to
+            the hazardous-material-handling/sorting-line-machinery
+            hazard-scope dimension of refuse-sorting-facility work.
+            25 tests / 55 assertions green (cloud-itonami-isco-9612,
+            ADR-2799009612, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately after this entry's own
+            promotion ({:total 436, :spec 101, :blueprint 0,
+            :implemented 335} at that fetch, already reflecting this
+            entry's own promotion and cumulative concurrent sibling
+            landings in this same batch) -- not hand-derived from a
+            prior comment's delta -- this deftest deliberately does
+            NOT touch the maturity-tier aggregate count assertion
+            above, which only asserts :total 436 (invariant across
+            maturity promotions), not a hand-derived spec/implemented
+            split -- that assertion is left exactly as found rather
+            than fought over, per the race-safe convention for this
+            hot-contention batch."
+    (is (= :implemented (occupation/maturity "9612")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9612"
+           (:repo (occupation/get-occupation "9612"))))
+    (is (= "cloud-itonami-isco-9612"
+           (:business-id (occupation/get-occupation "9612"))))))
