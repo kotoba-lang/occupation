@@ -8243,3 +8243,74 @@
            (:repo (occupation/get-occupation "9629"))))
     (is (= "cloud-itonami-isco-9629"
            (:business-id (occupation/get-occupation "9629"))))))
+
+(deftest water-and-firewood-collectors-9624-implemented
+  (testing "9624 (Water and Firewood Collectors) promoted to :implemented --
+            WaterFirewoodActor (Water and Firewood Collector Advisor ⊣
+            WaterFirewoodGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            collection-site scheduling/logistics coordination robot ONLY,
+            never collection-work-execution or site-safety-clearance
+            (including water-quality-clearance) authority. Water and
+            Firewood Collectors is an ISCO major group 9 elementary
+            occupation (lower nominal formal-skill requirement than the
+            7xxx/8xxx trades/plant-operator groups already landed), but
+            the real-world safety stakes stack three ways:
+            physical-exertion/carrying-load hazard (manual transport of
+            water/firewood over distance), terrain hazard (uneven
+            ground, unmarked paths) and water-source-quality concern
+            (contamination risk at the collection point) -- so the
+            governance SHAPE (independent Governor, closed allowlist,
+            hard/escalate split) is NOT simplified relative to the
+            higher-skill-tier actors. This actor has ZERO authority to
+            finalize a collection-work-execution decision (e.g.
+            finalizing the collection operation), finalize a
+            site-safety-clearance decision (e.g. declaring a water
+            source safe for collection), or override a site safety
+            supervisor's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTION PHRASES (never bare nouns, e.g. \"finalize the
+            collection operation\", \"declare the water source safe for
+            collection\", \"override the site safety supervisor's
+            judgment\"), and independently-verified worker/site
+            provenance HARD checks (:no-worker, :no-site -- a registered
+            record alone is not enough). Verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion guard,
+            even though this actor's own vocabulary legitimately
+            contains bare nouns like \"water\", \"firewood\",
+            \"collection\" and \"site safety supervisor\" (e.g. a
+            self-trip regression task literally reading \"routine
+            water/firewood collection task\" with hazard-type
+            :water-quality-hazard). This actor never performs collection
+            work itself: :log-work-record covers collection-log/progress
+            data logging only (never a water-quality-safety
+            determination), :schedule-crew-operation covers crew/task
+            scheduling only, :coordinate-supply-order covers
+            collection-equipment procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost threshold
+            (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-threshold
+            commits, over-threshold escalates) escalates -- not a hard
+            block. The reference repo mirrored for module SHAPE was
+            cloud-itonami-isco-9212 (Livestock Farm Labourers -- the
+            closest comparable outdoor-manual-labour hazard-domain
+            analog), independently re-cloned and read in full before
+            mirroring, extended with a second, independent
+            water-source/terrain hazard-scope dimension. 24 tests / 52
+            assertions green (cloud-itonami-isco-9624, ADR-2799009624,
+            independently re-verified against a fresh clone of the
+            pushed repository). This is one of the final five Wave3
+            (production/trades) gaps -- ISCO occupation-actor track
+            Wave3 reaches 101/101 once all five land (ADR-2607121000)."
+    (is (= :implemented (occupation/maturity "9624")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9624"
+           (:repo (occupation/get-occupation "9624"))))
+    (is (= "cloud-itonami-isco-9624"
+           (:business-id (occupation/get-occupation "9624"))))))
