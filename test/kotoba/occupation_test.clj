@@ -5912,3 +5912,64 @@
            (:repo (occupation/get-occupation "8112"))))
     (is (= "cloud-itonami-isco-8112"
            (:business-id (occupation/get-occupation "8112"))))))
+
+(deftest cement-stone-mineral-products-machine-operators-8114-implemented
+  (testing "8114 (Cement, Stone and Other Mineral Products Machine
+            Operators) promoted to :implemented -- MineralPlantCoordActor
+            (Mineral Products Plant Coordination Advisor ⊣
+            MineralPlantCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a cement/
+            stone/mineral-products plant scheduling/logistics
+            coordination robot ONLY, never direct machine-operation-
+            execution or plant-safety-clearance authority. Cement, stone
+            and other mineral products machine operators run heavy
+            industrial forming/pressing/kiln equipment -- heavy-machinery
+            hazard (crush/entanglement injury) plus dust/heat exposure --
+            so this actor has ZERO authority to directly finalize a
+            machine-operation-execution decision (e.g. deciding to run
+            or proceed with a specific forming/pressing/kiln machine
+            cycle) or a plant-safety-clearance decision (e.g. declaring
+            the plant floor safety-cleared), or to override a plant
+            safety officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the machine
+            operation\", \"declare the plant safety cleared\",
+            \"override the plant safety officer's judgment\"), and
+            independently-verified operator/plant provenance HARD checks
+            (:no-operator, :no-plant -- a registered record alone is not
+            enough). Verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains bare nouns like
+            \"cement\", \"kiln\" and \"dust\" (e.g. a routine
+            :log-work-record/:schedule-crew-operation rationale naming a
+            \"production-run task\", a :flag-safety-concern concern
+            naming \"dust-exposure-risk\" and routed for plant safety
+            officer review). :flag-safety-concern ALWAYS escalates and is
+            never auto-commit-eligible, no confidence-level exception,
+            ever; a :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine raw-material/spare-parts procurement
+            above the registered threshold, not itself unsafe unlike a
+            machine-operation-execution or plant-safety-clearance
+            finalization attempt. 21 tests / 45 assertions green
+            (cloud-itonami-isco-8114, ADR-2799008114, independently
+            re-verified against a fresh clone of the pushed repository).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately after
+            this promotion, reflecting cumulative concurrent sibling
+            landings in this same batch, not hand-derived from a prior
+            comment's delta -- this deftest deliberately does NOT touch
+            the maturity-tier aggregate count assertion above, which only
+            asserts :total 436 (invariant across maturity promotions),
+            not a hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8114")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8114"
+           (:repo (occupation/get-occupation "8114"))))
+    (is (= "cloud-itonami-isco-8114"
+           (:business-id (occupation/get-occupation "8114"))))))
