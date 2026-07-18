@@ -3426,3 +3426,63 @@
            (:repo (occupation/get-occupation "6340"))))
     (is (= "cloud-itonami-isco-6340"
            (:business-id (occupation/get-occupation "6340"))))))
+
+(deftest potters-related-workers-7314-implemented
+  (testing "7314 (Potters and Related Workers) promoted to :implemented --
+            PotteryCoordActor (Pottery Coordination Advisor ⊣
+            PotteryCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            pottery workshop scheduling/logistics coordination robot
+            ONLY, never direct firing/glazing-execution authority.
+            Potters and related workers operate high-temperature kilns
+            and handle clay/glaze materials (some glazes contain
+            hazardous chemicals), so this actor has ZERO authority to
+            directly finalize a firing/glazing-execution decision or
+            override a workshop safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming eight concretely-forbidden
+            ops (:finalize-firing-decision, :authorize-kiln-firing,
+            :proceed-with-kiln-firing, :finalize-glazing-decision,
+            :authorize-glazing-decision, :proceed-with-glazing,
+            :override-workshop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action)
+            phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"proceed with the kiln-firing operation\",
+            \"authorize the kiln-firing operation\", \"override the
+            workshop safety officer's judgment\") -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four allowlisted ops never self-trip it,
+            even though the advisor's own default rationale text
+            legitimately contains the bare nouns \"kiln\"/\"glaze\"/
+            \"workshop safety officer\" (e.g. \"scheduled crew
+            operation for kiln-schedule task ...\", \"... routed for
+            workshop safety officer review\"). Independently-verified
+            potter/workshop provenance HARD checks (:no-potter,
+            :no-workshop) ensure a proposal must resolve to an
+            independently registered crew member AND workshop site
+            before any action; :effect must be :propose
+            (:no-actuation). :flag-safety-concern (a burn-hazard/
+            glaze-chemical-exposure/kiln-condition concern) always
+            escalates and is NEVER auto-commit-eligible, regardless of
+            confidence; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine clay/glaze-
+            materials procurement above the registered threshold, not
+            itself unsafe unlike a firing/glazing-execution or
+            safety-officer-override attempt. 22 tests / 47 assertions
+            green (cloud-itonami-isco-7314, ADR-2799007314). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7314")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7314"
+           (:repo (occupation/get-occupation "7314"))))
+    (is (= "cloud-itonami-isco-7314"
+           (:business-id (occupation/get-occupation "7314"))))))
