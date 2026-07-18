@@ -4947,3 +4947,67 @@
            (:repo (occupation/get-occupation "7316"))))
     (is (= "cloud-itonami-isco-7316"
            (:business-id (occupation/get-occupation "7316"))))))
+
+(deftest upholsterers-and-related-workers-7534-implemented
+  (testing "7534 (Upholsterers and Related Workers) promoted to
+            :implemented -- UpholCoordActor (Upholstery Coordination
+            Advisor ⊣ UpholCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- an
+            upholstery workshop scheduling/logistics coordination
+            robot ONLY, never direct upholstery-execution or
+            workshop-safety-clearance authority. Upholsterers use hand
+            tools (staple guns, tack hammers, cutting knives) and
+            handle padding/foam materials -- a standard workshop
+            hand-tool hazard -- so this actor has ZERO authority to
+            directly finalize an upholstery-execution decision (e.g.
+            deciding an upholstery job is finished) or a
+            workshop-safety-clearance decision (e.g. declaring a
+            workshop safety-cleared), or override a shop safety
+            officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming six
+            concretely-forbidden ops
+            (:finalize-upholstery-operation,
+            :finalize-upholstery-execution-decision,
+            :declare-workshop-safety-cleared, :declare-safety-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the upholstery operation\", \"declare the
+            workshop safety cleared\", \"override the shop safety
+            officer's judgment\"), and independently-verified
+            upholsterer/workshop provenance HARD checks
+            (:no-upholsterer, :no-workshop -- a registered record alone
+            is not enough) -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare nouns
+            \"staple\", \"foam\", \"fabric\", \"upholstery\" and \"shop
+            safety officer\" (e.g. a :schedule-crew-operation rationale
+            naming an \"upholstery task\", a :flag-safety-concern
+            concern routed for shop safety officer review).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine padding/fabric/
+            frame-materials procurement above the registered threshold,
+            not itself unsafe unlike an upholstery-execution,
+            workshop-safety-clearance, or safety-officer-override
+            attempt. 24 tests / 52 assertions green
+            (cloud-itonami-isco-7534, ADR-2799007534, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this entry's own promotion
+            (141 spec / 295 implemented / 0 blueprint), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7534")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7534"
+           (:repo (occupation/get-occupation "7534"))))
+    (is (= "cloud-itonami-isco-7534"
+           (:business-id (occupation/get-occupation "7534"))))))
