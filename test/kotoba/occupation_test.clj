@@ -1204,9 +1204,18 @@
       ;; registry.edn immediately before this edit (was 171 spec /
       ;; 265 implemented in the just-fetched file) -- other sibling
       ;; promotions landed concurrently in this same batch.
+      ;; cloud-itonami-isco-7323 (Print Finishing and Binding Workers)
+      ;; promoted to :implemented (ADR-2799007323, see
+      ;; print-finishing-and-binding-workers-7323-implemented test below
+      ;; for detail). This number (155 spec / 281 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) via a fresh GitHub API
+      ;; fetch of registry.edn immediately before this edit (was 161 spec /
+      ;; 275 implemented before this batch's concurrent sibling promotions
+      ;; landed) -- other sibling promotions landed concurrently in this
+      ;; same batch (6 sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 161 (:spec m)))
-      (is (= 275 (:implemented m))))))
+      (is (= 155 (:spec m)))
+      (is (= 281 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
