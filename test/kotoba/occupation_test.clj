@@ -3804,3 +3804,60 @@
            (:repo (occupation/get-occupation "7312"))))
     (is (= "cloud-itonami-isco-7312"
            (:business-id (occupation/get-occupation "7312"))))))
+
+(deftest printers-7322-implemented
+  (testing "7322 (Printers) promoted to :implemented -- PressmanActor
+            (Pressman Advisor ⊣ PressmanGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a print-shop scheduling/
+            logistics coordination robot ONLY, never direct
+            press-operation authority. Printers operate printing
+            presses (offset, digital, flexographic) to produce printed
+            output -- rotating-machinery hazards, ink/solvent
+            exposure and paper-handling injury -- so this actor has
+            ZERO authority to directly finalize a press-run-execution
+            decision (e.g. deciding to proceed with a specific
+            printing press run), authorize a press-run operation, or
+            override a shop safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-press-run-decision,
+            :authorize-press-run-operation,
+            :proceed-with-press-run,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the press
+            run\", \"override the shop safety officer's judgment\"),
+            and independently-verified worker/shop provenance HARD
+            checks (:no-worker, :no-shop -- a registered record alone
+            is not enough) -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though
+            this actor's own vocabulary legitimately contains the bare
+            nouns \"press\" and \"shop safety officer\" (e.g. a
+            :schedule-crew-operation rationale naming a \"press-time
+            changeover\", a :flag-safety-concern concern routed for
+            shop safety officer review). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine ink/paper-materials procurement above
+            the registered threshold, not itself unsafe unlike a
+            press-run-execution or safety-officer-override attempt. 22
+            tests / 47 assertions green (cloud-itonami-isco-7322,
+            ADR-2799007322). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (159 spec / 277
+            implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7322")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7322"
+           (:repo (occupation/get-occupation "7322"))))
+    (is (= "cloud-itonami-isco-7322"
+           (:business-id (occupation/get-occupation "7322"))))))
