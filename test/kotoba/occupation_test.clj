@@ -6125,3 +6125,78 @@
            (:repo (occupation/get-occupation "8131"))))
     (is (= "cloud-itonami-isco-8131"
            (:business-id (occupation/get-occupation "8131"))))))
+
+(deftest miners-and-quarriers-8111-implemented
+  (testing "8111 (Miners and Quarriers) promoted to :implemented --
+            MineCoordActor (Mine/Quarry-Site Scheduling & Logistics
+            Coordination Advisor ⊣ MineCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a mine/quarry-site scheduling/
+            logistics coordination robot ONLY, never mining/quarrying
+            work or direct mine/quarry-operation-authorization
+            authority. Miners and quarriers work underground or in
+            open-pit quarry sites -- cave-in/collapse, gas exposure,
+            heavy-equipment and fall hazards can cause death or
+            serious injury -- categorically higher-stakes than
+            ordinary workshop trades, comparable to the already-landed
+            aviation (7232) and blasting (7542) hazard framings -- so
+            this actor has ZERO authority to directly finalize a
+            mine/quarry-operation-execution decision (authorizing
+            extraction/excavation to proceed), or override a
+            mine-safety-officer's or site-supervisor's judgment: no
+            such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"authorize the extraction to proceed\", \"finalize
+            the excavation operation\", \"override the mine safety
+            officer's judgment\"), and independently-verified
+            site/miner provenance HARD checks (:no-site,
+            :unknown-miner, :miner-wrong-site -- a registered record
+            alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains bare nouns like \"mine\", \"quarry\",
+            \"extraction\", \"excavation\" and \"site\" (e.g. a
+            :log-work-record task naming \"extraction progress at pit
+            3 face 2\", a :flag-safety-concern description naming an
+            \"unresolved ground-stability question pending
+            inspection\" near a quarry face). This actor never
+            performs mining/quarrying work itself:
+            :coordinate-supply-order covers mining-equipment/
+            consumables procurement only. :flag-safety-concern ALWAYS
+            escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary verified by
+            ok-supply-order-at-or-below-cost-threshold) escalates --
+            not a hard block, routine mining-equipment procurement
+            above the registered threshold, not itself unsafe unlike a
+            mine/quarry-operation-execution or mine-safety-officer-
+            override attempt. 27 tests / 69 assertions green
+            (cloud-itonami-isco-8111, ADR-2799008111, independently
+            re-verified against a fresh clone of the pushed
+            repository, clj-kondo 0 errors / 2 harmless unused-binding
+            warnings inherited from the mirrored 7232 reference
+            shape). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own edit (126
+            spec / 310 implemented / 0 blueprint at that fetch -- 125
+            spec / 311 implemented / 0 blueprint after), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split -- that assertion is
+            left exactly as found (already updated by a concurrent
+            sibling landing) rather than fought over."
+    (is (= :implemented (occupation/maturity "8111")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8111"
+           (:repo (occupation/get-occupation "8111"))))
+    (is (= "cloud-itonami-isco-8111"
+           (:business-id (occupation/get-occupation "8111"))))))
