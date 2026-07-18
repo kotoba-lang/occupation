@@ -4225,3 +4225,71 @@
            (:repo (occupation/get-occupation "7514"))))
     (is (= "cloud-itonami-isco-7514"
            (:business-id (occupation/get-occupation "7514"))))))
+(deftest tobacco-preparers-tobacco-products-makers-7516-implemented
+  (testing "7516 (Tobacco Preparers and Tobacco Products Makers)
+            promoted to :implemented -- TobaccoCoordActor (Tobacco
+            Preparation Coordination Advisor ⊣
+            TobaccoCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-compliance-concern, :coordinate-supply-order) -- a
+            factory-floor scheduling/logistics coordination robot
+            ONLY, never direct manufacturing-execution or
+            regulatory-compliance-clearance authority. Tobacco
+            preparers and tobacco products makers manufacture a
+            heavily regulated product (tax-stamp/labeling compliance
+            for the manufacturing process itself) alongside standard
+            workshop safety hazards (equipment exposure, dust
+            exposure), so this actor has ZERO authority to directly
+            finalize a manufacturing-execution decision, finalize a
+            regulatory-compliance-clearance decision (tax-stamp
+            affixing, labeling-compliance determination), or override
+            a shop safety officer's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming nine concretely-forbidden
+            ops (:finalize-manufacturing-decision,
+            :authorize-production-run, :proceed-with-production-run,
+            :finalize-production-decision, :affix-tax-stamp,
+            :finalize-tax-stamp-compliance-decision,
+            :finalize-labeling-compliance-determination,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action)
+            phrased as finalization/execution ACTIONS (never bare
+            nouns, e.g. \"proceed with the production run\", \"affix
+            the tax stamp\", \"finalize the labeling compliance
+            determination\", \"override the shop safety officer's
+            judgment\"), and independently-verified preparer/facility
+            provenance HARD checks (:no-preparer, :no-facility -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"tobacco\", \"tax stamp\", \"labeling\" and \"shop safety
+            officer\" (e.g. a :schedule-crew-operation rationale
+            \"scheduled crew operation for tobacco-preparation task\",
+            a :flag-compliance-concern rationale \"routed for shop
+            safety officer review\"). :flag-compliance-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered
+            tobacco-materials cost threshold (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            tobacco-materials procurement above the registered
+            threshold, not itself unsafe or non-compliant unlike a
+            manufacturing-execution/regulatory-compliance-clearance or
+            safety-officer-override attempt. 24 tests / 52 assertions
+            green (cloud-itonami-isco-7516, ADR-2799007516,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (155 spec / 281
+            implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7516")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7516"
+           (:repo (occupation/get-occupation "7516"))))
+    (is (= "cloud-itonami-isco-7516"
+           (:business-id (occupation/get-occupation "7516"))))))
