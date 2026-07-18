@@ -6531,3 +6531,84 @@
            (:repo (occupation/get-occupation "8152"))))
     (is (= "cloud-itonami-isco-8152"
            (:business-id (occupation/get-occupation "8152"))))))
+
+(deftest photographic-products-machine-operators-8132-implemented
+  (testing "8132 (Photographic Products Machine Operators) promoted to
+            :implemented -- PhotoLabCoordActor (Photographic Products
+            Machine Operations Coordination Advisor ⊣
+            PhotoLabCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            photographic products (film/photo) processing plant
+            scheduling/logistics coordination robot ONLY, never
+            film/photo-processing-equipment operation or direct
+            processing-operation-execution/chemical-safety-clearance
+            authority. Photographic Products Machine Operators run
+            film/photo-processing equipment using darkroom chemicals
+            (developer, fixer, and historically some toxic
+            silver-based/chromium compounds) -- a chemical-exposure
+            hazard, plus an equipment hazard from rollers and
+            processing machinery -- so this actor has ZERO authority to
+            directly finalize a processing-operation-execution
+            decision, finalize a chemical-safety-clearance decision, or
+            override a plant safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTION PHRASES (never bare nouns, e.g. \"finalize the
+            processing-operation decision\", \"declare the chemical
+            safety cleared\", \"override the plant safety officer's
+            judgment\"), and independently-verified operator/plant
+            provenance HARD checks (:no-operator, :no-plant -- a
+            registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"developer\", \"fixer\" and \"plant safety officer\" (e.g.
+            a :schedule-crew-operation rationale naming a
+            developer/fixer processing-line shift, a
+            :flag-safety-concern rationale naming a chemical-exposure
+            concern routed for plant safety officer review). This actor
+            never operates film/photo-processing equipment itself:
+            :log-work-record covers production-run/inventory/progress
+            data logging only, :schedule-crew-operation covers
+            crew/shift/task scheduling only, :coordinate-supply-order
+            covers darkroom-chemical/film-stock procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, exclusive boundary verified by
+            ok-supply-order-at-threshold-boundary) escalates -- not a
+            hard block, routine darkroom-chemical/film-stock
+            procurement above the registered threshold is not itself
+            unsafe unlike a processing-operation-execution or
+            chemical-safety-clearance/safety-officer-override attempt.
+            The task's cited reference repo (cloud-itonami-isco-8112,
+            Mineral and Stone Processing Plant Operators) was used
+            directly per the task's own guidance (already landed,
+            independently re-verified: fresh clone, clojure -M:test
+            green 23 tests / 49 assertions, 0 failures / 0 errors,
+            before mirroring). 23 tests / 49 assertions green
+            (cloud-itonami-isco-8132, ADR-2799008132, independently
+            re-verified against a fresh clone of the pushed repository,
+            clj-kondo 0 errors / 0 warnings). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this entry's own
+            promotion (119 spec / 317 implemented / 0 blueprint at that
+            fetch, already reflecting this entry's own promotion and
+            cumulative concurrent sibling landings in this same batch
+            of 6 -- not hand-derived from a prior comment's delta --
+            this deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts :total
+            436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split -- that assertion is
+            left exactly as found rather than fought over, per the
+            race-safe convention for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "8132")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8132"
+           (:repo (occupation/get-occupation "8132"))))
+    (is (= "cloud-itonami-isco-8132"
+           (:business-id (occupation/get-occupation "8132"))))))
