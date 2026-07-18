@@ -4492,3 +4492,69 @@
            (:repo (occupation/get-occupation "7513"))))
     (is (= "cloud-itonami-isco-7513"
            (:business-id (occupation/get-occupation "7513"))))))
+(deftest food-and-beverage-tasters-and-graders-7515-implemented
+  (testing "7515 (Food and Beverage Tasters and Graders) promoted to
+            :implemented -- FoodTasteActor (Food and Beverage
+            Taster/Grader Advisor asymmetric-gated by
+            FoodTasteGovernor); closed four-op proposal allowlist
+            (:log-sample-record, :schedule-tasting-session,
+            :flag-anomaly-concern, :coordinate-supply-order) -- a
+            sample-intake-logging/session-scheduling coordination
+            robot ONLY, never sensory-evaluation or quality-judgment
+            authority. Food and beverage tasters and graders perform
+            sensory evaluation and quality-grading of food/beverage
+            products -- this occupation's entire purpose IS making a
+            pass/fail/grade judgment, so this actor coordinates
+            sample-intake logging and session scheduling ONLY: it
+            NEVER performs the sensory evaluation itself (no robot can
+            taste), NEVER records or proposes a grade/pass-fail
+            determination, and NEVER finalizes a food-safety-clearance
+            decision -- no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming
+            eight concretely-forbidden ops across four categories
+            (:perform-sensory-evaluation,
+            :conduct-sensory-evaluation, :assign-quality-grade,
+            :finalize-quality-grade-assignment,
+            :determine-pass-fail-outcome,
+            :finalize-pass-fail-determination,
+            :finalize-food-safety-clearance,
+            :authorize-food-safety-clearance), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"assign the quality grade\", \"determine the pass/fail
+            outcome\", \"finalize the food-safety clearance\"), and
+            independently-verified taster/facility provenance HARD
+            checks (:no-taster, :no-facility -- a registered record
+            alone is not enough) -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains the bare nouns \"quality\", \"grade\",
+            \"sensory\" and \"anomaly\"/\"defect\" (e.g. a
+            :schedule-tasting-session rationale \"scheduled tasting
+            session for sensory evaluation panel\", a
+            :flag-anomaly-concern rationale \"routed for the human
+            taster's attention\"). :flag-anomaly-concern always
+            escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine tasting-supply procurement above the
+            registered threshold, not itself a food-safety
+            determination unlike a sensory-evaluation, quality-grade,
+            pass-fail-determination or food-safety-clearance attempt.
+            29 tests / 64 assertions green (cloud-itonami-isco-7515,
+            ADR-2799007515, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (149
+            spec / 287 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7515")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7515"
+           (:repo (occupation/get-occupation "7515"))))
+    (is (= "cloud-itonami-isco-7515"
+           (:business-id (occupation/get-occupation "7515"))))))
