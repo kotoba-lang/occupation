@@ -6266,3 +6266,71 @@
            (:repo (occupation/get-occupation "8151"))))
     (is (= "cloud-itonami-isco-8151"
            (:business-id (occupation/get-occupation "8151"))))))
+
+(deftest rubber-products-machine-operators-8141-implemented
+  (testing "8141 (Rubber Products Machine Operators) promoted to
+            :implemented -- RubberCoordActor (Rubber Products Plant
+            Scheduling Coordination Advisor ⊣ RubberCoordGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a plant scheduling/logistics
+            coordination robot ONLY, never molding/extrusion/curing-
+            equipment operation or plant-safety-clearance authority.
+            Rubber Products Machine Operators run molding, extrusion
+            and curing (vulcanization) equipment -- a real heavy-
+            machinery hazard (crush/entanglement from presses and
+            rollers), plus heat exposure from vulcanization/curing
+            ovens and fume exposure from rubber-compound off-gassing,
+            comparable to the already-landed 8122 (Metal Finishing,
+            Plating and Coating Machine Operators, :implemented)
+            industrial-machine plant-operation safety pattern -- so
+            this actor has ZERO authority to finalize a
+            molding-operation-execution decision, finalize a
+            plant-safety-clearance decision, or override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"finalize the molding operation\", \"declare the
+            plant safety cleared\", \"override the plant safety
+            officer's judgment\"), and independently-verified
+            operator/plant provenance HARD checks (:no-operator,
+            :no-plant -- a registered record alone is not enough).
+            Verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"rubber\", \"vulcanize\" and \"mold\" (e.g. a self-trip
+            regression task literally reading \"routine molding task
+            with rubber compound and heat-cured vulcanization\"). This
+            actor never operates molding, extrusion or curing
+            equipment itself: :log-work-record covers production-run/
+            inventory/progress data logging only,
+            :schedule-crew-operation covers crew/shift/task scheduling
+            only, :coordinate-supply-order covers raw-rubber/compound
+            procurement only, and :flag-safety-concern ALWAYS
+            escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 31 tests / 67 assertions green
+            (cloud-itonami-isco-8141, ADR-2799008141, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own edit,
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's delta
+            -- this deftest deliberately does NOT touch the
+            maturity-tier aggregate count assertion above, which only
+            asserts :total 436 (invariant across maturity promotions),
+            not a hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8141")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8141"
+           (:repo (occupation/get-occupation "8141"))))
+    (is (= "cloud-itonami-isco-8141"
+           (:business-id (occupation/get-occupation "8141"))))))
