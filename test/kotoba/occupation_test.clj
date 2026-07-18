@@ -2733,3 +2733,42 @@
            (:repo (occupation/get-occupation "7215"))))
     (is (= "cloud-itonami-isco-7215"
            (:business-id (occupation/get-occupation "7215"))))))
+
+(deftest deep-sea-fishery-workers-6223-implemented
+  (testing "6223 (Deep-sea Fishery Workers) promoted to :implemented --
+            DeepSeaFisheryActor (Deep-sea Fishery Crew Advisor ⊣
+            DeepSeaFisheryGovernor); closed four-op proposal allowlist
+            (:log-catch-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            vessel/crew scheduling and equipment-logistics coordination
+            robot ONLY. This actor has NO authority to directly finalize
+            a fishing-operation-execution decision, decide a voyage
+            go/no-go in adverse conditions, or override the vessel
+            captain's judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated), backed by
+            a content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the fishing operation\", \"commence the
+            voyage in adverse conditions\", \"override the captain's
+            voyage decision\") -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            ops (including ones whose default rationale mentions
+            \"fishing\"/\"weather\" bare nouns in ordinary in-scope
+            proposals, e.g. logging a catch record from today's fishing
+            trip or flagging a weather hazard) never self-trip the
+            scope-exclusion check. :flag-safety-concern always escalates
+            and is never auto-commit-eligible; an over-threshold
+            :coordinate-supply-order escalates (not a hard block --
+            routine procurement above the registered cost threshold, not
+            itself unsafe). This actor coordinates vessel/crew scheduling
+            logistics ONLY -- it never performs a fishing operation or
+            navigates the vessel. 20 tests / 45 assertions green
+            (cloud-itonami-isco-6223, ADR-2799006223). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this edit,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "6223")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6223"
+           (:repo (occupation/get-occupation "6223"))))
+    (is (= "cloud-itonami-isco-6223"
+           (:business-id (occupation/get-occupation "6223"))))))
