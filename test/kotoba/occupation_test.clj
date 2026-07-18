@@ -8167,3 +8167,79 @@
            (:repo (occupation/get-occupation "9623"))))
     (is (= "cloud-itonami-isco-9623"
            (:business-id (occupation/get-occupation "9623"))))))
+
+
+(deftest elementary-workers-nec-9629-implemented
+  (testing "9629 (Elementary Workers Not Elsewhere Classified) promoted
+            to :implemented -- ElementaryWorkActor (Elementary Worker
+            Advisor ⊣ ElementaryWorkGovernor); a site scheduling/
+            logistics COORDINATION ONLY actor with NO labour-work-
+            execution-finalization, site-safety-clearance-finalization,
+            or site-safety-supervisor-judgment-override authority
+            anywhere in its closed four-op allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- this actor never performs
+            labour work itself and never declares a site safety-
+            cleared. ISCO-08 9629 is a residual 'Not Elsewhere
+            Classified' category covering diverse manual/elementary
+            labour work not captured by a more specific ISCO 9xxx code,
+            so standard elementary-labour hazards apply generically
+            (manual-lifting/strain hazard, varied-site-condition
+            hazard, outdoor/indoor exposure) without a single dominant
+            hazard type -- the governance SHAPE (independent Governor,
+            closed allowlist, hard/escalate split) is NOT simplified
+            for this genericness. Verified via a closed op-allowlist,
+            independently-verified worker/site provenance, a
+            no-actuation HARD invariant (:effect must be :propose), and
+            a content-based scope-exclusion HARD block covering all
+            three independent out-of-scope decision classes (phrased as
+            finalization/execution actions, e.g. \"finalize the
+            labour-work operation\", \"declare the site safety
+            cleared\", \"override the site safety supervisor's
+            judgment\", never bare nouns like \"labour\"/\"site\"/
+            \"safety\", to avoid the sibling-track self-tripping
+            false-positive bug -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            allowlisted ops never self-trip it). :flag-safety-concern
+            always escalates and is never auto-commit-eligible (no
+            confidence-level exception, ever); an above-cost-threshold
+            :coordinate-supply-order always escalates too (boundary
+            verified exclusive -- exactly-at-threshold commits,
+            over-threshold escalates). The reference repo mirrored for
+            module SHAPE was cloud-itonami-isco-9212 (Livestock Farm
+            Labourers -- the closest comparable generic elementary-
+            occupation hazard pattern), independently re-cloned and
+            read in full before mirroring, adapted to the generic
+            manual-lifting/varied-site-condition/outdoor-indoor-exposure
+            hazard-scope dimension of ISCO 9629's residual NEC scope.
+            24 tests / 52 assertions green (cloud-itonami-isco-9629,
+            ADR-2799009629, independently re-verified against a fresh
+            clone of the pushed repository). This is the final
+            occupation of this batch's 5-target Wave3 gap set (9613,
+            9621, 9623, 9624, 9629 -- numerically the last of the
+            batch). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own promotion
+            edit ({:total 436, :spec 96, :blueprint 0, :implemented
+            340} at that fetch, already reflecting this entry's own
+            promotion and all sibling landings in this same batch), and
+            (occupation/wave-maturity-summary) confirm wave 3
+            (physical-production, ISCO sub-majors 61/62/63/71-75/81/
+            82/92/96) is now 127/127 :implemented with zero :spec
+            entries remaining -- Wave3 of the ISCO occupation-actor
+            track (ADR-2607121000) is complete: this batch's 5-target
+            gap set (9613, 9621, 9623, 9624, 9629) is confirmed fully
+            closed. A concurrently-landing sibling (9623) already
+            bumped the maturity-tier aggregate assertion below to this
+            exact live-verified {:spec 96, :implemented 340} before
+            this edit; this entry's own independent live recompute
+            matches it exactly, so this deftest does not touch that
+            aggregate assertion again (no further bump needed --
+            fetch-sha-CAS-PUT discipline used throughout this file
+            means a later sibling should recompute and bump again only
+            if its own fetch shows the count has gone stale)."
+    (is (= :implemented (occupation/maturity "9629")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9629"
+           (:repo (occupation/get-occupation "9629"))))
+    (is (= "cloud-itonami-isco-9629"
+           (:business-id (occupation/get-occupation "9629"))))))
