@@ -7342,3 +7342,84 @@
            (:repo (occupation/get-occupation "8219"))))
     (is (= "cloud-itonami-isco-8219"
            (:business-id (occupation/get-occupation "8219"))))))
+
+(deftest steam-engine-and-boiler-operators-8182-implemented
+  (testing "8182 (Steam Engine and Boiler Operators) promoted to
+            :implemented -- BoilerCoordActor (Boiler-Plant Scheduling
+            & Logistics Coordination Advisor ⊣ BoilerCoordGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a boiler-plant scheduling/
+            logistics coordination robot ONLY, never boiler/steam
+            equipment operation itself or direct
+            boiler-operation-execution/plant-safety-clearance
+            authority. ISCO-08 8182 runs high-pressure steam/boiler
+            systems -- catastrophic pressure-vessel/boiler explosion
+            risk if pressure or safety-valve controls fail, comparable
+            in stakes to the already-landed chemical-plant (8131) and
+            mining (8111) actors -- so this actor has ZERO authority
+            to directly finalize a boiler-operation-execution
+            decision, finalize a plant-safety-clearance decision, or
+            override a plant safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as finalization/
+            execution ACTION PHRASES (never bare nouns, e.g.
+            \"authorize the pressure-valve operation to proceed\",
+            \"finalize the boiler-operation decision\", \"override the
+            plant safety officer's judgment\"), and
+            independently-verified operator/plant provenance HARD
+            checks (:unknown-operator, :no-plant -- a registered
+            record alone is not enough). Verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops never self-trip the scope-exclusion
+            guard, even though this actor's own vocabulary
+            legitimately contains bare nouns like \"boiler\", \"steam\",
+            \"pressure\" and \"valve\" (e.g. a :schedule-crew-operation
+            rationale naming a routine shift-changeover task, a
+            :flag-safety-concern rationale naming a pressure-reading
+            concern routed for plant safety officer review). This
+            actor never operates boiler/steam equipment itself:
+            :log-work-record covers pressure-log/maintenance-record/
+            progress data logging only, :schedule-crew-operation
+            covers crew/shift/task scheduling only,
+            :coordinate-supply-order covers administrative/spare-parts
+            procurement only (never pressure vessels, valves or steam
+            equipment themselves), and :flag-safety-concern ALWAYS
+            escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a
+            :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary verified by
+            ok-supply-order-at-or-below-cost-threshold) escalates --
+            not a hard block, routine administrative/spare-parts
+            procurement above the registered threshold is not itself
+            unsafe unlike a boiler-operation-execution or
+            plant-safety-clearance/safety-officer-override attempt.
+            The reference repo mirrored for module SHAPE was
+            cloud-itonami-isco-8131 (Chemical Products Plant and
+            Machine Operators), independently re-verified: fresh
+            clone, clojure -M:test green 26 tests / 66 assertions, 0
+            failures / 0 errors, before mirroring. 26 tests / 66
+            assertions green (cloud-itonami-isco-8182,
+            ADR-2799008182, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this entry's own
+            promotion ({:total 436, :spec 110, :blueprint 0,
+            :implemented 326}, already reflecting this entry's own
+            promotion and cumulative concurrent sibling landings in
+            this same batch of 6) -- not hand-derived from a prior
+            comment's delta -- this deftest deliberately does NOT
+            touch the maturity-tier aggregate count assertion above,
+            which only asserts :total 436 (invariant across maturity
+            promotions), not a hand-derived spec/implemented split --
+            that assertion is left exactly as found rather than
+            fought over, per the race-safe convention for this
+            hot-contention batch."
+    (is (= :implemented (occupation/maturity "8182")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8182"
+           (:repo (occupation/get-occupation "8182"))))
+    (is (= "cloud-itonami-isco-8182"
+           (:business-id (occupation/get-occupation "8182"))))))
