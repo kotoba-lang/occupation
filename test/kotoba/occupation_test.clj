@@ -5773,3 +5773,73 @@
            (:repo (occupation/get-occupation "7542"))))
     (is (= "cloud-itonami-isco-7542"
            (:business-id (occupation/get-occupation "7542"))))))
+
+(deftest well-drillers-and-borers-8113-implemented
+  (testing "8113 (Well Drillers and Borers and Related Workers) promoted
+            to :implemented -- DrillCoordActor (Well-Drilling Site
+            Scheduling/Logistics Coordination Advisor ⊣
+            DrillCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            drilling-site scheduling/logistics coordination robot ONLY,
+            never drilling-equipment operation or direct
+            drilling-operation-execution/drilling-authorization
+            authority. Well drillers and borers operate drilling rigs
+            for water wells and oil/gas exploratory drilling, where
+            equipment hazards (blowout risk in oil/gas contexts,
+            rig-collapse, entanglement) are significant and comparable
+            in stakes to other extractive-industry trades -- so this
+            actor has ZERO authority to authorize drilling to proceed,
+            finalize a drilling-operation-execution decision, or
+            override a drilling supervisor's or site-safety-officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"authorize the drilling to proceed\", \"finalize the
+            drilling operation\", \"override the drilling supervisor's
+            judgment\"), and independently-verified site/driller
+            provenance HARD checks (:no-site, :unknown-driller -- a
+            registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like \"drill\",
+            \"rig\", \"well\", \"borehole\" and \"spud\" (e.g. a
+            :coordinate-supply-order rationale naming \"drill bit set
+            and drilling mud consumables\", a :flag-safety-concern
+            concern naming an \"anomalous mud pressure reading near rig
+            7 wellhead, unresolved blowout-risk question pending
+            inspection\"). This actor never operates drilling equipment
+            itself: :log-work-record covers drilling-log/progress data
+            logging only, :schedule-crew-operation covers crew/shift/
+            task scheduling only, :coordinate-supply-order covers
+            drilling-equipment/consumables procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary verified by
+            ok-supply-order-at-or-below-cost-threshold) escalates --
+            not a hard block, routine drilling-equipment procurement
+            above the registered threshold is not itself unsafe unlike
+            a drilling-authorization or drilling-operation-execution
+            attempt. 27 tests / 69 assertions green
+            (cloud-itonami-isco-8113, ADR-2799008113, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this promotion (130 spec /
+            306 implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8113")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8113"
+           (:repo (occupation/get-occupation "8113"))))
+    (is (= "cloud-itonami-isco-8113"
+           (:business-id (occupation/get-occupation "8113"))))))
