@@ -3911,3 +3911,68 @@
            (:repo (occupation/get-occupation "7421"))))
     (is (= "cloud-itonami-isco-7421"
            (:business-id (occupation/get-occupation "7421"))))))
+
+(deftest electrical-line-installers-7413-implemented
+  (testing "7413 (Electrical Line Installers and Repairers) promoted to
+            :implemented -- LineCoordActor (Electrical Line Crew
+            Coordination Advisor ⊣ LineCoordGovernor); closed
+            four-op proposal allowlist (:log-service-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a crew dispatch scheduling/
+            logistics coordination robot ONLY, never direct
+            power-line-work execution authority. Electrical line
+            installers and repairers install, maintain and repair
+            high-voltage overhead and underground power lines, working
+            live or de-energized at height -- combining electrocution
+            risk with fall-from-height risk, one of the highest-hazard
+            trades in this rollout -- so this actor has ZERO authority
+            to directly finalize a power-line-work-execution decision,
+            authorize a de-energization, a re-energization or a
+            lockout clearance, or override a utility-safety officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming
+            eight concretely-forbidden ops
+            (:finalize-power-line-work-execution,
+            :execute-power-line-work-directly,
+            :perform-power-line-work-directly,
+            :authorize-de-energization, :authorize-re-energization,
+            :authorize-lockout-clearance,
+            :override-utility-safety-officer-judgment,
+            :bypass-utility-safety-officer-signoff), and a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the power-line work\", \"authorize the
+            de-energization\", \"override the utility safety officer's
+            judgment\"), and independently-verified worker/circuit
+            provenance HARD checks (:unknown-worker, :no-circuit -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like \"power
+            line\", \"voltage\", \"pole\" and \"transformer\" (e.g. a
+            :coordinate-supply-order rationale naming \"distribution-
+            line poles and crossarms\", a :flag-safety-concern concern
+            naming an \"energized 12kV span\"). :flag-safety-concern
+            always escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary) escalates -- not a
+            hard block, routine line/pole-materials procurement above
+            the registered threshold, not itself unsafe unlike a
+            power-line-work-execution or safety-officer-override
+            attempt. 27 tests / 69 assertions green
+            (cloud-itonami-isco-7413, ADR-2799007413). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit (156 spec / 280 implemented / 0 blueprint at that
+            fetch), reflecting cumulative concurrent sibling landings
+            in this same batch, not hand-derived from a prior
+            comment's delta."
+    (is (= :implemented (occupation/maturity "7413")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7413"
+           (:repo (occupation/get-occupation "7413"))))
+    (is (= "cloud-itonami-isco-7413"
+           (:business-id (occupation/get-occupation "7413"))))))
