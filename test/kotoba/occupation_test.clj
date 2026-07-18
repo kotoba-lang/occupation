@@ -4611,3 +4611,72 @@
            (:repo (occupation/get-occupation "7422"))))
     (is (= "cloud-itonami-isco-7422"
            (:business-id (occupation/get-occupation "7422"))))))
+(deftest wood-treaters-7521-implemented
+  (testing "7521 (Wood Treaters) promoted to :implemented --
+            WoodTreatCoordActor (Wood Treatment Facility Coordination
+            Advisor ⊣ WoodTreatCoordGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a treatment-facility
+            scheduling/logistics coordination robot ONLY, never direct
+            treatment-execution or chemical-safety-clearance
+            authority. Wood treaters apply chemical preservatives
+            (some historically toxic, e.g. creosote/CCA-type
+            compounds) to timber -- real chemical-exposure and
+            environmental-handling hazard, so this actor has ZERO
+            authority to directly finalize a treatment-execution
+            decision or a chemical-safety-clearance decision, or to
+            override a shop safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming eleven concretely-forbidden
+            ops (:finalize-treatment-decision,
+            :finalize-treatment-operation, :authorize-treatment-run,
+            :proceed-with-treatment-run,
+            :finalize-chemical-safety-clearance,
+            :declare-batch-safe-for-handling,
+            :declare-treated-batch-safe-for-handling,
+            :declare-batch-safe-for-shipment,
+            :clear-batch-for-shipment,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the treatment run\", \"finalize the
+            treatment operation\", \"declare the treated batch safe
+            for handling\", \"override the shop safety officer's
+            judgment\"), and independently-verified treater/facility
+            provenance HARD checks (:no-treater, :no-facility -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"wood\",
+            \"preservative\", \"chemical\" and \"treatment\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for treatment task\", a :flag-safety-concern
+            rationale \"routed for shop safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-facility cost ceiling (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            preservative-chemicals/timber-stock procurement above the
+            registered threshold, not itself unsafe unlike a
+            treatment-execution or chemical-safety-clearance attempt.
+            31 tests / 67 assertions green (cloud-itonami-isco-7521,
+            ADR-2799007521, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (146
+            spec / 290 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's delta.
+            This batch begins the woodworking-trades subgroup (7521
+            Wood Treaters; 7522 Cabinet-makers etc. to follow in later
+            batches)."
+    (is (= :implemented (occupation/maturity "7521")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7521"
+           (:repo (occupation/get-occupation "7521"))))
+    (is (= "cloud-itonami-isco-7521"
+           (:business-id (occupation/get-occupation "7521"))))))
