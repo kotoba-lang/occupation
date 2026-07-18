@@ -1213,9 +1213,17 @@
       ;; 275 implemented before this batch's concurrent sibling promotions
       ;; landed) -- other sibling promotions landed concurrently in this
       ;; same batch (6 sibling agents landing concurrently).
+      ;; cloud-itonami-isco-7541 (Underwater Divers) promoted to
+      ;; :implemented in this batch (ADR-2799007541, see the dedicated
+      ;; underwater-divers-7541-implemented test below for detail).
+      ;; This number (132 spec / 304 implemented) is a live
+      ;; re-fetch of (occupation/maturity-summary) via a fresh GitHub API
+      ;; fetch of registry.edn immediately before this edit -- other
+      ;; sibling promotions landed concurrently in this same batch (6
+      ;; sibling agents landing concurrently).
       (is (= 0 (:blueprint m)))
-      (is (= 137 (:spec m)))
-      (is (= 299 (:implemented m))))))
+      (is (= 132 (:spec m)))
+      (is (= 304 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -5488,3 +5496,67 @@
            (:repo (occupation/get-occupation "7543"))))
     (is (= "cloud-itonami-isco-7543"
            (:business-id (occupation/get-occupation "7543"))))))
+
+(deftest underwater-divers-7541-implemented
+  (testing "7541 (Underwater Divers) promoted to :implemented --
+            DiveCoordActor (Dive Operation Scheduling/Logistics
+            Coordination Advisor ⊣ DiveCoordGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a dive-operation
+            scheduling/logistics coordination robot ONLY, never direct
+            diving-execution or dive-authorization authority.
+            Underwater divers perform work where errors (decompression
+            sickness, drowning, equipment failure at depth) can cause
+            death or serious injury -- categorically higher-stakes than
+            ordinary workshop trades, comparable to aviation-mechanic
+            stakes -- so this actor has ZERO authority to directly
+            finalize a dive-authorization decision (approving a dive
+            to proceed) or a dive-execution decision, or override a
+            dive supervisor's/dive-safety-officer's judgment: no such
+            op exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), and a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as finalization/
+            execution ACTIONS (never bare nouns, e.g. \"authorize the
+            dive to proceed\", \"finalize the dive execution
+            decision\", \"override the dive supervisor's judgment\",
+            \"skip the decompression stop\"), and independently-
+            verified dive-operation/diver provenance HARD checks
+            (:no-dive-operation, :unknown-diver,
+            :diver-wrong-dive-operation, :dive-operation-mismatch) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"dive\",
+            \"depth\", \"decompression\" and \"gas mix\" (e.g. a
+            :schedule-crew-operation rationale naming a dive team at
+            30 meters depth, a :flag-safety-concern description naming
+            an unresolved decompression-table concern).
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible, no exceptions, ever -- the governor
+            never resolves a safety concern itself; a
+            :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary verified by
+            ok-supply-order-at-or-below-cost-threshold) escalates --
+            not a hard block, routine dive-equipment/gas-supply
+            procurement above the registered threshold, not itself
+            unsafe unlike a dive-execution, dive-authorization, or
+            dive-supervisor/dive-safety-officer-override attempt. 28
+            tests / 72 assertions green (cloud-itonami-isco-7541,
+            ADR-2799007541, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this entry's own
+            promotion (132 spec / 304 implemented / 0 blueprint at that
+            fetch, already reflecting this entry's own edit -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split)."
+    (is (= :implemented (occupation/maturity "7541")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7541"
+           (:repo (occupation/get-occupation "7541"))))
+    (is (= "cloud-itonami-isco-7541"
+           (:business-id (occupation/get-occupation "7541"))))))
