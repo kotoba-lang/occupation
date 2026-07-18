@@ -1179,8 +1179,8 @@
       ;; from any prior comment's delta -- other sibling promotions may have
       ;; landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 175 (:spec m)))
-      (is (= 261 (:implemented m))))))
+      (is (= 174 (:spec m)))
+      (is (= 262 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -2882,3 +2882,62 @@
            (:repo (occupation/get-occupation "6320"))))
     (is (= "cloud-itonami-isco-6320"
            (:business-id (occupation/get-occupation "6320"))))))
+
+(deftest hunters-trappers-6224-implemented
+  (testing "6224 (Hunters and Trappers) promoted to
+            :implemented -- HuntingTrappingActor (Hunting Trapping
+            Advisor ⊣ HuntingTrappingGovernor); closed four-op
+            proposal allowlist (:log-harvest-record,
+            :schedule-equipment-operation, :flag-compliance-concern,
+            :coordinate-supply-order) -- a logistics/record-keeping
+            coordination robot ONLY, never direct weapon-firing/
+            trap-setting/kill-decision authority. Hunters and trappers
+            exercise firearms/traps and directly kill/capture wild
+            animals -- real weapons-handling and animal-welfare
+            stakes -- so this actor has ZERO authority to fire a
+            weapon, set or spring a trap, or make a kill/harvest-
+            timing decision: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent content-based
+            scope-exclusion HARD check
+            (:hunting-execution-scope-exclusion) phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"fire the weapon\", \"spring the trap\", \"make the kill
+            decision\"), and independently-verified operator/permit
+            provenance HARD checks (:no-operator, :missing-permit,
+            :unknown-permit, :permit-wrong-operator -- a registered
+            record alone is not enough) plus a harvest-report-basis
+            HARD check (:missing-harvest-report -- a harvest record
+            with no attached field report is a fabricated record, not
+            documentation) -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four ops
+            never self-trip the scope-exclusion guard, even though
+            this actor's own vocabulary legitimately contains the bare
+            nouns \"weapon\", \"trap\" and \"kill\" (e.g. its own
+            default rationale explicitly states 'no weapon-firing,
+            trap-setting/springing or kill/harvest-timing decision
+            proposed or implied'), plus an end-to-end actor-level test
+            that directly-constructed requests for phantom
+            weapon-firing/trap-setting/kill-decision ops
+            (:fire-weapon, :spring-trap, :make-kill-decision) hold
+            rather than commit. :flag-compliance-concern always
+            escalates and is never auto-commit-eligible (bag-limit/
+            season/permit determinations belong to the human
+            hunter/trapper and regulatory authorities, never this
+            actor); a :coordinate-supply-order above the permit's
+            registered cost threshold (5000, inclusive boundary)
+            escalates -- not a hard block, routine non-weapon supplies
+            procurement above the registered threshold, not itself
+            unsafe unlike a weapon-firing/trap-setting/kill-decision
+            attempt. 24 tests / 74 assertions green
+            (cloud-itonami-isco-6224, ADR-2799006224). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "6224")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6224"
+           (:repo (occupation/get-occupation "6224"))))
+    (is (= "cloud-itonami-isco-6224"
+           (:business-id (occupation/get-occupation "6224"))))))
