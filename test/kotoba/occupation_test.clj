@@ -2300,6 +2300,56 @@
            (:repo (occupation/get-occupation "7127"))))
     (is (= "cloud-itonami-isco-7127"
            (:business-id (occupation/get-occupation "7127"))))))
+(deftest electrical-mechanics-and-fitters-7412-implemented
+  (testing "7412 (Electrical Mechanics and Fitters) promoted to
+            :implemented -- ElecMechActor (Electrical Mechanic Advisor ⊣
+            ElecMechGovernor); closed four-op proposal allowlist
+            (:log-service-record, :schedule-service-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a service
+            scheduling/logistics coordination robot ONLY, never direct
+            electrical-repair-execution authority. Electrical Mechanics
+            and Fitters install, maintain, test and repair electrical
+            machinery, wiring and control equipment (electrocution and
+            arc-flash hazards), so this actor has ZERO authority to
+            directly finalize an electrical-repair-execution decision,
+            authorize or finalize a lockout/tagout-clearance decision,
+            or override/bypass an electrical safety officer's judgment:
+            no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            electrical repair\", \"authorize the lockout/tagout
+            clearance\", \"override the electrical safety officer's
+            judgment\"), and independently-verified technician/
+            service-account provenance HARD checks (:no-technician,
+            :no-service-account -- a registered record alone is not
+            enough, technician registration includes certification
+            status) -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare nouns
+            \"electrical\", \"lockout\", \"tagout\" and \"safety
+            officer\" (e.g. a :schedule-service-operation task
+            \"electrical diagnostic task\", a :flag-safety-concern
+            concern routed for certified electrical safety officer
+            review). :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered cost threshold escalates -- not a hard block,
+            routine electrical-parts procurement above the registered
+            threshold, not itself unsafe unlike an
+            electrical-repair-execution, lockout/tagout-clearance or
+            electrical-safety-officer-judgment-override attempt. 27
+            tests / 59 assertions green (cloud-itonami-isco-7412,
+            ADR-2799007412). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit."
+    (is (= :implemented (occupation/maturity "7412")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7412"
+           (:repo (occupation/get-occupation "7412"))))
+    (is (= "cloud-itonami-isco-7412"
+           (:business-id (occupation/get-occupation "7412"))))))
 (deftest painters-7131-implemented
   (testing "7131 (Painters and Related Workers) promoted to :implemented --
             PaintCrewActor (Paint Crew Advisor ⊣ PaintCrewGovernor); closed
