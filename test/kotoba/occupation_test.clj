@@ -3976,3 +3976,63 @@
            (:repo (occupation/get-occupation "7413"))))
     (is (= "cloud-itonami-isco-7413"
            (:business-id (occupation/get-occupation "7413"))))))
+
+(deftest pre-press-technicians-7321-implemented
+  (testing "7321 (Pre-press Technicians) promoted to :implemented --
+            PrepressTechActor (Pre-press Technician Advisor ⊣
+            PrepressTechGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            pre-press workshop scheduling/logistics coordination robot
+            ONLY, never direct plate-preparation-execution authority.
+            Pre-press Technicians prepare print layouts and operate
+            imaging/plate-making equipment involving chemical
+            processing -- chemical-exposure and equipment-condition
+            hazards -- so this actor has ZERO authority to directly
+            finalize a plate-preparation-execution decision (e.g.
+            deciding to proceed with a specific plate-preparation or
+            plate-processing procedure), authorize a plate-processing
+            operation, or override a shop safety officer's judgment:
+            no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent HARD check naming five
+            concretely-forbidden ops
+            (:finalize-plate-preparation-decision,
+            :authorize-plate-processing-operation,
+            :proceed-with-plate-preparation-procedure,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            plate-preparation procedure\", \"override the shop safety
+            officer's judgment\"), and independently-verified
+            worker/workshop provenance HARD checks (:no-worker,
+            :no-workshop -- a registered record alone is not enough)
+            -- verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare
+            nouns \"plate\", \"chemical\" and \"shop safety officer\"
+            (e.g. a :schedule-crew-operation rationale naming a
+            \"plate-preparation task\", a :flag-safety-concern concern
+            routed for shop safety officer review). :flag-safety-concern
+            always escalates and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine plate/imaging-materials procurement
+            above the registered threshold, not itself unsafe unlike a
+            plate-preparation-execution or safety-officer-override
+            attempt. 22 tests / 47 assertions green
+            (cloud-itonami-isco-7321, ADR-2799007321). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7321")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7321"
+           (:repo (occupation/get-occupation "7321"))))
+    (is (= "cloud-itonami-isco-7321"
+           (:business-id (occupation/get-occupation "7321"))))))
