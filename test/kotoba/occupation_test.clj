@@ -4160,3 +4160,68 @@
            (:repo (occupation/get-occupation "7323"))))
     (is (= "cloud-itonami-isco-7323"
            (:business-id (occupation/get-occupation "7323"))))))
+(deftest fruit-vegetable-preservers-7514-implemented
+  (testing "7514 (Fruit, Vegetable and Related Preservers) promoted to
+            :implemented -- PreserveCoordActor (Preservation Shop
+            Coordination Advisor ⊣ PreserveCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a preservation-shop
+            scheduling/logistics coordination robot ONLY, never direct
+            processing-execution or food-safety-clearance authority.
+            Fruit, vegetable and related preservers can, pickle and
+            preserve produce (real contamination risk if
+            canning/sterilization protocols fail -- botulism risk from
+            improper canning), so this actor has ZERO authority to
+            directly finalize a processing-execution decision, a
+            sterilization-clearance decision, or a food-safety-
+            clearance decision, or to override a shop safety officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming nine
+            concretely-forbidden ops (:finalize-processing-decision,
+            :authorize-processing-run, :proceed-with-processing-run,
+            :finalize-sterilization-clearance,
+            :declare-batch-sterilized-and-cleared,
+            :finalize-food-safety-clearance,
+            :declare-batch-fit-for-sale,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the processing run\", \"declare the batch
+            sterilized and cleared\", \"finalize the food-safety
+            clearance\", \"override the shop safety officer's
+            judgment\"), and independently-verified preserver/shop
+            provenance HARD checks (:no-preserver, :no-shop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns
+            \"processing\", \"shop\" and \"safety\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for processing task\", a :flag-safety-concern
+            rationale \"routed for shop safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-shop cost ceiling (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            produce/jarring-materials procurement above the registered
+            threshold, not itself unsafe unlike a processing-execution,
+            sterilization-clearance, food-safety-clearance or
+            safety-officer-override attempt. 29 tests / 63 assertions
+            green (cloud-itonami-isco-7514, ADR-2799007514,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (154 spec / 282
+            implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7514")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7514"
+           (:repo (occupation/get-occupation "7514"))))
+    (is (= "cloud-itonami-isco-7514"
+           (:business-id (occupation/get-occupation "7514"))))))
