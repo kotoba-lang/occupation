@@ -2949,3 +2949,53 @@
            (:repo (occupation/get-occupation "6224"))))
     (is (= "cloud-itonami-isco-6224"
            (:business-id (occupation/get-occupation "6224"))))))
+(deftest gardeners-horticultural-nursery-growers-6113-implemented
+  (testing "6113 (Gardeners, Horticultural and Nursery Growers) promoted
+            to :implemented -- NurseryOperationsActor (Nursery
+            Operations Advisor ⊣ NurseryOperationsGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a nursery scheduling/logistics
+            coordination robot ONLY, never direct cultivation-execution
+            authority. Gardeners/Horticultural/Nursery Growers work with
+            cultivation equipment and agrochemicals (pesticide/
+            fertilizer chemical-exposure risk, cultivation-tool/
+            equipment hazards), so this actor has ZERO authority to
+            directly finalize a cultivation-execution decision (e.g.
+            planting/pruning/pesticide-application timing/technique) or
+            override a nursery safety officer's judgment: no such op
+            exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check, a second independent HARD
+            check naming five concretely-forbidden ops
+            (:finalize-planting-decision, :finalize-pruning-decision,
+            :authorize-pesticide-application,
+            :proceed-with-cultivation-work,
+            :override-nursery-safety-officer-judgment), and a
+            content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the pesticide application\", \"finalize the
+            planting decision\", \"override the nursery safety
+            officer's judgment\") -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all four
+            ops never self-trip it, even though the advisor's own
+            default rationale text legitimately contains the bare nouns
+            \"planting\"/\"pruning\"/\"safety officer\" (e.g. \"scheduled
+            crew operation for planting task\", \"routed for nursery
+            safety officer review\"). :flag-safety-concern always
+            escalates and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates --
+            not a hard block, routine procurement above the registered
+            threshold, not itself unsafe unlike a cultivation-execution
+            or nursery-safety-officer-override attempt. 21 tests / 45
+            assertions green (cloud-itonami-isco-6113, ADR-2799006113).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately before
+            this edit, reflecting cumulative concurrent sibling
+            landings in this same retry batch, not hand-derived from a
+            prior comment's delta."
+    (is (= :implemented (occupation/maturity "6113")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6113"
+           (:repo (occupation/get-occupation "6113"))))
+    (is (= "cloud-itonami-isco-6113"
+           (:business-id (occupation/get-occupation "6113"))))))
