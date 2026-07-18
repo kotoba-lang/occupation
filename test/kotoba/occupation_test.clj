@@ -6906,3 +6906,77 @@
            (:repo (occupation/get-occupation "8155"))))
     (is (= "cloud-itonami-isco-8155"
            (:business-id (occupation/get-occupation "8155"))))))
+
+(deftest pulp-papermaking-plant-operators-8171-implemented
+  (testing "8171 (Pulp and Papermaking Plant Operators) promoted to
+            :implemented -- PulpCoordActor (Pulp & Papermaking Plant
+            Scheduling & Logistics Coordination Advisor ⊣
+            PulpCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            plant scheduling/logistics coordination robot ONLY, never
+            direct pulp-digestion/paper-forming-equipment operation
+            authority. Pulp and Papermaking Plant Operators run
+            large-scale pulp digestion and paper-forming plant
+            equipment -- significant hazards from chemical pulping
+            agents, high-temperature process equipment, and heavy
+            rotating machinery (paper-forming rollers), comparable in
+            stakes to the already-landed chemical-plant (8131) actor.
+            This actor has NO op, anywhere in its allowlist, that
+            finalizes a plant-operation-execution decision or a
+            plant-safety-clearance decision, or overrides a plant
+            safety officer's judgment: structurally absent, not
+            merely gated, confirmed by the governor's closed
+            op-allowlist HARD check plus a content-based
+            scope-exclusion HARD block phrased exclusively as
+            finalization/execution ACTION PHRASES (never bare nouns
+            like \"pulp\"/\"digester\"/\"chemical\"/\"paper\"/\"batch\",
+            e.g. \"authorize the pulping process to proceed\",
+            \"finalize the plant-operation decision\", \"override the
+            plant safety officer's judgment\") -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip it, plus
+            end-to-end actor-level tests that a scope-excluded
+            proposal driven through the full compiled
+            langgraph.graph StateGraph always resolves straight to
+            :hold (a finish point, never :request-approval) with zero
+            records committed. :flag-safety-concern always escalates
+            and is never auto-commit-eligible, no confidence-level
+            exception, ever; a :coordinate-supply-order above the
+            registered cost threshold (20000, inclusive boundary)
+            escalates -- not a hard block, routine administrative/
+            equipment procurement above budget is not itself unsafe,
+            unlike a plant-operation-execution or plant-safety-
+            clearance/safety-officer-override attempt.
+            :coordinate-supply-order covers plant-equipment/
+            administrative-supply procurement only, never pulping
+            chemicals themselves -- chemical handling is entirely out
+            of scope for this administrative-coordination actor. The
+            task's cited reference repo (cloud-itonami-isco-8131,
+            Chemical Products Plant and Machine Operators) was used
+            directly per the task's own guidance (already landed,
+            independently re-verified: fresh clone, clojure -M:test
+            green 26 tests / 66 assertions, 0 failures / 0 errors,
+            before mirroring). 26 tests / 66 assertions green
+            (cloud-itonami-isco-8171, ADR-2799008171, independently
+            re-verified against a fresh clone of the pushed
+            repository; mojibake scan: 0 replacement characters
+            found). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this entry's
+            own promotion ({:total 436, :spec 114, :blueprint 0,
+            :implemented 322} at that fetch, already reflecting this
+            entry's own promotion and cumulative concurrent sibling
+            landings in this same batch of 6 -- not hand-derived from
+            a prior comment's delta -- this deftest deliberately does
+            NOT touch the maturity-tier aggregate count assertion
+            above, which only asserts :total 436 (invariant across
+            maturity promotions), not a hand-derived spec/implemented
+            split -- that assertion is left exactly as found rather
+            than fought over, per the race-safe convention for this
+            hot-contention batch."
+    (is (= :implemented (occupation/maturity "8171")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8171"
+           (:repo (occupation/get-occupation "8171"))))
+    (is (= "cloud-itonami-isco-8171"
+           (:business-id (occupation/get-occupation "8171"))))))
