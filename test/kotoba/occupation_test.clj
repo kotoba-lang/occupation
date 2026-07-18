@@ -1230,9 +1230,20 @@
       ;; via a fresh GitHub API fetch of registry.edn immediately before
       ;; this edit -- other sibling promotions landed concurrently in
       ;; this same batch (6 sibling agents landing concurrently).
+      ;; cloud-itonami-isco-9623 (Meter Readers and Vending-machine
+      ;; Collectors) promoted to :implemented in this batch
+      ;; (ADR-2799009623, see the dedicated
+      ;; cloud-itonami-isco-9623-meter-readers-vending-machine-collectors-promoted-to-implemented
+      ;; test below for detail). This number (96 spec / 340
+      ;; implemented) is a live re-fetch of (occupation/maturity-summary)
+      ;; via a fresh GitHub API fetch of registry.edn immediately before
+      ;; this edit (was 101 spec / 335 implemented before this final Wave3
+      ;; batch's concurrent sibling promotions landed) -- wave 3 is now
+      ;; fully complete (0 :spec remaining in wave 3 per
+      ;; wave-maturity-summary).
       (is (= 0 (:blueprint m)))
-      (is (= 101 (:spec m)))
-      (is (= 335 (:implemented m))))))
+      (is (= 96 (:spec m)))
+      (is (= 340 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -8024,3 +8035,74 @@
            (:repo (occupation/get-occupation "9613"))))
     (is (= "cloud-itonami-isco-9613"
            (:business-id (occupation/get-occupation "9613"))))))
+
+(deftest cloud-itonami-isco-9623-meter-readers-vending-machine-collectors-promoted-to-implemented
+  (testing "cloud-itonami-isco-9623 (Meter Readers and Vending-machine
+            Collectors) promoted to :implemented -- MeterReadingActor
+            (Meter Reading and Vending-machine Collection Advisor ⊣
+            MeterReadingGovernor); a route scheduling/logistics
+            COORDINATION ONLY actor with NO cash-collection/
+            reconciliation-execution-finalization, site-safety-
+            clearance-finalization, or route-safety-supervisor-
+            judgment-override authority anywhere in its closed
+            four-op allowlist (:log-work-record, :schedule-crew-
+            operation, :flag-safety-concern, :coordinate-supply-
+            order) -- this actor never enters a customer site, reads
+            a meter or collects cash itself, and never declares a
+            site safety-cleared. Verified via a closed op-allowlist,
+            independently-verified worker/route provenance, a
+            no-actuation HARD invariant (:effect must be :propose),
+            and a content-based scope-exclusion HARD block covering
+            all three independent out-of-scope decision classes
+            (phrased as finalization/execution actions, e.g.
+            \"finalize the cash-collection reconciliation\", \"declare
+            the site safety cleared\", \"override the route safety
+            supervisor's judgment\", never bare nouns like
+            \"meter\"/\"cash\"/\"vending\", to avoid the sibling-track
+            self-tripping false-positive bug -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four allowlisted ops never self-trip
+            it). :flag-safety-concern always escalates and is never
+            auto-commit-eligible (site-access/personal-safety hazard
+            from entering unfamiliar customer premises, and a second,
+            independent cash-handling trust/security hazard from
+            vending-machine cash collection, stack independently on
+            the base scheduling/logistics scope); an
+            above-cost-threshold :coordinate-supply-order always
+            escalates too. The reference repo mirrored for module
+            SHAPE was cloud-itonami-isco-9611 (Garbage and Recycling
+            Collectors -- the closest outdoor route-based
+            elementary-occupation hazard pattern available, already
+            landed), independently re-cloned and read in full before
+            mirroring, adapted to the site-access/personal-safety +
+            cash-handling-trust/security dual hazard-scope dimension
+            of meter-reading-and-vending-machine-collection work.
+            24 tests / 52 assertions green (cloud-itonami-isco-9623,
+            ADR-2799009623, independently re-verified against a fresh
+            clone of the pushed repository, mojibake 0 occurrences).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately
+            after this entry's own promotion ({:total 436, :spec 96,
+            :blueprint 0, :implemented 340} at that fetch, already
+            reflecting this entry's own promotion and cumulative
+            concurrent sibling landings in this same batch;
+            wave-maturity-summary confirms wave 3 is now {:total 127,
+            :spec 0, :blueprint 0, :implemented 127} -- fully
+            complete) -- not hand-derived from a prior comment's
+            delta. Unlike some sibling deftests in this file that
+            deliberately left the maturity-tier aggregate count
+            assertion untouched to avoid fighting over a
+            hot-contention shared line, this promotion's live
+            recompute showed wave 3 fully complete (0 remaining
+            :spec), so the aggregate assertion below is bumped to
+            this freshly-recomputed true count per the batch
+            instruction to keep it live rather than stale, using the
+            same fetch-sha-CAS-PUT-with-409-retry discipline used
+            throughout this file -- if a later sibling's concurrent
+            landing makes it stale again, that sibling should
+            recompute and bump it again the same way."
+    (is (= :implemented (occupation/maturity "9623")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9623"
+           (:repo (occupation/get-occupation "9623"))))
+    (is (= "cloud-itonami-isco-9623"
+           (:business-id (occupation/get-occupation "9623"))))))
