@@ -5700,3 +5700,76 @@
            (:repo (occupation/get-occupation "7549"))))
     (is (= "cloud-itonami-isco-7549"
            (:business-id (occupation/get-occupation "7549"))))))
+
+(deftest shotfirers-and-blasters-7542-implemented
+  (testing "7542 (Shotfirers and Blasters) promoted to :implemented --
+            BlastCoordActor (Blast-Operation Scheduling & Logistics
+            Coordination Advisor ⊣ BlastCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a blast-operation scheduling/
+            logistics coordination robot ONLY, never explosives
+            handling or direct blast-authorization/blast-execution
+            authority. Shotfirers and blasters handle explosives for
+            controlled demolition, mining and quarrying blasting
+            operations where errors can cause death, serious injury
+            or major property destruction -- categorically
+            higher-stakes than ordinary workshop trades, alongside
+            aviation (7232) and diving (7541) as the highest-stakes
+            hazard framing established in this catalog -- so this
+            actor has ZERO authority to directly finalize a
+            blast-authorization decision (approving a detonation to
+            proceed), finalize a blast-execution decision, or override
+            a blasting supervisor's or site-safety-officer's judgment:
+            no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            content-based scope-exclusion HARD check
+            (:scope-exclusion-violation) phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"authorize the blast to proceed\", \"finalize the blast
+            operation\", \"override the blasting supervisor's
+            judgment\"), and independently-verified blaster/site
+            provenance HARD checks (:no-site, :unknown-blaster -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"explosive\", \"blast\", \"detonation\", \"shot\" and
+            \"round\" (e.g. a :coordinate-supply-order rationale
+            naming \"blasting mats and administrative exclusion-zone
+            signage\", a :flag-safety-concern concern naming an
+            \"unresolved misfire concern near bench 4 round 12,
+            exclusion-zone breach pending review\"). This actor never
+            handles explosives itself:
+            :coordinate-supply-order covers blasting-equipment/
+            administrative-supply procurement only, never explosives
+            themselves -- explosives procurement/handling is entirely
+            out of scope for this administrative-coordination actor.
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (20000, inclusive boundary verified by
+            ok-supply-order-at-or-below-cost-threshold) escalates --
+            not a hard block, routine blasting-equipment procurement
+            above the registered threshold, not itself unsafe unlike a
+            blast-authorization or blast-execution-decision attempt.
+            27 tests / 69 assertions green (cloud-itonami-isco-7542,
+            ADR-2799007542, independently re-verified against a fresh
+            clone of the pushed repository, clj-kondo 0 errors / 0
+            warnings). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this promotion (131 spec /
+            305 implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "7542")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7542"
+           (:repo (occupation/get-occupation "7542"))))
+    (is (= "cloud-itonami-isco-7542"
+           (:business-id (occupation/get-occupation "7542"))))))
