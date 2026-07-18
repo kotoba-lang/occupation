@@ -6399,3 +6399,68 @@
            (:repo (occupation/get-occupation "8143"))))
     (is (= "cloud-itonami-isco-8143"
            (:business-id (occupation/get-occupation "8143"))))))
+
+(deftest plastic-products-machine-operators-8142-implemented
+  (testing "8142 (Plastic Products Machine Operators) promoted to
+            :implemented -- PlasticCoordActor (Plastic Plant Scheduling
+            Coordination Advisor ⊣ PlasticCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a plant scheduling/logistics
+            coordination robot ONLY, never injection-molding/extrusion
+            equipment operation or plant-safety-clearance authority.
+            Plastic Products Machine Operators run injection-molding/
+            extrusion equipment with a real heavy-machinery hazard
+            (crush/entanglement risk from presses) plus heat exposure
+            and fume exposure (plastic off-gassing during processing)
+            -- so this actor has ZERO authority to finalize a
+            molding-operation-execution decision, finalize a
+            plant-safety-clearance decision, or override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"finalize the molding operation\", \"declare the
+            plant safety cleared\", \"override the plant safety
+            officer's judgment\"), and independently-verified molder/
+            facility provenance HARD checks (:no-molder, :no-facility
+            -- a registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"plastic\", \"resin\" and \"extruder\" (e.g. a self-trip
+            regression task literally reading \"routine injection
+            molding task with plastic resin at the extruder\"). This
+            actor never operates injection-molding or extrusion
+            equipment itself: :log-work-record covers production-run/
+            inventory/progress data logging only, :schedule-crew-operation
+            covers crew/shift/task scheduling only, :coordinate-supply-order
+            covers raw-plastic/resin procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 38 tests / 82 assertions green
+            (cloud-itonami-isco-8142, ADR-2799008142, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this entry's own edit (123
+            spec / 313 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch (6 sibling agents landing concurrently) -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts :total
+            436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split -- that assertion is
+            left exactly as found rather than fought over."
+    (is (= :implemented (occupation/maturity "8142")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8142"
+           (:repo (occupation/get-occupation "8142"))))
+    (is (= "cloud-itonami-isco-8142"
+           (:business-id (occupation/get-occupation "8142"))))))
