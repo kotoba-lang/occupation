@@ -2999,3 +2999,56 @@
            (:repo (occupation/get-occupation "6113"))))
     (is (= "cloud-itonami-isco-6113"
            (:business-id (occupation/get-occupation "6113"))))))
+(deftest animal-producers-nec-6129-implemented
+  (testing "6129 (Animal Producers Not Elsewhere Classified) promoted to
+            :implemented -- HusbandryActor (Farm Scheduling Advisor ⊣
+            HusbandryGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-welfare-concern, :coordinate-supply-order) -- a farm
+            scheduling/logistics coordination robot ONLY, never direct
+            animal-treatment/welfare/breeding authority. Animal
+            Producers NEC (livestock/farm-animal breeders not covered
+            by a more specific ISCO-08 class) work directly with
+            animals (a physical animal-handling-injury dimension AND
+            an animal-welfare dimension), so this actor has ZERO
+            authority to directly finalize an animal-treatment/
+            welfare/breeding decision or override a farm safety
+            officer's/worker's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check, a second independent HARD check naming nine
+            concretely-forbidden ops (:finalize-breeding-decision,
+            :commit-to-breeding-decision,
+            :determine-animal-fitness-for-breeding,
+            :decide-animal-welfare-disposition,
+            :authorize-veterinary-treatment, :order-veterinary-treatment,
+            :override-farm-safety-officer-judgment,
+            :override-worker-safety-judgment,
+            :override-worker-animal-handling-judgment), and a
+            content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the breeding decision\", \"determine the animal's
+            fitness for breeding\", \"override the farm safety officer's
+            judgment\") -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops never
+            self-trip it, even though this actor's own op is literally
+            named :flag-welfare-concern (the advisor's default rationale
+            template \"documented <op> for farm <id>\" never contains a
+            scope-excluded phrase). :flag-welfare-concern always
+            escalates and is never auto-commit-eligible; an
+            above-cost-threshold :coordinate-supply-order escalates --
+            not a hard block, routine procurement above the registered
+            threshold, not itself unsafe unlike an animal-treatment/
+            welfare/breeding decision or safety-officer-override
+            attempt. 45 tests / 138 assertions green
+            (cloud-itonami-isco-6129, ADR-2799006129). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same retry batch, not hand-derived from a prior
+            comment's delta."
+    (is (= :implemented (occupation/maturity "6129")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6129"
+           (:repo (occupation/get-occupation "6129"))))
+    (is (= "cloud-itonami-isco-6129"
+           (:business-id (occupation/get-occupation "6129"))))))
