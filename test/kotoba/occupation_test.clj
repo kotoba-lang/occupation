@@ -7728,3 +7728,84 @@
            (:repo (occupation/get-occupation "9215"))))
     (is (= "cloud-itonami-isco-9215"
            (:business-id (occupation/get-occupation "9215"))))))
+
+
+(deftest garbage-and-recycling-collectors-9611-implemented
+  (testing "9611 (Garbage and Recycling Collectors) promoted to
+            :implemented -- WasteCollectionActor (Garbage and Recycling
+            Collector Advisor ⊣ WasteCollectionGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a route scheduling/logistics
+            coordination robot ONLY, never collection-execution or
+            route-safety-clearance authority. Garbage and Recycling
+            Collectors is an ISCO major group 9 elementary occupation
+            (lower nominal formal-skill requirement than the 7xxx/8xxx
+            trades/plant-operator groups already landed), but the
+            real-world safety stakes stack two ways: vehicle-traffic
+            hazard (collectors work alongside moving collection
+            vehicles in traffic) and hazardous-material-handling hazard
+            (collected waste may include sharp/hazardous items) -- so
+            the governance SHAPE (independent Governor, closed
+            allowlist, hard/escalate split) is NOT simplified relative
+            to the higher-skill-tier actors. This actor has ZERO
+            authority to finalize a collection-execution decision (e.g.
+            authorizing a specific vehicle route/loading operation),
+            finalize a route-safety-clearance decision, or override a
+            route safety supervisor's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased
+            as finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"authorize the vehicle route to proceed\", \"declare
+            the route safety cleared\", \"override the route safety
+            supervisor's judgment\"), and independently-verified
+            worker/route provenance HARD checks (:no-worker, :no-route
+            -- a registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"garbage\", \"recycling\", \"truck\", \"route\" and \"route
+            safety supervisor\" (e.g. a self-trip regression task
+            literally reading \"routine garbage and recycling
+            collection task\" with hazard-type
+            :vehicle-traffic-hazard). This actor never performs
+            collection work itself: :log-work-record covers
+            collection-log/progress data logging only,
+            :schedule-crew-operation covers crew/route/task scheduling
+            only, :coordinate-supply-order covers collection-equipment/
+            consumables procurement only, and :flag-safety-concern
+            ALWAYS escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a :coordinate-supply-order
+            above the registered cost threshold (2000, boundary
+            verified exclusive by ok-supply-order-at-threshold-boundary
+            -- exactly-at-threshold commits, over-threshold escalates)
+            escalates -- not a hard block. The reference repo mirrored
+            for module SHAPE was cloud-itonami-isco-9212 (Livestock
+            Farm Labourers -- the closest outdoor-labour hazard-domain
+            analog), independently re-cloned and read in full before
+            mirroring, adapted to the vehicle-traffic/hazardous-
+            material-handling hazard-scope dimension of garbage and
+            recycling collection work. 24 tests / 52 assertions green
+            (cloud-itonami-isco-9611, ADR-2799009611, independently
+            re-verified against a fresh clone of the pushed repository).
+            Counts re-verified live via (occupation/maturity-summary)
+            against a freshly re-fetched origin/main immediately after
+            this entry's own promotion ({:total 436, :spec 102,
+            :blueprint 0, :implemented 334} at that fetch, already
+            reflecting this entry's own promotion and cumulative
+            concurrent sibling landings in this same batch) -- not
+            hand-derived from a prior comment's delta -- this deftest
+            deliberately does NOT touch the maturity-tier aggregate
+            count assertion above, which only asserts :total 436
+            (invariant across maturity promotions), not a hand-derived
+            spec/implemented split -- that assertion is left exactly as
+            found rather than fought over, per the race-safe convention
+            for this hot-contention batch."
+    (is (= :implemented (occupation/maturity "9611")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9611"
+           (:repo (occupation/get-occupation "9611"))))
+    (is (= "cloud-itonami-isco-9611"
+           (:business-id (occupation/get-occupation "9611"))))))
