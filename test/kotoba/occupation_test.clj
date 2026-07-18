@@ -3355,3 +3355,74 @@
            (:repo (occupation/get-occupation "7133"))))
     (is (= "cloud-itonami-isco-7133"
            (:business-id (occupation/get-occupation "7133"))))))
+
+(deftest subsistence-fishers-hunters-trappers-gatherers-6340-implemented
+  (testing "6340 (Subsistence Fishers, Hunters, Trappers and Gatherers)
+            promoted to :implemented -- SubsistenceHarvestActor
+            (Subsistence Harvest Advisor ⊣ SubsistenceHarvestGovernor);
+            closed four-op proposal allowlist (:log-harvest-record,
+            :schedule-equipment-operation, :flag-livelihood-concern,
+            :coordinate-supply-order) -- a logistics/record-keeping
+            coordination robot ONLY, combining the weapons/kill-decision
+            concerns of ISCO 6224 (Hunters and Trappers) with the
+            livelihood-vulnerability dimension of subsistence
+            agriculture (ISCO 6310/6320): this class covers subsistence
+            fishing, hunting, trapping AND gathering practiced primarily
+            for household consumption, so a resource-depletion/
+            food-security risk threatens the household's own food
+            supply directly. This actor has ZERO authority to directly
+            fire a weapon, set/spring a trap, make a
+            fishing/hunting/gathering-execution decision, or make a
+            kill/harvest-timing decision: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist HARD
+            check (:unknown-op), a second independent HARD check naming
+            ten concretely-forbidden ops (:fire-weapon,
+            :discharge-weapon, :set-trap, :spring-trap,
+            :make-kill-decision, :make-harvest-timing-decision,
+            :make-fishing-execution-decision,
+            :make-hunting-execution-decision,
+            :make-gathering-execution-decision,
+            :make-trapping-execution-decision), and a content-based
+            scope-exclusion HARD block (:subsistence-execution-scope-
+            exclusion) phrased as finalization/execution ACTIONS (never
+            bare nouns, e.g. \"fire the weapon\", \"spring the trap\",
+            \"make the fishing execution decision\", \"make the kill
+            decision\") -- verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops never
+            self-trip it, even though the advisor's own default
+            rationale text legitimately contains the bare nouns
+            \"weapon\"/\"trap\"/\"fishing\"/\"hunting\"/\"gathering\"/
+            \"kill\" (e.g. \"post-hoc documentation only ... no
+            weapon-firing, trap-setting/springing, fishing/hunting/
+            gathering-execution or kill/harvest-timing decision proposed
+            or implied\"). Independently-verified operator/area
+            provenance HARD checks (:no-operator, :missing-area,
+            :unknown-area, :area-wrong-operator) ensure a proposal must
+            resolve to an independently registered household member AND
+            gathering area before any action; a :missing-harvest-report
+            HARD check blocks logging a harvest record with no attached
+            field report (a fabricated record, not documentation).
+            :flag-livelihood-concern (a food-security/resource-
+            depletion/safety concern) always escalates and is NEVER
+            auto-commit-eligible, regardless of confidence -- the only
+            channel through which such an observation may be surfaced,
+            reviewed entirely by the human household member; a
+            :coordinate-supply-order above the area's registered cost
+            threshold (1000, household scale, inclusive boundary
+            verified by ok-supply-order-at-exact-threshold-boundary)
+            escalates -- not a hard block, routine non-weapon equipment
+            procurement above the registered threshold, not itself a
+            weapon-firing/trap-setting/fishing-hunting-gathering-
+            execution/kill-decision. 28 tests / 110 assertions green
+            (cloud-itonami-isco-6340, ADR-2799006340). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "6340")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6340"
+           (:repo (occupation/get-occupation "6340"))))
+    (is (= "cloud-itonami-isco-6340"
+           (:business-id (occupation/get-occupation "6340"))))))
