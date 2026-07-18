@@ -1205,8 +1205,8 @@
       ;; 265 implemented in the just-fetched file) -- other sibling
       ;; promotions landed concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 167 (:spec m)))
-      (is (= 269 (:implemented m))))))
+      (is (= 161 (:spec m)))
+      (is (= 275 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
@@ -3549,3 +3549,65 @@
            (:repo (occupation/get-occupation "7313"))))
     (is (= "cloud-itonami-isco-7313"
            (:business-id (occupation/get-occupation "7313"))))))
+
+(deftest precision-instrument-makers-and-repairers-7311-implemented
+  (testing "7311 (Precision-instrument Makers and Repairers) promoted
+            to :implemented -- InstrumentMakerActor (Instrument Maker
+            Advisor ⊣ InstrumentMakerGovernor); closed four-op
+            proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a precision-instrument
+            workshop scheduling/logistics coordination robot ONLY,
+            never direct instrument-repair/calibration-execution
+            authority. Precision-instrument Makers and Repairers work
+            with fine tools and small mechanical/optical components on
+            an active workshop bench -- eye-strain/hand-injury and
+            occasional solder/chemical-exposure hazards -- so this
+            actor has ZERO authority to directly finalize an
+            instrument-repair/calibration-execution decision (e.g.
+            deciding to proceed with a specific instrument-repair or
+            calibration procedure), authorize a calibration operation,
+            or override a workshop safety officer's judgment: no such
+            op exists anywhere in the closed allowlist (structurally
+            absent, not merely gated), confirmed by the governor's
+            closed op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming five concretely-forbidden
+            ops (:finalize-instrument-repair-decision,
+            :authorize-calibration-operation,
+            :proceed-with-calibration-procedure,
+            :override-safety-officer-judgment,
+            :override-workshop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"proceed with the
+            calibration procedure\", \"override the workshop safety
+            officer's judgment\"), and independently-verified
+            worker/workshop provenance HARD checks (:no-worker,
+            :no-workshop -- a registered record alone is not enough)
+            -- verified via a dedicated regression test that the
+            default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this
+            actor's own vocabulary legitimately contains the bare
+            nouns \"instrument\", \"calibration\" and \"workshop
+            safety officer\" (e.g. a :schedule-crew-operation
+            rationale naming an \"instrument-repair task\", a
+            :flag-safety-concern concern routed for workshop safety
+            officer review). :flag-safety-concern always escalates
+            and is never auto-commit-eligible; a
+            :coordinate-supply-order above the registered cost
+            threshold (2000, inclusive boundary) escalates -- not a
+            hard block, routine precision-parts/materials procurement
+            above the registered threshold, not itself unsafe unlike
+            an instrument-repair/calibration-execution or
+            safety-officer-override attempt. 22 tests / 47 assertions
+            green (cloud-itonami-isco-7311, ADR-2799007311). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch, not hand-derived from a prior comment's
+            delta."
+    (is (= :implemented (occupation/maturity "7311")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7311"
+           (:repo (occupation/get-occupation "7311"))))
+    (is (= "cloud-itonami-isco-7311"
+           (:business-id (occupation/get-occupation "7311"))))))
