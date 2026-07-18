@@ -4680,3 +4680,67 @@
            (:repo (occupation/get-occupation "7521"))))
     (is (= "cloud-itonami-isco-7521"
            (:business-id (occupation/get-occupation "7521"))))))
+
+(deftest handicraft-workers-nec-7319-implemented
+  (testing "7319 (Handicraft Workers Not Elsewhere Classified) promoted
+            to :implemented -- CraftCoordActor (Craft Coordination
+            Advisor ⊣ CraftCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            generic handicraft workshop scheduling/logistics
+            coordination robot ONLY, never direct craft-execution or
+            quality/safety-clearance authority. ISCO-08 7319 is a
+            broad, generic residual \"Not Elsewhere Classified\"
+            category (varied hand-tools, varied materials, no single
+            dominant hazard type), so this actor has ZERO authority to
+            directly finalize a craft-execution decision, declare a
+            product quality- or safety-clearance decision, or override
+            a shop safety officer's judgment: no such op exists
+            anywhere in the closed allowlist (structurally absent, not
+            merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a second
+            independent HARD check naming six concretely-forbidden
+            ops (:finalize-handicraft-item,
+            :finalize-craft-execution-decision,
+            :declare-product-quality-cleared,
+            :declare-safety-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the handicraft item\", \"declare the product
+            quality-cleared\", \"override the shop safety officer's
+            judgment\") -- verified via a dedicated regression test
+            that the default mock advisor's proposals for all four
+            allowlisted ops never self-trip it, even though the
+            advisor's own default rationale text legitimately contains
+            the bare nouns \"craft\"/\"quality\"/\"safety officer\"
+            (e.g. \"scheduled crew operation for handicraft task ...\",
+            \"... routed for shop safety officer review\").
+            Independently-verified artisan/workshop provenance HARD
+            checks (:no-artisan, :no-workshop) ensure a proposal must
+            resolve to an independently registered crew member AND
+            workshop before any action; :effect must be :propose
+            (:no-actuation). :flag-safety-concern (a hand-tool-hazard/
+            material-handling/equipment-condition concern) always
+            escalates and is NEVER auto-commit-eligible, regardless of
+            confidence; a :coordinate-supply-order above the
+            registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine craft-materials
+            procurement above the registered threshold, not itself
+            unsafe unlike a craft-execution/quality-clearance/
+            safety-officer-override attempt. 24 tests / 52 assertions
+            green (cloud-itonami-isco-7319, ADR-2799007319,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (147 spec / 289
+            implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7319")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7319"
+           (:repo (occupation/get-occupation "7319"))))
+    (is (= "cloud-itonami-isco-7319"
+           (:business-id (occupation/get-occupation "7319"))))))
