@@ -5973,3 +5973,68 @@
            (:repo (occupation/get-occupation "8114"))))
     (is (= "cloud-itonami-isco-8114"
            (:business-id (occupation/get-occupation "8114"))))))
+
+(deftest metal-finishing-plating-coating-machine-operators-8122-implemented
+  (testing "8122 (Metal Finishing, Plating and Coating Machine Operators)
+            promoted to :implemented -- PlatingCoordActor (Plating Plant
+            Scheduling Coordination Advisor ⊣ PlatingCoordGovernor);
+            closed four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a plant scheduling/logistics
+            coordination robot ONLY, never plating-equipment operation
+            or chemical-safety-clearance authority. Metal Finishing,
+            Plating and Coating Machine Operators run electroplating
+            lines using chemical baths (historically including
+            cyanide-based and chromium-based solutions) plus electrical
+            hazard from electroplating current -- a real
+            chemical-exposure and electrical hazard domain -- so this
+            actor has ZERO authority to finalize a
+            plating-operation-execution decision, finalize a
+            chemical-safety-clearance decision, or override a plant
+            safety officer's judgment: no such op exists anywhere in
+            the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"finalize the plating operation\", \"declare the
+            chemical bath safety cleared\", \"override the plant
+            safety officer's judgment\"), and independently-verified
+            plater/facility provenance HARD checks (:no-plater,
+            :no-facility -- a registered record alone is not enough).
+            Verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like
+            \"cyanide\", \"chromium\" and \"electroplating\" (e.g. a
+            self-trip regression task literally reading \"routine
+            electroplating task with cyanide and chromium plating
+            bath\"). This actor never operates plating equipment
+            itself: :log-work-record covers production-run/inventory/
+            progress data logging only, :schedule-crew-operation covers
+            crew/shift/task scheduling only, :coordinate-supply-order
+            covers plating-chemicals/raw-material procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 32 tests / 69 assertions green
+            (cloud-itonami-isco-8122, ADR-2799008122, independently
+            re-verified against a fresh clone of the pushed
+            repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this promotion (126 spec /
+            310 implemented / 0 blueprint at that fetch), reflecting
+            cumulative concurrent sibling landings in this same batch,
+            not hand-derived from a prior comment's delta -- this
+            deftest deliberately does NOT touch the maturity-tier
+            aggregate count assertion above, which only asserts
+            :total 436 (invariant across maturity promotions), not a
+            hand-derived spec/implemented split."
+    (is (= :implemented (occupation/maturity "8122")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8122"
+           (:repo (occupation/get-occupation "8122"))))
+    (is (= "cloud-itonami-isco-8122"
+           (:business-id (occupation/get-occupation "8122"))))))
