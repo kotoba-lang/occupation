@@ -4874,3 +4874,76 @@
            (:repo (occupation/get-occupation "7232"))))
     (is (= "cloud-itonami-isco-7232"
            (:business-id (occupation/get-occupation "7232"))))))
+
+(deftest signwriters-decorative-painters-engravers-etchers-7316-implemented
+  (testing "7316 (Signwriters, Decorative Painters, Engravers and
+            Etchers) promoted to :implemented -- SignCraftActor (Sign
+            & Decorative Craft Advisor ⊣ SignCraftGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a sign & decorative-craft
+            workshop scheduling/logistics coordination robot ONLY,
+            never direct painting/engraving-execution authority and
+            never chemical-safety-clearance authority. Signwriters,
+            Decorative Painters, Engravers and Etchers work with
+            paints, solvents and etching chemicals (VOC/chemical-fume
+            exposure hazard) alongside precision hand-craft work
+            (engraving/etching tools) -- two hazard dimensions at
+            once -- so this actor has ZERO authority to directly
+            finalize a painting/engraving-execution decision (e.g.
+            deciding to proceed with a specific signwriting,
+            decorative-painting, engraving or etching procedure), or a
+            workshop-chemical-safety-clearance decision, or override a
+            shop safety officer's judgment: no such op exists anywhere
+            in the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a second independent HARD check
+            naming nine concretely-forbidden ops
+            (:finalize-painting-execution-decision,
+            :finalize-engraving-execution-decision,
+            :authorize-painting-operation,
+            :authorize-engraving-operation,
+            :proceed-with-painting-execution-procedure,
+            :proceed-with-engraving-execution-procedure,
+            :declare-workshop-chemical-safety-cleared,
+            :override-safety-officer-judgment,
+            :override-shop-safety-officer-judgment), and a
+            content-based scope-exclusion HARD check
+            (:scope-excluded-action) phrased as finalization/execution
+            ACTIONS (never bare nouns, e.g. \"finalize the painting
+            operation\", \"declare the workshop chemical-safety
+            cleared\", \"override the shop safety officer's
+            judgment\"), and independently-verified worker/workshop
+            provenance HARD checks (:no-worker, :no-workshop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"paint\",
+            \"solvent\", \"engraving\", \"etching\" and \"shop safety
+            officer\" (e.g. a :schedule-crew-operation rationale
+            naming a \"signwriting/decorative-painting task\", a
+            :flag-safety-concern concern routed for shop safety
+            officer review). :flag-safety-concern always escalates and
+            is never auto-commit-eligible; a :coordinate-supply-order
+            above the registered cost threshold (2000, inclusive
+            boundary verified by ok-supply-order-at-threshold-
+            boundary) escalates -- not a hard block, routine
+            paint/solvent/etching-materials procurement above the
+            registered threshold, not itself unsafe unlike a
+            painting/engraving-execution, chemical-safety-clearance,
+            or safety-officer-override attempt. 26 tests / 56
+            assertions green (cloud-itonami-isco-7316, ADR-2799007316,
+            independently re-verified against a fresh clone of the
+            pushed repository). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit (145 spec / 291
+            implemented / 0 blueprint at that fetch, before this
+            entry's own promotion), reflecting cumulative concurrent
+            sibling landings in this same batch, not hand-derived from
+            a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7316")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7316"
+           (:repo (occupation/get-occupation "7316"))))
+    (is (= "cloud-itonami-isco-7316"
+           (:business-id (occupation/get-occupation "7316"))))))
