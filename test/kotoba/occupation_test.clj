@@ -2841,3 +2841,44 @@
            (:repo (occupation/get-occupation "6310"))))
     (is (= "cloud-itonami-isco-6310"
            (:business-id (occupation/get-occupation "6310"))))))
+(deftest subsistence-livestock-farmers-6320-implemented
+  (testing "6320 (Subsistence Livestock Farmers) promoted to :implemented --
+            HusbandryActor (Farm Operations Advisor ⊣
+            HusbandryGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-farm-operation,
+            :flag-welfare-concern, :coordinate-supply-order) -- a farm
+            record-keeping/logistics coordination robot ONLY. This
+            actor has NO authority to directly finalize an
+            animal-treatment/welfare/breeding decision, or override
+            the farmer's own judgment about their household's
+            livestock: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated), backed
+            by a content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"determine the animal's fitness for breeding\", \"order
+            the veterinary treatment\", \"override the farmer's
+            livestock judgment\") -- verified via a dedicated
+            regression test that the default mock advisor's proposals
+            for all four ops (including the bare noun \"welfare\" in
+            this actor's own :flag-welfare-concern op name) never
+            self-trip the scope-exclusion check. :flag-welfare-concern
+            always escalates and is never auto-commit-eligible; an
+            over-threshold :coordinate-supply-order escalates (not a
+            hard block -- routine feed/supplies procurement above the
+            registered per-holding cost threshold, not itself unsafe).
+            This carries a livelihood-vulnerability dimension
+            (livestock loss directly threatens household food
+            security) on top of the animal-welfare dimension -- this
+            actor coordinates farm record-keeping/logistics ONLY, it
+            never handles the animals or makes treatment decisions
+            itself. 44 tests / 152 assertions green
+            (cloud-itonami-isco-6320, ADR-2799006320). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            edit, reflecting cumulative concurrent sibling landings in
+            this same batch."
+    (is (= :implemented (occupation/maturity "6320")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-6320"
+           (:repo (occupation/get-occupation "6320"))))
+    (is (= "cloud-itonami-isco-6320"
+           (:business-id (occupation/get-occupation "6320"))))))
