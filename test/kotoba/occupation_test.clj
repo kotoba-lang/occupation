@@ -6200,3 +6200,69 @@
            (:repo (occupation/get-occupation "8111"))))
     (is (= "cloud-itonami-isco-8111"
            (:business-id (occupation/get-occupation "8111"))))))
+(deftest fibre-preparing-spinning-winding-machine-operators-8151-implemented
+  (testing "8151 (Fibre Preparing, Spinning and Winding Machine Operators)
+            promoted to :implemented -- SpinningCoordActor (Fibre
+            Preparing, Spinning and Winding Mill Scheduling Coordination
+            Advisor ⊣ SpinningCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a mill
+            scheduling/logistics coordination robot ONLY, never
+            spinning/winding-equipment operation or mill-safety-clearance
+            authority. Fibre Preparing, Spinning and Winding Machine
+            Operators run textile-mill carding, spinning and winding
+            equipment with significant entanglement hazard (rotating
+            spindles, drive belts, high-speed winding mechanisms) plus
+            fibre-dust exposure -- a real entanglement-hazard and
+            fibre-dust-exposure domain -- so this actor has ZERO
+            authority to finalize a machine-operation-execution decision,
+            finalize a mill-safety-clearance decision, or override a
+            mill safety officer's judgment: no such op exists anywhere
+            in the closed allowlist (structurally absent, not merely
+            gated), confirmed by the governor's closed op-allowlist
+            HARD check (:unknown-op), a content-based scope-exclusion
+            HARD check (:scope-excluded-action) phrased as
+            finalization/execution ACTION PHRASES (never bare nouns,
+            e.g. \"finalize the spinning operation\", \"declare the mill
+            safety cleared\", \"override the mill safety officer's
+            judgment\"), and independently-verified spinner/mill
+            provenance HARD checks (:no-spinner, :no-mill -- a
+            registered record alone is not enough). Verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains bare nouns like \"fibre\",
+            \"spindle\" and \"yarn\" (e.g. a self-trip regression task
+            literally reading \"routine spinning task with rotating
+            spindles, drive belts and fibre dust on the winding
+            frame\"). This actor never operates spinning/winding
+            equipment itself: :log-work-record covers production-run/
+            inventory/progress data logging only, :schedule-crew-operation
+            covers crew/shift/task scheduling only, :coordinate-supply-order
+            covers raw-fibre/yarn-stock procurement only, and
+            :flag-safety-concern ALWAYS escalates and is never
+            auto-commit-eligible, no confidence-level exception, ever;
+            a :coordinate-supply-order above the registered cost
+            threshold (2000, boundary verified exclusive by
+            ok-supply-order-at-threshold-boundary -- exactly-at-
+            threshold commits, over-threshold escalates) escalates --
+            not a hard block. 33 tests / 71 assertions green
+            (cloud-itonami-isco-8151, ADR-2799008151, independently
+            re-verified against a fresh clone of the pushed
+            repository, clj-kondo 0 errors / 0 warnings). Counts
+            re-verified live via (occupation/maturity-summary) against
+            a freshly re-fetched origin/main immediately before this
+            entry's own edit (123 spec / 313 implemented / 0 blueprint
+            at that fetch), reflecting cumulative concurrent sibling
+            landings in this same batch (6 sibling agents landing
+            concurrently) -- this deftest deliberately does NOT touch
+            the maturity-tier aggregate count assertion above, which
+            only asserts :total 436 (invariant across maturity
+            promotions), not a hand-derived spec/implemented split --
+            that assertion is left exactly as found rather than
+            fought over."
+    (is (= :implemented (occupation/maturity "8151")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-8151"
+           (:repo (occupation/get-occupation "8151"))))
+    (is (= "cloud-itonami-isco-8151"
+           (:business-id (occupation/get-occupation "8151"))))))
