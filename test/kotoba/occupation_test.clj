@@ -1178,9 +1178,17 @@
       ;; fetch of registry.edn immediately before this edit, not hand-derived
       ;; from any prior comment's delta -- other sibling promotions may have
       ;; landed concurrently in this same batch.
+            ;; cloud-itonami-isco-6223 (Deep-sea Fishery Workers) promoted to
+      ;; :implemented (ADR-2799006223, see
+      ;; deep-sea-fishery-workers-6223-implemented test below for detail).
+      ;; This number (173 spec / 263 implemented) is a
+      ;; live re-fetch of (occupation/maturity-summary) from a fresh clone
+      ;; immediately before this edit, not hand-derived from any prior
+      ;; comment's delta -- several sibling promotions may have landed
+      ;; concurrently in this same batch.
       (is (= 0 (:blueprint m)))
-      (is (= 174 (:spec m)))
-      (is (= 262 (:implemented m))))))
+      (is (= 173 (:spec m)))
+      (is (= 263 (:implemented m))))))
 
 (deftest maturity-roadmap-reports-next-step
   (testing "an implemented entry is at maturity ceiling"
