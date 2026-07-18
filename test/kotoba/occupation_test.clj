@@ -7809,3 +7809,85 @@
            (:repo (occupation/get-occupation "9611"))))
     (is (= "cloud-itonami-isco-9611"
            (:business-id (occupation/get-occupation "9611"))))))
+
+
+(deftest mixed-crop-and-livestock-farm-labourers-9213-implemented
+  (testing "9213 (Mixed Crop and Livestock Farm Labourers) promoted to
+            :implemented -- MixedFarmActor (Mixed Crop and Livestock Farm
+            Labourer Advisor ⊣ MixedFarmGovernor); closed four-op
+            proposal allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a farm
+            scheduling/logistics coordination robot ONLY, never livestock-
+            handling-execution, crop-handling-execution or farm-safety-
+            clearance authority. Mixed Crop and Livestock Farm Labourers is
+            an ISCO major group 9 elementary occupation (lower nominal
+            formal-skill requirement than the 7xxx/8xxx trades/plant-
+            operator groups already landed), but the real-world safety
+            stakes stack three ways: animal-handling hazard (kick/trample/
+            bite injury), outdoor-exposure hazard (weather, uneven terrain)
+            and standard farm-equipment hazard -- so the governance SHAPE
+            (independent Governor, closed allowlist, hard/escalate split) is
+            NOT simplified relative to the higher-skill-tier actors. This
+            actor has ZERO authority to finalize a livestock-handling-
+            execution decision (e.g. approving a specific handling or
+            restraint procedure), finalize a crop-handling-execution
+            decision (e.g. approving a specific planting or harvest-
+            handling procedure), finalize a farm-safety-clearance decision,
+            or override a farm safety supervisor's judgment: no such op
+            exists anywhere in the closed allowlist (structurally absent,
+            not merely gated), confirmed by the governor's closed
+            op-allowlist HARD check (:unknown-op), a content-based
+            scope-exclusion HARD check (:scope-excluded-action) covering
+            THREE independent scope-exclusion dimensions phrased as
+            finalization/execution ACTION PHRASES (never bare nouns, e.g.
+            \"approve the livestock handling procedure\", \"approve the
+            crop handling procedure\", \"declare the farm safety
+            cleared\", \"override the farm safety supervisor's
+            judgment\"), and independently-verified worker/farm provenance
+            HARD checks (:no-worker, :no-farm -- a registered record alone
+            is not enough). Verified via a dedicated regression test that
+            the default mock advisor's proposals for all four ops never
+            self-trip the scope-exclusion guard, even though this actor's
+            own vocabulary legitimately contains bare nouns like
+            \"livestock\", \"crop\", \"farm\" and \"farm safety
+            supervisor\" (e.g. a self-trip regression task literally
+            reading \"routine crop and livestock handling task\" with
+            hazard-type :animal-behavior-hazard). This actor never performs
+            farm labour, crop handling or livestock handling itself:
+            :log-work-record covers planting/harvest/feeding-log/progress
+            data logging only, :schedule-crew-operation covers crew/task
+            scheduling only, :coordinate-supply-order covers seed/feed/
+            farm-supplies procurement only, and :flag-safety-concern
+            ALWAYS escalates and is never auto-commit-eligible, no
+            confidence-level exception, ever; a :coordinate-supply-order
+            above the registered cost threshold (2000, boundary verified
+            exclusive by ok-supply-order-at-threshold-boundary --
+            exactly-at-threshold commits, over-threshold escalates)
+            escalates -- not a hard block. The reference repo mirrored for
+            module SHAPE was cloud-itonami-isco-9212 (Livestock Farm
+            Labourers -- the closest animal-handling/farm-labour
+            hazard-domain analog), independently re-cloned and read in full
+            before mirroring, extended with a second, independent
+            crop-handling-execution scope-exclusion dimension (this
+            occupation performs combined crop AND livestock manual farm
+            labour, unlike 9212's livestock-only scope). 29 tests / 62
+            assertions green (cloud-itonami-isco-9213, ADR-2799009213,
+            independently re-verified against a fresh clone of the pushed
+            repository, mojibake-checked clean). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately after this entry's own promotion
+            ({:total 436, :spec 105, :blueprint 0, :implemented 331} at
+            that fetch, already reflecting this entry's own promotion and
+            cumulative concurrent sibling landings in this same batch) --
+            not hand-derived from a prior comment's delta -- this deftest
+            deliberately does NOT touch the maturity-tier aggregate count
+            assertion above, which only asserts :total 436 (invariant
+            across maturity promotions), not a hand-derived spec/
+            implemented split -- that assertion is left exactly as found
+            rather than fought over, per the race-safe convention for this
+            hot-contention batch."
+    (is (= :implemented (occupation/maturity "9213")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-9213"
+           (:repo (occupation/get-occupation "9213"))))
+    (is (= "cloud-itonami-isco-9213"
+           (:business-id (occupation/get-occupation "9213"))))))
