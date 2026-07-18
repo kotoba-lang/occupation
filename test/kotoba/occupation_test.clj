@@ -4744,3 +4744,61 @@
            (:repo (occupation/get-occupation "7319"))))
     (is (= "cloud-itonami-isco-7319"
            (:business-id (occupation/get-occupation "7319"))))))
+
+(deftest bicycle-and-related-repairers-7234-implemented
+  (testing "7234 (Bicycle and Related Repairers) promoted to :implemented --
+            BikeCoordActor (Bicycle Repair Coordination Advisor ⊣
+            BikeCoordGovernor); closed four-op proposal allowlist
+            (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a bicycle
+            repair-workshop scheduling/logistics coordination robot ONLY,
+            never direct repair-execution or roadworthiness-clearance
+            authority. Bicycle and related repairers perform standard
+            mechanical repair work with standard workshop hazards (tools,
+            moving parts), so this actor has ZERO authority to directly
+            finalize a repair-execution decision, finalize a
+            roadworthiness-clearance decision (declaring a bicycle safe
+            to ride or sell), or override a shop safety officer's
+            judgment: no such op exists anywhere in the closed allowlist
+            (structurally absent, not merely gated), confirmed by the
+            governor's closed op-allowlist HARD check (:unknown-op), a
+            second independent HARD check naming seven
+            concretely-forbidden ops (:finalize-repair-decision,
+            :complete-repair-execution, :declare-bicycle-roadworthy,
+            :clear-bicycle-for-sale, :finalize-roadworthiness-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the repair\", \"declare the bicycle roadworthy
+            and cleared for sale\", \"override the shop safety
+            officer's judgment\"), and independently-verified
+            repairer/shop provenance HARD checks (:no-repairer,
+            :no-shop -- a registered record alone is not enough) --
+            verified via a dedicated regression test that the default
+            mock advisor's proposals for all four ops never self-trip
+            the scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"bicycle\",
+            \"repair\" and \"safety\" (e.g. a :schedule-crew-operation
+            rationale \"scheduled crew operation for repair-bay task\",
+            a :flag-safety-concern rationale \"routed for shop safety
+            officer review\"). :flag-safety-concern always escalates and
+            is never auto-commit-eligible; a :coordinate-supply-order
+            above the registered per-shop cost ceiling (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            bicycle-parts procurement above the registered threshold,
+            not itself unsafe unlike a repair-execution,
+            roadworthiness-clearance, or safety-officer-override
+            attempt. 22 tests / 47 assertions green
+            (cloud-itonami-isco-7234, ADR-2799007234). Counts
+            re-verified live via (occupation/maturity-summary) against a
+            freshly re-fetched origin/main immediately before this edit,
+            reflecting cumulative concurrent sibling landings in this
+            same batch (the maturity-tier test's spec/implemented split
+            above may lag this promotion -- not fought per CLAUDE.md's
+            explicit guidance for this batch)."
+    (is (= :implemented (occupation/maturity "7234")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7234"
+           (:repo (occupation/get-occupation "7234"))))
+    (is (= "cloud-itonami-isco-7234"
+           (:business-id (occupation/get-occupation "7234"))))))
