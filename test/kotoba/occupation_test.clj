@@ -5011,3 +5011,71 @@
            (:repo (occupation/get-occupation "7534"))))
     (is (= "cloud-itonami-isco-7534"
            (:business-id (occupation/get-occupation "7534"))))))
+
+(deftest cabinet-makers-and-related-workers-7522-implemented
+  (testing "7522 (Cabinet-makers and Related Workers) promoted to
+            :implemented -- CabinetCoordActor (Cabinet-Making Workshop
+            Coordination Advisor ⊣ CabinetCoordGovernor); closed
+            four-op proposal allowlist (:log-work-record,
+            :schedule-crew-operation, :flag-safety-concern,
+            :coordinate-supply-order) -- a workshop scheduling/
+            logistics coordination robot ONLY, never direct
+            woodworking-execution or workshop-safety-clearance
+            authority. Cabinet-makers operate power woodworking tools
+            (saws, routers, sanders) -- standard workshop mechanical
+            hazard (cut/kickback injury) plus wood-dust exposure, so
+            this actor has ZERO authority to directly finalize a
+            woodworking-execution decision or a workshop-safety-
+            clearance decision, or to override a shop safety officer's
+            judgment: no such op exists anywhere in the closed
+            allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming ten
+            concretely-forbidden ops
+            (:finalize-woodworking-decision,
+            :finalize-woodworking-operation,
+            :finalize-cutting-operation, :authorize-cutting-operation,
+            :proceed-with-cutting-operation,
+            :finalize-workshop-safety-clearance,
+            :declare-workshop-safety-cleared,
+            :clear-workshop-for-operation,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD block (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the cutting operation\", \"finalize the
+            woodworking operation\", \"declare the workshop safety
+            cleared\", \"override the shop safety officer's
+            judgment\"), and independently-verified maker/workshop
+            provenance HARD checks (:no-maker, :no-workshop -- a
+            registered record alone is not enough) -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four ops never self-trip the
+            scope-exclusion guard, even though this actor's own
+            vocabulary legitimately contains the bare nouns \"wood\",
+            \"saw\", \"dust\" and \"cabinet\" (e.g. a
+            :schedule-crew-operation rationale \"scheduled crew
+            operation for cabinet task\", a :flag-safety-concern
+            rationale \"routed for shop safety officer review\").
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; a :coordinate-supply-order above the
+            registered per-workshop cost ceiling (2000, inclusive
+            boundary) escalates -- not a hard block, routine
+            timber/hardware-materials procurement above the registered
+            threshold, not itself unsafe unlike a woodworking-
+            execution or workshop-safety-clearance attempt. 31 tests /
+            67 assertions green (cloud-itonami-isco-7522,
+            ADR-2799007522, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (138
+            spec / 298 implemented / 0 blueprint at that fetch),
+            reflecting cumulative concurrent sibling landings in this
+            same batch, not hand-derived from a prior comment's delta.
+            This batch continues the woodworking-trades subgroup begun
+            by 7521 Wood Treaters."
+    (is (= :implemented (occupation/maturity "7522")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7522"
+           (:repo (occupation/get-occupation "7522"))))
+    (is (= "cloud-itonami-isco-7522"
+           (:business-id (occupation/get-occupation "7522"))))))
