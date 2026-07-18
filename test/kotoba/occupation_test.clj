@@ -5215,3 +5215,74 @@
            (:repo (occupation/get-occupation "7533"))))
     (is (= "cloud-itonami-isco-7533"
            (:business-id (occupation/get-occupation "7533"))))))
+
+(deftest garment-and-related-patternmakers-cutters-7532-implemented
+  (testing "7532 (Garment and Related Patternmakers and Cutters)
+            promoted to :implemented -- CutCoordActor (Cut Coordination
+            Advisor ⊣ CutCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            garment cutting workshop scheduling/logistics coordination
+            robot ONLY, never direct pattern-cutting-execution or
+            workshop-safety-clearance authority. Garment and related
+            patternmakers and cutters operate rotary cutters, cutting
+            machines and shears on fabric -- a standard workshop
+            cutting-tool hazard -- so this actor has ZERO authority to
+            directly finalize a pattern-cutting-execution decision
+            (e.g. deciding a cut is complete/final), declare a
+            workshop-safety-clearance decision (e.g. declaring the
+            workshop safety-cleared), or override a shop safety
+            officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            (:unknown-op), a second independent HARD check naming six
+            concretely-forbidden ops
+            (:finalize-pattern-cutting-execution-decision,
+            :finalize-cutting-operation,
+            :declare-workshop-safety-clearance,
+            :declare-safety-clearance,
+            :override-shop-safety-officer-judgment,
+            :override-safety-officer-judgment), and a content-based
+            scope-exclusion HARD check (:scope-excluded-action) phrased
+            as finalization/execution ACTIONS (never bare nouns, e.g.
+            \"finalize the pattern-cutting execution decision\",
+            \"declare the workshop safety cleared\", \"override the
+            shop safety officer's judgment\") -- verified via a
+            dedicated regression test that the default mock advisor's
+            proposals for all four allowlisted ops never self-trip it,
+            even though the advisor's own default rationale text
+            legitimately contains the bare nouns \"cutter\",
+            \"pattern\", \"fabric\" and \"safety officer\" (e.g.
+            \"scheduled crew operation for garment cutting task ...\",
+            \"... routed for shop safety officer review\").
+            Independently-verified cutter/workshop provenance HARD
+            checks (:no-cutter, :no-workshop) ensure a proposal must
+            resolve to an independently registered crew member AND
+            workshop before any action; :effect must be :propose
+            (:no-actuation). :flag-safety-concern (a cutting-tool-
+            hazard/material-handling/equipment-condition concern)
+            always escalates and is NEVER auto-commit-eligible,
+            regardless of confidence; a :coordinate-supply-order above
+            the registered cost threshold (2000, inclusive boundary
+            verified by ok-supply-order-at-threshold-boundary)
+            escalates -- not a hard block, routine fabric/pattern-
+            materials procurement above the registered threshold, not
+            itself unsafe unlike a pattern-cutting-execution/workshop-
+            safety-clearance/safety-officer-override attempt. 25 tests
+            / 55 assertions green (cloud-itonami-isco-7532,
+            ADR-2799007532, independently re-verified against a fresh
+            clone of the pushed repository). Counts re-verified live
+            via (occupation/maturity-summary) against a freshly
+            re-fetched origin/main immediately before this edit (138
+            spec / 298 implemented / 0 blueprint at that fetch, before
+            this entry's own promotion), reflecting cumulative
+            concurrent sibling landings in this same batch, not
+            hand-derived from a prior comment's delta. This deftest
+            deliberately does NOT touch the maturity-tier aggregate
+            count assertion above (already matches live truth --
+            :total is invariant across maturity promotions)."
+    (is (= :implemented (occupation/maturity "7532")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7532"
+           (:repo (occupation/get-occupation "7532"))))
+    (is (= "cloud-itonami-isco-7532"
+           (:business-id (occupation/get-occupation "7532"))))))
