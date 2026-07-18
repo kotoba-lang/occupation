@@ -3309,3 +3309,49 @@
            (:repo (occupation/get-occupation "7224"))))
     (is (= "cloud-itonami-isco-7224"
            (:business-id (occupation/get-occupation "7224"))))))
+
+(deftest building-structure-cleaners-7133-implemented
+  (testing "7133 (Building Structure Cleaners) promoted to :implemented --
+            BldgCleanCoordActor (Building Cleaning Coordination Advisor
+            ⊣ BldgCleanCoordGovernor); closed four-op proposal
+            allowlist (:log-work-record, :schedule-crew-operation,
+            :flag-safety-concern, :coordinate-supply-order) -- a
+            job-site scheduling/logistics coordination robot ONLY,
+            never direct cleaning-execution authority. Building
+            Structure Cleaners wash windows and clean building
+            exteriors/facades at height on active job sites (a
+            fall-from-height risk dimension) AND routinely apply
+            chemical cleaning agents (a chemical-exposure risk
+            dimension), so this actor has ZERO authority to directly
+            finalize a cleaning-execution decision (including a
+            height-work go/no-go call) or override a site-safety
+            officer's judgment: no such op exists anywhere in the
+            closed allowlist (structurally absent, not merely gated),
+            confirmed by the governor's closed op-allowlist HARD check
+            and a content-based scope-exclusion HARD block phrased as
+            finalization/execution ACTIONS (never bare nouns, e.g.
+            \"proceed with the height-work cleaning task\", \"finalize
+            the height-work go/no-go decision\", \"override the site
+            safety officer's judgment\", \"bypass the chemical-exposure
+            safety review\") -- verified via a dedicated regression
+            test that the default mock advisor's proposals for all
+            allowlisted ops (including a :flag-safety-concern request
+            naming a fall hazard at height and a second naming a
+            chemical cleaning-solution odor) never self-trip it.
+            :flag-safety-concern always escalates and is never
+            auto-commit-eligible; an above-cost-threshold
+            :coordinate-supply-order escalates -- not a hard block,
+            routine procurement above the registered threshold, not
+            itself unsafe unlike a cleaning-execution/height-work-
+            go-no-go decision or safety-officer-override attempt. 25
+            tests / 63 assertions green (cloud-itonami-isco-7133,
+            ADR-2799007133). Counts re-verified live via
+            (occupation/maturity-summary) against a freshly re-fetched
+            origin/main immediately before this edit, reflecting
+            cumulative concurrent sibling landings in this same retry
+            batch, not hand-derived from a prior comment's delta."
+    (is (= :implemented (occupation/maturity "7133")))
+    (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7133"
+           (:repo (occupation/get-occupation "7133"))))
+    (is (= "cloud-itonami-isco-7133"
+           (:business-id (occupation/get-occupation "7133"))))))
