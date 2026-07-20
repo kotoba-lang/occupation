@@ -1370,34 +1370,72 @@
            (:target-actor (occupation/human-gap-referral-draft
                             "1321" {:task "translate a supplier contract"
                                      :duration :one-off :location :remote})))))
+  (testing "one-off alone (no location) -> also BPO/task-matching -- :duration :one-off
+            is its own trigger per ADR-2607202500, not conjunctive with :location :remote"
+    (is (= "cloud-itonami-isic-8299"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "one-off cognitive task" :duration :one-off :location :on-site})))))
+  (testing "location :remote alone (no :duration) -> also BPO/task-matching"
+    (is (= "cloud-itonami-isic-8299"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "remote-only signal" :location :remote})))))
+  (testing ":reason :no-automation-path alone -> also BPO/task-matching, and wins even
+            over :duration :permanent + :location :on-site (top precedence)"
+    (is (= "cloud-itonami-isic-8299"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "no automation path at all"
+                                     :reason :no-automation-path
+                                     :duration :permanent :location :on-site})))))
   (testing "on-site + recurring -> temp staffing/dispatch (employer-of-record)"
     (is (= "cloud-itonami-isic-7820"
            (:target-actor (occupation/human-gap-referral-draft
                             "7126" {:task "weekly on-site pipe inspection"
                                      :duration :recurring :location :on-site})))))
+  (testing "recurring but NOT on-site -> falls through to the conservative default
+            (cloud-itonami-isic-8299), not the on-site-recurring branch"
+    (is (= "cloud-itonami-isic-8299"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "7126" {:task "recurring, location unknown" :duration :recurring})))))
   (testing "permanent -> placement agency (one-time placement-fee model)"
     (is (= "cloud-itonami-isic-7810"
            (:target-actor (occupation/human-gap-referral-draft
                             "8332" {:task "hire a full-time backup driver"
                                      :duration :permanent :location :on-site})))))
-  (testing "ambiguous/missing shape -> public job board (wider reach first)"
-    (is (= "cloud-itonami-isic-6399"
+  (testing "ambiguous/missing shape -> conservative default (cloud-itonami-isic-8299,
+            no employer-of-record liability), never a silent guess at isic-6399/7820/7810"
+    (is (= "cloud-itonami-isic-8299"
            (:target-actor (occupation/human-gap-referral-draft
                             "1321" {:task "unclear scope task"}))))
-    (is (= "cloud-itonami-isic-6399"
-           (:target-actor (occupation/human-gap-referral-draft
-                            "1321" {:task "remote but not one-off"
-                                     :duration :recurring :location :remote}))))))
+    (let [draft (occupation/human-gap-referral-draft
+                 "1321" {:task "totally unrecognized shape"
+                          :reason :unknown-reason :duration :unknown-duration :location :unknown-location})]
+      (is (= "cloud-itonami-isic-8299" (:target-actor draft)))
+      (testing "the fallback is named in :routing-reason, never silent"
+        (is (re-find #"(?i)fallback" (:routing-reason draft)))))))
 
 (deftest human-gap-referral-draft-round-trips-occupation-context
   (let [plan (occupation/execution-plan "1321")
         draft (occupation/human-gap-referral-draft
                "1321" {:task "cover a QC inspection shift" :duration :one-off :location :remote})]
     (is (= (:business-id plan) (:business-id draft)))
-    (is (= plan (:occupation-context draft)))
-    (is (= (:maturity plan) (:drafted-at-state draft)))
+    (is (= (select-keys plan [:occupation :maturity :wave]) (:occupation-context draft)))
+    (is (nil? (:drafted-at-state draft)) "no :as-of supplied -> nil, never a fabricated clock read")
     (is (= "1321" (:isco draft)))
     (is (string? (:draft-id draft)))))
+
+(deftest human-gap-referral-draft-passes-through-as-of-verbatim
+  (let [draft (occupation/human-gap-referral-draft
+               "1321" {:task "cover a QC inspection shift" :duration :one-off :location :remote
+                        :as-of :wave-1-pilot-2026-07-20})]
+    (is (= :wave-1-pilot-2026-07-20 (:drafted-at-state draft)))))
+
+(deftest human-gap-referral-draft-output-keys-are-exactly-the-documented-set
+  (let [draft (occupation/human-gap-referral-draft
+               "1321" {:task "cover a QC inspection shift" :duration :one-off :location :remote
+                        :urgency :high :as-of :some-label})]
+    (is (= #{:isco :business-id :draft-id :task :target-actor :routing-reason
+             :occupation-context :drafted-at-state}
+           (set (keys draft))))))
 
 (deftest human-gap-referral-draft-is-deterministic
   (let [gap {:task "cover a QC inspection shift" :duration :one-off :location :remote}
@@ -1411,7 +1449,29 @@
     (testing "different task -> different draft-id"
       (is (not= (:draft-id d1)
                 (:draft-id (occupation/human-gap-referral-draft
-                            "1321" (assoc gap :task "a different task entirely"))))))))
+                            "1321" (assoc gap :task "a different task entirely"))))))
+    (testing "same isco + same task, but different :duration/:location -> different draft-id
+              (the draft-id must be a fn of the FULL gap map, not just :task)"
+      (is (not= (:draft-id d1)
+                (:draft-id (occupation/human-gap-referral-draft
+                            "1321" (assoc gap :duration :permanent :location :on-site))))))
+    (testing "key order in the gap map never changes the draft-id (canonicalized before hashing)"
+      (is (= (:draft-id d1)
+             (:draft-id (occupation/human-gap-referral-draft
+                         "1321" {:location :remote :duration :one-off :task (:task gap)})))))))
+
+(deftest widen-reach-draft-targets-public-job-board
+  (let [gap {:task "cover a QC inspection shift" :duration :one-off :location :remote}
+        draft (occupation/widen-reach-draft "1321" gap)]
+    (is (= "cloud-itonami-isic-6399" (:target-actor draft)))
+    (is (= #{:isco :business-id :draft-id :task :target-actor :routing-reason
+             :occupation-context :drafted-at-state}
+           (set (keys draft))))
+    (testing "widen-reach-draft's draft-id is namespaced separately from
+              human-gap-referral-draft's -- same isco+gap, different actor,
+              different draft record, so a different id"
+      (is (not= (:draft-id draft)
+                (:draft-id (occupation/human-gap-referral-draft "1321" gap)))))))
 
 (deftest legal-secretaries-3342-implemented
   (testing "3342 (Legal Secretaries) promoted to :implemented --
