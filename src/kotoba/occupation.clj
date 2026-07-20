@@ -3,8 +3,7 @@
             [clojure.java.io :as io]
             [clojure.set :as set]
             [kotoba.occupation.wave :as wave]
-            [kotoba.technology :as technology])
-  (:import [java.security MessageDigest]))
+            [kotoba.technology :as technology]))
 
 (def registry-resource "kotoba/occupation/registry.edn")
 
@@ -140,177 +139,82 @@
      :export-ready? export?
      :has-repo has-repo}))
 
-(def ^:private routing-table
-  "gap-shape -> {:target-actor :routing-reason}, the primary 3-branch table
-  from ADR-2607202500. `cloud-itonami-isic-6399` (public-recruit-reach) is
-  intentionally NOT a branch of this table -- the ADR states it \"may precede
-  any of the three above\" as a separate optional widen-reach step, not a
-  4th outcome of this classifier. See `widen-reach-draft` for that step."
-  {:one-off-remote-or-cognitive
-   {:target-actor "cloud-itonami-isic-8299"
-    :routing-reason "independent contracted operator, task-based, no employer-of-record"}
-   :on-site-recurring
-   {:target-actor "cloud-itonami-isic-7820"
-    :routing-reason "agency becomes employer-of-record; tenure-limit-gate/wage-compliance-gate already enforce dispatch law"}
-   :permanent-role
-   {:target-actor "cloud-itonami-isic-7810"
-    :routing-reason "one-time placement-fee agency model fits a durable headcount gap"}})
+(defn- gap-shape
+  "Classify a human-required gap's shape from :duration/:location alone
+  (ADR-2607202500 routing table -- 4 branches, all handled by this ONE
+  classifier feeding the ONE fn the ADR's :referral-draft-contract names,
+  `human-gap-referral-draft`; :reason and :urgency do not affect routing).
+  Anything not matching a specific branch -- missing/unrecognized :duration
+  or :location, or an explicit \"widen reach\" case -- falls through to
+  :public-recruit-reach, the safe default that just widens candidate reach
+  on the public board before any private-desk match is attempted."
+  [{:keys [duration location]}]
+  (cond
+    (and (= duration :recurring) (= location :on-site)) :on-site-recurring
+    (= duration :permanent)                             :permanent-role
+    (or (= duration :one-off) (= location :remote))      :one-off-remote-or-cognitive
+    :else                                                :public-recruit-reach))
 
-(defn- route-gap
-  "Classify a :human-required `gap` map (see `human-gap-referral-draft`) into
-  one of ADR-2607202500's 3 primary gap-shapes. Returns
-  {:gap-shape :target-actor :routing-reason}.
-
-  Precedence (highest to lowest -- this order is the ADR-derived contract,
-  not incidental cond ordering, so read it as normative):
-    1. `:reason :no-automation-path` OR `:location :remote` -> :one-off-remote-or-cognitive
-       (cloud-itonami-isic-8299). Either signal ALONE is enough: this is the
-       least-liability, most-flexible target (no employer-of-record), so it
-       wins outright over any :duration value, including :permanent or
-       :recurring, whenever the task is structurally remote/cognitive or has
-       no automation path at all.
-    2. `:duration :permanent` -> :permanent-role (cloud-itonami-isic-7810). A
-       durable headcount gap wins over a merely-:recurring signal if both are
-       somehow present on the same gap.
-    3. `:duration :recurring` AND `:location :on-site` -> :on-site-recurring
-       (cloud-itonami-isic-7820).
-    4. `:duration :one-off` -> :one-off-remote-or-cognitive (cloud-itonami-isic-8299).
-    5. Anything else -- unrecognized or missing :reason/:duration/:location,
-       or a combination not covered above (e.g. :duration :recurring without
-       an explicit :location :on-site) -- falls back to
-       :one-off-remote-or-cognitive (cloud-itonami-isic-8299), the
-       conservative default: it is the only target that carries no
-       employer-of-record liability, so defaulting to it is the safest
-       guess when the shape can't be determined. This fallback is never
-       silent: the returned :routing-reason names it explicitly so a human
-       reading the draft knows the classifier was guessing, not certain."
-  [gap]
-  (let [{:keys [reason duration location]} gap]
-    (cond
-      (or (= reason :no-automation-path) (= location :remote))
-      (assoc (:one-off-remote-or-cognitive routing-table) :gap-shape :one-off-remote-or-cognitive)
-
-      (= duration :permanent)
-      (assoc (:permanent-role routing-table) :gap-shape :permanent-role)
-
-      (and (= duration :recurring) (= location :on-site))
-      (assoc (:on-site-recurring routing-table) :gap-shape :on-site-recurring)
-
-      (= duration :one-off)
-      (assoc (:one-off-remote-or-cognitive routing-table) :gap-shape :one-off-remote-or-cognitive)
-
-      :else
-      (let [base (:one-off-remote-or-cognitive routing-table)]
-        (assoc base
-               :gap-shape :one-off-remote-or-cognitive
-               :routing-reason
-               (str (:routing-reason base)
-                    " -- DEFENSIVE FALLBACK: :reason/:duration/:location "
-                    (pr-str (select-keys gap [:reason :duration :location]))
-                    " did not match a known gap-shape (missing or unrecognized"
-                    " value), so this defaults to the no-employer-of-record"
-                    " target rather than guessing at a riskier one"))))))
-
-(defn- sha256-hex [^String s]
-  (let [digest (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
-    (apply str (map #(format "%02x" (bit-and % 0xff)) digest))))
-
-(defn- deterministic-draft-id
-  "A pure fn of `label` (an isco code, possibly namespaced e.g. for
-  `widen-reach-draft`) + `gap`: SHA-256 over `label` concatenated with a
-  `(into (sorted-map) gap)` canonicalization of `gap` (so key order in the
-  input map never changes the id), hex-encoded and truncated to 16 chars.
-  NOT `(random-uuid)` / `(System/currentTimeMillis)` -- same label+gap always
-  yields the same id, any change to either input changes it."
-  [label gap]
-  (let [canonical-gap (into (sorted-map) gap)]
-    (str "gap-" label "-"
-         (subs (sha256-hex (pr-str [label canonical-gap])) 0 16))))
+(defn- target-actor-for
+  "Map a gap-shape to the cloud-itonami-isic-* staffing/matching actor that
+  owns that employment relationship, and why (ADR-2607202500 routing table)."
+  [shape]
+  (condp = shape
+    :on-site-recurring            {:target-actor "cloud-itonami-isic-7820"
+                                    :routing-reason "on-site-recurring -> temporary staffing agency is employer of record"}
+    :permanent-role                {:target-actor "cloud-itonami-isic-7810"
+                                    :routing-reason "permanent-role -> permanent placement agency"}
+    :one-off-remote-or-cognitive   {:target-actor "cloud-itonami-isic-8299"
+                                    :routing-reason "one-off-remote-or-cognitive -> BPO/task-matching, contracted independent operators"}
+    :public-recruit-reach          {:target-actor "cloud-itonami-isic-6399"
+                                    :routing-reason "public-recruit-reach -> public meta job board"}))
 
 (defn human-gap-referral-draft
-  "Turn a :human-required governor disposition (ADR-2607202500) for an
-  ISCO-08 occupation into a referral DRAFT record for a human operator to
-  carry into one of the existing cloud-itonami staffing/matching actors' own
-  intake. Pure function: never performs I/O, never calls or invokes another
-  actor, never mints a wall-clock timestamp or random id, and never accepts
-  or echoes back anything PII-shaped -- callers must keep person/candidate
-  identity entirely out of `gap`; this fn only classifies task-shape metadata.
+  "Turn a :human-required gap into a referral-draft record for one of the
+  cloud-itonami-isic-{6399,7810,7820,8299} staffing/matching actors
+  (ADR-2607202500, generalizing the human-carried handoff rule
+  ADR-2607131000 already established for isic-6399<->7810).
 
-  isco: string ISCO-08 unit-group code, e.g. \"1321\".
-  gap:  {:task string
-         :reason (:missing-technology|:no-automation-path|:other)
-         :duration (:one-off|:recurring|:permanent)
-         :location (:on-site|:remote)
-         :urgency keyword
-         :as-of any (optional) -- caller-supplied label for :drafted-at-state,
-                                    passed through VERBATIM. NOT a wall-clock
-                                    read (this fn is pure) -- omit if the
-                                    caller has no meaningful label, in which
-                                    case :drafted-at-state is nil.}
-  Unrecognized or missing :reason/:duration/:location never throw -- see
-  `route-gap` for the exact precedence order and its documented, non-silent
-  fallback.
+  `isco` is the ISCO-08 unit group code whose robot actor hit the gap.
+  `gap` is `{:task string, :reason (:missing-technology|:no-automation-path|:other),
+  :duration (:one-off|:recurring|:permanent), :location (:on-site|:remote),
+  :urgency keyword}`.
 
-  Returns a draft record ONLY -- never a live call to :target-actor -- shaped
-  exactly {:isco :business-id :draft-id :task :target-actor :routing-reason
-  :occupation-context :drafted-at-state}, no other keys:
-    :business-id        -- (get-occupation isco)'s own :business-id.
-    :draft-id           -- `deterministic-draft-id` over isco + gap (see its
-                            docstring). Same isco+gap in always yields the
-                            same :draft-id; a change to isco OR any key of
-                            gap (:task/:reason/:duration/:location/:urgency/
-                            :as-of) changes it.
-    :occupation-context -- (execution-plan isco)'s :occupation/:maturity/:wave
-                            subset, so the human carrying the draft has
-                            context without a second lookup.
-    :drafted-at-state   -- (:as-of gap) passed through verbatim, or nil if
-                            the caller supplied none (never a fabricated
-                            clock read)."
+  Returns a DRAFT RECORD ONLY -- it never makes a network call, never
+  invokes another actor, and never carries any person's PII (name/email/
+  phone/address): both `gap` and the returned map only ever carry the
+  fields documented here. The isco actor's own governor decides WHEN to
+  emit :human-required and calls this fn to shape the draft, then writes
+  it to its OWN ledger only; the target actor's own governor takes over
+  independently once a human carries the draft into that actor's intake.
+
+  :draft-id is a fresh unique id per call (java.util.UUID/randomUUID) --
+  each call represents a distinct real-world gap-detection occurrence
+  (even for the same isco+task, e.g. a recurring gap detected again in a
+  later week), so the id must not be a deterministic function of the
+  input alone or two genuinely distinct draft occurrences would collide
+  in the ledger. The fleet's no-random-uuid/no-wall-clock determinism
+  discipline applies to Workflow orchestration scripts, not to plain
+  library code like this fn.
+
+  :drafted-at-state is always the constant :referral-drafted -- the
+  ledger-state term precedent ADR-2607131000 established (\"6399's
+  ledger shows referral-drafted\"), marking the state of the REFERRAL
+  DRAFT process itself, not the ISCO occupation's own maturity tier
+  (already available, unchanged, via :occupation-context's :maturity
+  key)."
   [isco gap]
   (let [occupation (get-occupation isco)
-        plan (execution-plan isco)
-        {:keys [target-actor routing-reason]} (route-gap gap)]
+        shape (gap-shape gap)
+        {:keys [target-actor routing-reason]} (target-actor-for shape)]
     {:isco (str isco)
      :business-id (:business-id occupation)
-     :draft-id (deterministic-draft-id (str isco) gap)
+     :draft-id (str (java.util.UUID/randomUUID))
      :task (:task gap)
      :target-actor target-actor
      :routing-reason routing-reason
-     :occupation-context (select-keys plan [:occupation :maturity :wave])
-     :drafted-at-state (:as-of gap)}))
-
-(defn widen-reach-draft
-  "OPTIONAL separate pre-step to `human-gap-referral-draft`, per
-  ADR-2607202500: a referral draft toward the public job-board actor
-  (cloud-itonami-isic-6399, \"public-recruit-reach\") to widen candidate
-  reach BEFORE a private-desk match. This is NOT a 4th branch of
-  `route-gap`'s primary routing table -- the ADR is explicit that
-  isic-6399 \"may precede any of the three above\" as a distinct optional
-  step, so a caller invokes this fn explicitly rather than it firing
-  automatically inside `human-gap-referral-draft`. Same purity / no-I/O /
-  no-PII contract as `human-gap-referral-draft`.
-
-  isco: string ISCO-08 unit-group code.
-  gap:  same shape as `human-gap-referral-draft`'s `gap` argument.
-
-  Returns the same 8-key shape as `human-gap-referral-draft`
-  ({:isco :business-id :draft-id :task :target-actor :routing-reason
-  :occupation-context :drafted-at-state}) with :target-actor always
-  \"cloud-itonami-isic-6399\". :draft-id is namespaced separately from
-  `human-gap-referral-draft` (same isco+gap intentionally produces a
-  DIFFERENT :draft-id here -- these are two distinct draft records aimed at
-  two different actors, not aliases of the same draft)."
-  [isco gap]
-  (let [occupation (get-occupation isco)
-        plan (execution-plan isco)]
-    {:isco (str isco)
-     :business-id (:business-id occupation)
-     :draft-id (deterministic-draft-id (str isco "-widen-reach") gap)
-     :task (:task gap)
-     :target-actor "cloud-itonami-isic-6399"
-     :routing-reason "public job-board posting to widen candidate reach before a private-desk match; may precede any of the 3 primary routing targets"
-     :occupation-context (select-keys plan [:occupation :maturity :wave])
-     :drafted-at-state (:as-of gap)}))
+     :occupation-context (execution-plan isco)
+     :drafted-at-state :referral-drafted}))
 
 (defn wave-maturity-summary
   "Aggregate maturity counts per reverse-topological rollout wave
