@@ -166,19 +166,34 @@
   referral-draft record naming which existing cloud-itonami staffing/matching
   actor a human operator should carry it to. Produces a DRAFT only -- never
   calls, invokes, or writes to any other actor's store (ADR-2607131000 /
-  ADR-2607202500 invariant)."
+  ADR-2607202500 invariant).
+
+  :draft-id is a fresh unique id per call (java.util.UUID/randomUUID) -- each
+  call represents a distinct real-world gap-detection occurrence (even for
+  the same isco+task, e.g. a recurring gap detected in two different weeks),
+  so the id must not be a deterministic function of the input alone or two
+  genuinely distinct draft occurrences would collide in the ledger. The
+  no-random-uuid/no-wall-clock determinism discipline elsewhere in this
+  fleet applies to Workflow orchestration scripts, not to plain library
+  code like this fn.
+
+  :drafted-at-state is always the constant :referral-drafted (the ledger
+  state term precedent ADR-2607131000 established: \"6399's ledger shows
+  referral-drafted\") -- it marks the state of the REFERRAL DRAFT process,
+  not the ISCO occupation's own maturity tier (that is already available,
+  unchanged, via :occupation-context's :maturity key)."
   [isco gap]
   (let [{:keys [task]} gap
         plan (execution-plan isco)
         [target reason-text] (gap-target gap)]
     {:isco (:isco plan)
      :business-id (:business-id plan)
-     :draft-id (str "gap-" (:isco plan) "-" (format "%08x" (hash [(:isco plan) task])))
+     :draft-id (str (java.util.UUID/randomUUID))
      :task task
      :target-actor target
      :routing-reason reason-text
      :occupation-context plan
-     :drafted-at-state (:maturity plan)}))
+     :drafted-at-state :referral-drafted}))
 
 (defn wave-maturity-summary
   "Aggregate maturity counts per reverse-topological rollout wave

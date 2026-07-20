@@ -1390,28 +1390,48 @@
                                      :duration :recurring :location :remote}))))))
 
 (deftest human-gap-referral-draft-round-trips-occupation-context
-  (let [plan (occupation/execution-plan "1321")
-        draft (occupation/human-gap-referral-draft
-               "1321" {:task "cover a QC inspection shift" :duration :one-off :location :remote})]
-    (is (= (:business-id plan) (:business-id draft)))
-    (is (= plan (:occupation-context draft)))
-    (is (= (:maturity plan) (:drafted-at-state draft)))
-    (is (= "1321" (:isco draft)))
-    (is (string? (:draft-id draft)))))
+  (doseq [isco ["1321" "7126" "8332"]]
+    (let [plan (occupation/execution-plan isco)
+          draft (occupation/human-gap-referral-draft
+                 isco {:task "cover a QC inspection shift" :duration :one-off :location :remote})]
+      (is (= (:business-id plan) (:business-id draft)))
+      (is (some? (:business-id draft)))
+      (is (= plan (:occupation-context draft)))
+      (is (= isco (:isco draft)))
+      (is (string? (:draft-id draft))))))
 
-(deftest human-gap-referral-draft-is-deterministic
-  (let [gap {:task "cover a QC inspection shift" :duration :one-off :location :remote}
-        d1 (occupation/human-gap-referral-draft "1321" gap)
-        d2 (occupation/human-gap-referral-draft "1321" gap)]
-    (testing "same inputs -> same draft-id"
-      (is (= (:draft-id d1) (:draft-id d2))))
-    (testing "different isco -> different draft-id"
-      (is (not= (:draft-id d1)
-                (:draft-id (occupation/human-gap-referral-draft "7126" gap)))))
-    (testing "different task -> different draft-id"
-      (is (not= (:draft-id d1)
-                (:draft-id (occupation/human-gap-referral-draft
-                            "1321" (assoc gap :task "a different task entirely"))))))))
+(deftest human-gap-referral-draft-drafted-at-state-is-the-referral-drafted-constant
+  (testing ":drafted-at-state is always the fixed ledger-state term :referral-drafted
+            (precedent ADR-2607131000: \"6399's ledger shows referral-drafted\"),
+            never the occupation's own :maturity tier (already available,
+            unchanged, via :occupation-context)"
+    (doseq [isco ["1321" "7126" "8332"]]
+      (let [draft (occupation/human-gap-referral-draft
+                   isco {:task "t" :duration :one-off :location :remote})]
+        (is (= :referral-drafted (:drafted-at-state draft)))))))
+
+(deftest human-gap-referral-draft-output-keys-are-exactly-the-documented-set
+  (testing "no stray PII-shaped keys (name/email/phone/address) on gap or draft"
+    (let [draft (occupation/human-gap-referral-draft
+                 "1321" {:task "cover a QC inspection shift"
+                         :reason :missing-technology
+                         :duration :recurring :location :on-site
+                         :urgency :normal})]
+      (is (= #{:isco :business-id :draft-id :task :target-actor :routing-reason
+               :occupation-context :drafted-at-state}
+             (set (keys draft))))
+      (is (not-any? #{:name :email :phone :address :person :worker :contact}
+                     (keys draft))))))
+
+(deftest human-gap-referral-draft-draft-id-is-unique-per-call
+  (testing "a fresh unique :draft-id per call -- even identical isco+gap inputs
+            represent distinct real-world gap-detection occurrences (e.g. the
+            same recurring gap detected again in a later week) and must not
+            collide in the ledger"
+    (let [gap {:task "cover a QC inspection shift" :duration :one-off :location :remote}
+          d1 (occupation/human-gap-referral-draft "1321" gap)
+          d2 (occupation/human-gap-referral-draft "1321" gap)]
+      (is (not= (:draft-id d1) (:draft-id d2))))))
 
 (deftest legal-secretaries-3342-implemented
   (testing "3342 (Legal Secretaries) promoted to :implemented --
