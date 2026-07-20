@@ -1364,6 +1364,55 @@
     (is (map? p))
     (is (seq (:technology-stack p)))))
 
+(deftest human-gap-referral-draft-routes-by-gap-shape
+  (testing "one-off + remote -> BPO/task-matching (independent contracted operator)"
+    (is (= "cloud-itonami-isic-8299"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "translate a supplier contract"
+                                     :duration :one-off :location :remote})))))
+  (testing "on-site + recurring -> temp staffing/dispatch (employer-of-record)"
+    (is (= "cloud-itonami-isic-7820"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "7126" {:task "weekly on-site pipe inspection"
+                                     :duration :recurring :location :on-site})))))
+  (testing "permanent -> placement agency (one-time placement-fee model)"
+    (is (= "cloud-itonami-isic-7810"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "8332" {:task "hire a full-time backup driver"
+                                     :duration :permanent :location :on-site})))))
+  (testing "ambiguous/missing shape -> public job board (wider reach first)"
+    (is (= "cloud-itonami-isic-6399"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "unclear scope task"}))))
+    (is (= "cloud-itonami-isic-6399"
+           (:target-actor (occupation/human-gap-referral-draft
+                            "1321" {:task "remote but not one-off"
+                                     :duration :recurring :location :remote}))))))
+
+(deftest human-gap-referral-draft-round-trips-occupation-context
+  (let [plan (occupation/execution-plan "1321")
+        draft (occupation/human-gap-referral-draft
+               "1321" {:task "cover a QC inspection shift" :duration :one-off :location :remote})]
+    (is (= (:business-id plan) (:business-id draft)))
+    (is (= plan (:occupation-context draft)))
+    (is (= (:maturity plan) (:drafted-at-state draft)))
+    (is (= "1321" (:isco draft)))
+    (is (string? (:draft-id draft)))))
+
+(deftest human-gap-referral-draft-is-deterministic
+  (let [gap {:task "cover a QC inspection shift" :duration :one-off :location :remote}
+        d1 (occupation/human-gap-referral-draft "1321" gap)
+        d2 (occupation/human-gap-referral-draft "1321" gap)]
+    (testing "same inputs -> same draft-id"
+      (is (= (:draft-id d1) (:draft-id d2))))
+    (testing "different isco -> different draft-id"
+      (is (not= (:draft-id d1)
+                (:draft-id (occupation/human-gap-referral-draft "7126" gap)))))
+    (testing "different task -> different draft-id"
+      (is (not= (:draft-id d1)
+                (:draft-id (occupation/human-gap-referral-draft
+                            "1321" (assoc gap :task "a different task entirely"))))))))
+
 (deftest legal-secretaries-3342-implemented
   (testing "3342 (Legal Secretaries) promoted to :implemented --
             LegalSecretaryActor (Legal Secretary Advisor ⊣

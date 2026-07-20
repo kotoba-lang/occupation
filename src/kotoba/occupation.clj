@@ -139,6 +139,47 @@
      :export-ready? export?
      :has-repo has-repo}))
 
+(defn- gap-target
+  "Routing table from ADR-2607202500: gap shape -> staffing/matching actor.
+  Anything that doesn't cleanly match one-off/remote, on-site/recurring or
+  permanent falls through to the public job-board actor (widen reach first)."
+  [{:keys [duration location]}]
+  (cond
+    (and (= duration :one-off) (= location :remote))
+    ["cloud-itonami-isic-8299"
+     "independent contracted operator, task-based, no employer-of-record"]
+
+    (and (= location :on-site) (= duration :recurring))
+    ["cloud-itonami-isic-7820"
+     "employer-of-record dispatch; tenure-limit-gate/wage-compliance-gate already enforce dispatch law"]
+
+    (= duration :permanent)
+    ["cloud-itonami-isic-7810"
+     "one-time placement-fee agency model fits a durable headcount gap"]
+
+    :else
+    ["cloud-itonami-isic-6399"
+     "public job-board reach as a precursor to a private-desk match"]))
+
+(defn human-gap-referral-draft
+  "Turn a human-required automation gap for an ISCO-08 occupation into a
+  referral-draft record naming which existing cloud-itonami staffing/matching
+  actor a human operator should carry it to. Produces a DRAFT only -- never
+  calls, invokes, or writes to any other actor's store (ADR-2607131000 /
+  ADR-2607202500 invariant)."
+  [isco gap]
+  (let [{:keys [task]} gap
+        plan (execution-plan isco)
+        [target reason-text] (gap-target gap)]
+    {:isco (:isco plan)
+     :business-id (:business-id plan)
+     :draft-id (str "gap-" (:isco plan) "-" (format "%08x" (hash [(:isco plan) task])))
+     :task task
+     :target-actor target
+     :routing-reason reason-text
+     :occupation-context plan
+     :drafted-at-state (:maturity plan)}))
+
 (defn wave-maturity-summary
   "Aggregate maturity counts per reverse-topological rollout wave
   (ADR-2607121000, `kotoba.occupation.wave`): for each wave 0-4, how
