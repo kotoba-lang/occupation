@@ -1,6 +1,7 @@
 (ns kotoba.occupation-test
   (:require [clojure.test :refer [deftest is testing]]
-            [kotoba.occupation :as occupation]))
+            [kotoba.occupation :as occupation]
+            [kotoba.occupation.embedded :as embedded]))
 
 (deftest registry-loads
   (let [reg (occupation/registry)]
@@ -8423,3 +8424,103 @@
            (:repo (occupation/get-occupation "9624"))))
     (is (= "cloud-itonami-isco-9624"
            (:business-id (occupation/get-occupation "9624"))))))
+
+;; ---------------------------------------------------------------------------
+;; Portability: no runtime file access, no host hash, and a projection that
+;; cannot drift
+;;
+;; This namespace was `.clj` until 2026-08-18, for two reasons —
+;; `(slurp (io/resource …))` and `java.security.MessageDigest` — and through
+;; it every `cloud-itonami-isco-*` consumer. The first fix attempted
+;; elsewhere in this workspace gave the resource reader a `:cljs` branch
+;; reading `resources/` relative to the working directory, and that was
+;; measured wrong the same day: `kotoba-lang/technology` on that pattern
+;; returned nil for all 159 of `kotoba.iso3166`'s assertions under nbb,
+;; because nbb's cwd was iso3166's root. A portability fix that works only
+;; while you are the root project is not one.
+;;
+;; So the registry is compiled in and the hash comes from
+;; `kotoba-lang/org-nist-sha2`. There is no read, so there is no read that
+;; can fail, and no `readable?` worth keeping — a check with no failure mode
+;; is theatre. What is tested instead are the failure modes that now exist:
+;; the projection drifting from the EDN a human edits, and the portable hash
+;; disagreeing with the host one it replaced.
+;; ---------------------------------------------------------------------------
+
+(deftest the-embedded-registry-matches-the-edn
+  (testing "the EDN is the source of truth and the namespace is a projection
+            of it. This **fails rather than skips** when it cannot read the
+            EDN, because a check that could not run must not report what a
+            check that ran and found nothing reports"
+    (let [path "resources/kotoba/occupation/registry.edn"
+          txt #?(:clj (try (slurp path) (catch Exception _ nil))
+                 :cljs (try (.readFileSync (js/require "fs") path "utf8")
+                            (catch :default _ nil)))]
+      (is (some? txt)
+          (str "could not read " path " — run from the repo root. This is a
+                FAILURE and not a skip, on purpose"))
+      (when txt
+        (is (= (#?(:clj clojure.edn/read-string :cljs cljs.reader/read-string) txt)
+               embedded/registry-tx))))))
+
+(deftest a-registry-handed-in-as-nil-does-not-flatten
+  (testing "`(into {} …)` over nil yields `{}`, so a caller passing nothing
+            would receive a complete-looking index over no data: `by-id` an
+            empty map and `get-occupation` nil for every unit group in
+            ISCO-08 — an answer indistinguishable from `this code is not
+            registered`, when all it means is that the caller passed nil"
+    (is (nil? (occupation/occupations nil)))
+    (is (nil? (occupation/by-id nil)))
+    (is (nil? (occupation/get-occupation nil "1321")))
+    (is (nil? (occupation/required-technologies nil "1321")))
+    (is (nil? (occupation/optional-technologies nil "1321"))))
+  (testing "and the real registry is not nil, or the above measured nothing"
+    (is (seq (occupation/occupations)))))
+
+(deftest the-registry-does-not-depend-on-the-working-directory
+  (testing "the whole point. `registry` reconstitutes a compiled-in
+            projection, so there is no path for it to be relative to —
+            asserted here as a property of the value, as well as
+            demonstrated by running this suite from /tmp"
+    (is (= 436 (count (occupation/occupations)))
+        "the ISCO-08 unit-group coverage this registry claims")
+    (is (= (set (map :id (occupation/occupations)))
+           (set (keys (occupation/by-id)))))))
+
+(deftest the-reconstituted-registry-carries-no-transaction-artefacts
+  (testing "`registry.edn` is Datomic tx-data, so the projection carries a
+            `:db/id` tempid. `reconstitute-entity` drops it; a consumer
+            round-tripping the registry back into a transaction would
+            otherwise re-assert a tempid nobody minted"
+    (is (contains? (first embedded/registry-tx) :db/id)
+        "if the projection stops carrying :db/id this test is measuring nothing")
+    (is (not (contains? (occupation/registry) :db/id)))))
+
+(deftest human-gap-referral-draft-ids-are-pinned-values
+  (testing "the draft id was SHA-256 via `java.security.MessageDigest` until
+            2026-08-18 and is now SHA-256 via `kotoba-lang/org-nist-sha2`.
+            The other tests here only assert that ids are STABLE and
+            DISTINCT, which two different hashes would both satisfy while
+            renaming every id this library has ever minted. These constants
+            are what the JVM produced before the change, and they were
+            checked against `shasum -a 256` over the same bytes — an oracle
+            outside this workspace entirely:
+
+              printf '%s' '[\"1321\" {:duration :one-off, :location :remote,
+                            :task \"翻訳と現場立会い\", :urgency :high}]' \\
+                | shasum -a 256   ->   1a37fe18cbe0da38...
+
+            The Japanese task string is deliberate: it is the case where a
+            wrong UTF-8 encoding in `utf8-bytes` would show, and an ASCII-only
+            pin would not have seen it"
+    (let [gap {:task "翻訳と現場立会い" :duration :one-off :location :remote :urgency :high}]
+      (is (= "gap-1321-1a37fe18cbe0da38"
+             (:draft-id (occupation/human-gap-referral-draft "1321" gap))))
+      (is (= "gap-1321-widen-reach-06aaa05b7cf8adc9"
+             (:draft-id (occupation/widen-reach-draft "1321" gap)))))
+    (testing "and an ASCII-only gap, so a byte-order or encoding difference
+              that happened to cancel out on multi-byte input is still seen"
+      (is (= "gap-1321-d02fce3989b4ab47"
+             (:draft-id (occupation/human-gap-referral-draft
+                         "1321" {:task "cover a QC inspection shift"
+                                 :duration :one-off :location :remote})))))))
