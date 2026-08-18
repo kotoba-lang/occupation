@@ -1,6 +1,13 @@
 {:paths ["src" "resources"]
  :deps {io.github.kotoba-lang/technology {:git/url "https://github.com/kotoba-lang/technology.git"
-                                     :git/sha "83b6661464640eb8eeec9f7bfa06f4a61369c878"}}
+                                    :git/sha "6dff7c1f7a10e8f9f7a05ea8c4c1731063597e79"}
+        ;; The workspace's portable .cljc SHA-256, in place of
+        ;; java.security.MessageDigest. See kotoba.occupation's docstring:
+        ;; a :cljs reader conditional over node:crypto would have worked
+        ;; under nbb and not in a browser, and would have left two hash
+        ;; implementations that can disagree about ids already minted.
+        io.github.kotoba-lang/org-nist-sha2 {:git/url "https://github.com/kotoba-lang/org-nist-sha2.git"
+                                             :git/sha "3b4f7e93eff2c438c758383bab440b6f35627e31"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner

@@ -1,12 +1,62 @@
 (ns kotoba.occupation
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [clojure.set :as set]
-            [kotoba.occupation.wave :as wave]
-            [kotoba.technology :as technology])
-  (:import [java.security MessageDigest]))
+  "The ISCO-08 occupation registry, portable.
 
-(def registry-resource "kotoba/occupation/registry.edn")
+  ## Why this is `.cljc` and not `.clj`
+
+  Two things made this namespace JVM-only: `(slurp (io/resource …))` for the
+  registry, and `java.security.MessageDigest` for the deterministic draft
+  ids. Between them every consumer was pinned to the JVM, including the
+  `cloud-itonami-isco-*` actors this registry exists to feed.
+  `kotoba.occupation.wave` beside it was already portable, and
+  `kotoba.technology`, which this requires, was made portable the same day.
+  This workspace's runtime order is kotoba-wasm → clojurewasm →
+  ClojureScript → nbb, with the JVM last; a registry of facts is the last
+  thing that should decide a consumer's runtime.
+
+  ## No runtime file access at all
+
+  There is no portable `io/resource`, and the obvious `:cljs` substitute —
+  reading `resources/<path>` relative to the working directory — is right
+  only while this library is the root project. That was measured wrong the
+  same day in `kotoba-lang/technology`: its registry came back nil for all
+  159 of `kotoba.iso3166`'s assertions under nbb, because nbb's cwd was
+  iso3166's root and not technology's. A portability fix that works only
+  while you are the root is not one, and this library has consumers ahead
+  of it.
+
+  So the registry is compiled in, as the generated
+  `kotoba.occupation.embedded`, projected from
+  `resources/kotoba/occupation/registry.edn` by `tools/gen-embedded.cljs`.
+  The EDN stays the thing a human edits; `--check` refuses to let them
+  drift.
+
+  ## No host hash either
+
+  `MessageDigest` is replaced by `kotoba-lang/org-nist-sha2`, the
+  workspace's portable `.cljc` SHA-256, rather than by a reader conditional
+  reaching for `node:crypto` on the `:cljs` side — a conditional would work
+  under nbb and not in a browser, and would leave two implementations that
+  can disagree about the ids this library mints. The digests are unchanged:
+  `gap-1321-1a37fe18cbe0da38` is what the JVM produced before this
+  conversion, what it produces after, what ClojureScript produces, and what
+  `shasum -a 256` produces over the same bytes. That constant is pinned in
+  the suite.
+
+  **A registry handed in as nil still propagates as nil.** `(into {} …)`
+  over nil yields `{}`, so `by-id` would answer a complete-looking index
+  over no data and `get-occupation` nil for every ISCO unit group — a
+  caller passing nothing must not receive that."
+  (:require [clojure.edn :as edn]
+            [clojure.set :as set]
+            [kotoba.occupation.embedded :as embedded]
+            [kotoba.occupation.wave :as wave]
+            [kotoba.technology :as technology]
+            [sha2.core :as sha2]))
+
+(def registry-resource
+  "The path a human edits. Nothing reads it at runtime — see the namespace
+  docstring — it is named here so the projection can be traced back to it."
+  "kotoba/occupation/registry.edn")
 
 ;; registry.edn is stored as Datomic/Datascript tx-data (a single-entity
 ;; vector, see scripts/edn-datomize.cljs `wrap-generic`) rather than a raw map,
@@ -21,7 +71,7 @@
 (defn- unblob [v]
   (if (string? v)
     (try (let [parsed (edn/read-string v)] (if (coll? parsed) parsed v))
-         (catch Exception _ v))
+         (catch #?(:clj Exception :cljs :default) _ v))
     v))
 
 (defn- reconstitute-entity [tx-data]
@@ -31,16 +81,36 @@
                  [(if bare? (keyword (name k)) k) (unblob v)])))
         (dissoc (first tx-data) :db/id)))
 
-(defn registry []
-  (reconstitute-entity (edn/read-string (slurp (io/resource registry-resource)))))
+(defn registry
+  "The ISCO-08 occupation registry.
+
+  Reads `kotoba.occupation.embedded`, a GENERATED projection of
+  `resources/kotoba/occupation/registry.edn`, and touches no file at
+  runtime. See the namespace docstring for why a cwd-relative read was not
+  portability."
+  []
+  (reconstitute-entity embedded/registry-tx))
 
 (defn occupations
-  ([] (:occupations (registry)))
+  "The occupation entries, or **nil** when handed a registry that has none.
+
+  The zero-arg form goes through the one-arg form rather than duplicating
+  its body, so a guard added to one cannot be skipped by the other."
+  ([] (occupations (registry)))
   ([reg] (:occupations reg)))
 
 (defn by-id
+  "Occupations indexed by `:id` (the ISCO-08 unit-group code), or **nil**
+  when there are no entries.
+
+  `(into {} …)` over nil yields `{}`, which is why this needs saying: a
+  caller handing in nil would otherwise receive a complete-looking index
+  over no data, `get-occupation` would answer nil for every unit group in
+  ISCO-08, and nothing would distinguish that from a code that genuinely is
+  not registered."
   ([] (by-id (registry)))
-  ([reg] (into {} (map (juxt :id identity) (occupations reg)))))
+  ([reg] (when-let [occs (occupations reg)]
+           (into {} (map (juxt :id identity)) occs))))
 
 (defn get-occupation
   ([isco] (get-occupation (registry) isco))
@@ -211,9 +281,37 @@
                     " value), so this defaults to the no-employer-of-record"
                     " target rather than guessing at a riskier one"))))))
 
-(defn- sha256-hex [^String s]
-  (let [digest (.digest (MessageDigest/getInstance "SHA-256") (.getBytes s "UTF-8"))]
-    (apply str (map #(format "%02x" (bit-and % 0xff)) digest))))
+(defn- utf8-bytes
+  "`s` as unsigned UTF-8 bytes.
+
+  The one reader conditional left in this namespace, and it is here because
+  encoding a string to bytes is a host service in both runtimes — there is no
+  Clojure primitive for it. Both branches are the platform's own UTF-8
+  encoder, so they agree byte for byte, including on the multi-byte
+  characters a `:task` string in this workspace routinely contains. That
+  agreement is not assumed: `human-gap-referral-draft-ids-are-pinned-values`
+  pins a digest over a Japanese task string, and the same constant is what
+  `shasum -a 256` produces over the same bytes.
+
+  `js/TextEncoder` is a global in Node and in browsers alike, so this does
+  not smuggle a Node-only dependency in through the back door the way
+  `node:crypto` would have."
+  [s]
+  #?(:clj  (mapv #(bit-and % 0xff) (.getBytes ^String s "UTF-8"))
+     :cljs (vec (js/Array.from (.encode (js/TextEncoder.) s)))))
+
+(defn- sha256-hex
+  "Lowercase hex SHA-256 of `s`, via `kotoba-lang/org-nist-sha2`.
+
+  This was `java.security.MessageDigest` until 2026-08-18, which is half of
+  what kept this namespace on the JVM. The replacement is the workspace's
+  portable `.cljc` implementation rather than a reader conditional reaching
+  for `node:crypto`: a conditional would work under nbb and not in a browser,
+  and would leave two hash implementations that can disagree about ids this
+  library has already minted. The digests are byte-identical to the
+  MessageDigest ones — see the namespace docstring."
+  [s]
+  (sha2/sha256-hex (utf8-bytes s)))
 
 (defn- deterministic-draft-id
   "A pure fn of `label` (an isco code, possibly namespaced e.g. for

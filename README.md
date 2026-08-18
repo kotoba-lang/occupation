@@ -18,6 +18,43 @@ operating stack — the occupation-classification counterpart to
 (occupation/readiness "9312" #{:forms :telemetry :audit-ledger :bpmn :dmn})
 ```
 
+## Portable, and how the registry gets compiled in
+
+`kotoba.occupation` is `.cljc` and touches **no file at runtime** and calls
+**no host hash** (so is `kotoba.occupation.wave`, which always was). The
+registry lives in `resources/kotoba/occupation/registry.edn` — that is still
+the source of truth and the only thing to edit — and `tools/gen-embedded.cljs`
+projects it into the generated `src/kotoba/occupation/embedded.cljc`, which
+is what the library reads.
+
+`io/resource` has no portable equivalent, and reading `resources/<path>`
+relative to the working directory is right only while this library is the
+root project — measured wrong on 2026-08-18, when `kotoba-lang/technology`
+briefly worked that way and returned nil for all 159 of `kotoba.iso3166`'s
+assertions under nbb. This registry exists to be depended on, so it is
+compiled in instead.
+
+`java.security.MessageDigest`, which minted the deterministic draft ids, is
+replaced by `kotoba-lang/org-nist-sha2` — the workspace's portable `.cljc`
+SHA-256 — rather than a `:cljs` reader conditional over `node:crypto`, which
+would work under nbb and not in a browser. **The ids are unchanged**:
+`gap-1321-1a37fe18cbe0da38` is what the JVM produced before the change, what
+both runtimes produce now, and what `shasum -a 256` produces over the same
+bytes. That constant is pinned in the suite.
+
+```bash
+clojure -M:test                       # JVM
+
+# ClojureScript, no build step. The two extra classpath entries are the
+# checkouts of the git deps named in deps.edn.
+nbb --classpath src:test:<technology/src>:<org-nist-sha2/src> \
+    test/run_portable.cljs
+
+nbb tools/gen-embedded.cljs           # after editing the EDN
+nbb tools/gen-embedded.cljs --check   # exit 1 if the projection is stale
+nbb tools/mutate.cljs                 # prove the suite can fail
+```
+
 ## Layers
 
 - business: customer-facing open occupation blueprint
