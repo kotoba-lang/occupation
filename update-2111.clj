@@ -1,5 +1,5 @@
 (require '[clojure.edn :as edn]
-         '[clojure.string :as str])
+         '[kotoba.lang.text :as str])
 
 (let [path "resources/kotoba/occupation/registry.edn"
       content (slurp path)
