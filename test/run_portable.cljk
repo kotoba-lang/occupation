@@ -7,7 +7,7 @@
 ;; the drift check's `:cljs` branch looks for `resources/`:
 ;;
 ;;   nbb --classpath src:test:<technology src>:<org-nist-sha2 src> \
-;;       test/run_portable.cljs
+;;       test/run_portable.cljk
 ;;
 ;; It has also been run from a FOREIGN working directory with absolute
 ;; classpath entries, which is the condition a dependency actually meets and

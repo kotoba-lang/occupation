@@ -23,8 +23,8 @@ operating stack — the occupation-classification counterpart to
 `kotoba.occupation` is `.cljc` and touches **no file at runtime** and calls
 **no host hash** (so is `kotoba.occupation.wave`, which always was). The
 registry lives in `resources/kotoba/occupation/registry.edn` — that is still
-the source of truth and the only thing to edit — and `tools/gen-embedded.cljs`
-projects it into the generated `src/kotoba/occupation/embedded.cljc`, which
+the source of truth and the only thing to edit — and `tools/gen-embedded.cljk`
+projects it into the generated `src/kotoba/occupation/embedded.cljk`, which
 is what the library reads.
 
 `io/resource` has no portable equivalent, and reading `resources/<path>`
@@ -48,11 +48,11 @@ clojure -M:test                       # JVM
 # ClojureScript, no build step. The two extra classpath entries are the
 # checkouts of the git deps named in deps.edn.
 nbb --classpath src:test:<technology/src>:<org-nist-sha2/src> \
-    test/run_portable.cljs
+    test/run_portable.cljk
 
-nbb tools/gen-embedded.cljs           # after editing the EDN
-nbb tools/gen-embedded.cljs --check   # exit 1 if the projection is stale
-nbb tools/mutate.cljs                 # prove the suite can fail
+nbb tools/gen-embedded.cljk           # after editing the EDN
+nbb tools/gen-embedded.cljk --check   # exit 1 if the projection is stale
+nbb tools/mutate.cljk                 # prove the suite can fail
 ```
 
 ## Layers
