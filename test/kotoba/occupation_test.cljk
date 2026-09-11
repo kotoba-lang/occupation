@@ -6710,7 +6710,7 @@
             The task's cited reference repo (cloud-itonami-isco-8112,
             Mineral and Stone Processing Plant Operators) was used
             directly per the task's own guidance (already landed,
-            independently re-verified: fresh clone, clojure -M:test
+            independently re-verified: fresh clone, kbb -M:test
             green 23 tests / 49 assertions, 0 failures / 0 errors,
             before mirroring). 23 tests / 49 assertions green
             (cloud-itonami-isco-8132, ADR-2799008132, independently
@@ -6934,7 +6934,7 @@
             began, so per the task's own fallback instruction the
             actual reference used was cloud-itonami-isco-8122 (Metal
             Finishing, Plating and Coating Machine Operators),
-            independently re-verified: fresh clone, clojure -M:test
+            independently re-verified: fresh clone, kbb -M:test
             green 32 tests / 69 assertions, 0 failures / 0 errors,
             before mirroring. 32 tests / 69 assertions green
             (cloud-itonami-isco-8159, ADR-2799008159, independently
@@ -7076,7 +7076,7 @@
             task's cited reference repo (cloud-itonami-isco-8131,
             Chemical Products Plant and Machine Operators) was used
             directly per the task's own guidance (already landed,
-            independently re-verified: fresh clone, clojure -M:test
+            independently re-verified: fresh clone, kbb -M:test
             green 26 tests / 66 assertions, 0 failures / 0 errors,
             before mirroring). 26 tests / 66 assertions green
             (cloud-itonami-isco-8171, ADR-2799008171, independently
@@ -7157,7 +7157,7 @@
             The reference repo mirrored for module SHAPE was
             cloud-itonami-isco-8114 (Cement, Stone and Other Mineral
             Products Machine Operators), independently re-verified:
-            fresh clone, clojure -M:test green 24 tests / 52
+            fresh clone, kbb -M:test green 24 tests / 52
             assertions, 0 failures / 0 errors, before mirroring. 24
             tests / 52 assertions green (cloud-itonami-isco-8181,
             ADR-2799008181, independently re-verified against a fresh
@@ -7521,7 +7521,7 @@
             The reference repo mirrored for module SHAPE was
             cloud-itonami-isco-8131 (Chemical Products Plant and
             Machine Operators), independently re-verified: fresh
-            clone, clojure -M:test green 26 tests / 66 assertions, 0
+            clone, kbb -M:test green 26 tests / 66 assertions, 0
             failures / 0 errors, before mirroring. 26 tests / 66
             assertions green (cloud-itonami-isco-8182,
             ADR-2799008182, independently re-verified against a fresh
