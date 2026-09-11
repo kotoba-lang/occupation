@@ -43,16 +43,16 @@ both runtimes produce now, and what `shasum -a 256` produces over the same
 bytes. That constant is pinned in the suite.
 
 ```bash
-clojure -M:test                       # JVM
+kbb -M:test                       # JVM
 
 # ClojureScript, no build step. The two extra classpath entries are the
 # checkouts of the git deps named in deps.edn.
-nbb --classpath src:test:<technology/src>:<org-nist-sha2/src> \
+kbb --backend sci --classpath src:test:<technology/src>:<org-nist-sha2/src> \
     test/run_portable.cljk
 
-nbb tools/gen-embedded.cljk           # after editing the EDN
-nbb tools/gen-embedded.cljk --check   # exit 1 if the projection is stale
-nbb tools/mutate.cljk                 # prove the suite can fail
+kbb --backend sci tools/gen-embedded.cljk           # after editing the EDN
+kbb --backend sci tools/gen-embedded.cljk --check   # exit 1 if the projection is stale
+kbb --backend sci tools/mutate.cljk                 # prove the suite can fail
 ```
 
 ## Layers
