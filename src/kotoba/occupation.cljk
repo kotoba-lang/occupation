@@ -26,7 +26,7 @@
 
   So the registry is compiled in, as the generated
   `kotoba.occupation.embedded`, projected from
-  `resources/kotoba/occupation/registry.edn` by `tools/gen-embedded.cljs`.
+  `resources/kotoba/occupation/registry.edn` by `tools/gen-embedded.cljk`.
   The EDN stays the thing a human edits; `--check` refuses to let them
   drift.
 
@@ -59,7 +59,7 @@
   "kotoba/occupation/registry.edn")
 
 ;; registry.edn is stored as Datomic/Datascript tx-data (a single-entity
-;; vector, see scripts/edn-datomize.cljs `wrap-generic`) rather than a raw map,
+;; vector, see scripts/edn-datomize.cljk `wrap-generic`) rather than a raw map,
 ;; so it is directly transactable/queryable. Keys that already carried their
 ;; own namespace (e.g. :kotoba.registry/id) were left untouched; only the
 ;; genuinely bare :occupations key was promoted under this ns. `registry`
