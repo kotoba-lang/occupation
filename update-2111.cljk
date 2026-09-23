@@ -1,4 +1,4 @@
-(require '[clojure.edn :as edn]
+(require '[kotoba.lang.edn :as edn]
          '[kotoba.lang.text :as str])
 
 (let [path "resources/kotoba/occupation/registry.edn"
