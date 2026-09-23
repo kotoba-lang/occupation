@@ -1,6 +1,6 @@
 (ns kotoba.occupation-wave-test
   "Reverse-topological rollout waves, ISCO-08 side (ADR-2607121000)."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.occupation :as occupation]
             [kotoba.occupation.wave :as wave]))
 
