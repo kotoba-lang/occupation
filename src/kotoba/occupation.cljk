@@ -46,7 +46,7 @@
   over nil yields `{}`, so `by-id` would answer a complete-looking index
   over no data and `get-occupation` nil for every ISCO unit group — a
   caller passing nothing must not receive that."
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.lang.edn :as edn]
             [clojure.set :as set]
             [kotoba.occupation.embedded :as embedded]
             [kotoba.occupation.wave :as wave]
