@@ -1,5 +1,5 @@
 (ns kotoba.occupation-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.occupation :as occupation]
             [kotoba.occupation.embedded :as embedded]))
 
