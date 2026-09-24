@@ -47,7 +47,7 @@
   over no data and `get-occupation` nil for every ISCO unit group — a
   caller passing nothing must not receive that."
   (:require [kotoba.lang.edn :as edn]
-            [clojure.set :as set]
+            [kotoba.lang.coll :as set]
             [kotoba.occupation.embedded :as embedded]
             [kotoba.occupation.wave :as wave]
             [kotoba.technology :as technology]
