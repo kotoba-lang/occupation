@@ -184,7 +184,7 @@ Note: per the "Future promotions will follow the langgraph.graph pattern
 going forward" direction, 46 of the 70 `:implemented` entries — 6130,
 8160, 2166, 2641, 2651, 2652, 2654, 1219, 1223, 1330, 1341, 1349, 1412, 1439, 2144, 2320, 2411, 2422, 2431, 2621, 2634, 3122, 3123, 3141, 3255, 3339, 3512, 4120, 4131, 4132, 4211, 4224, 4229, 4322, 4413, 4415, 5120, 5162, 5164, 5169, 5230, 5249, 5312, 6111, 6114 and 6121 — are on the full itonami Actor
 pattern (a real `langgraph.graph/state-graph` with Advisor/Governor as
-distinct nodes and human-in-the-loop interrupt/resume, per CLAUDE.md's
+distinct nodes and human-in-the-loop interrupt/resume, per AGENTS.md's
 Actors section); the remaining 24 (including 1212) use the lighter
 standalone `Store` + pure `governor/assess` function pattern from before
 that direction was adopted.
