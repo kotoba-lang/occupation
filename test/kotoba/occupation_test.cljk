@@ -4933,7 +4933,7 @@
             freshly re-fetched origin/main immediately before this edit,
             reflecting cumulative concurrent sibling landings in this
             same batch (the maturity-tier test's spec/implemented split
-            above may lag this promotion -- not fought per CLAUDE.md's
+            above may lag this promotion -- not fought per AGENTS.md's
             explicit guidance for this batch)."
     (is (= :implemented (occupation/maturity "7234")))
     (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7234"
@@ -5006,7 +5006,7 @@
             landings in this same batch, not hand-derived from a prior
             comment's delta (the maturity-tier test's spec/implemented
             split, if any remains, may lag this promotion -- not
-            fought per CLAUDE.md's explicit guidance for this batch)."
+            fought per AGENTS.md's explicit guidance for this batch)."
     (is (= :implemented (occupation/maturity "7232")))
     (is (= "https://github.com/cloud-itonami/cloud-itonami-isco-7232"
            (:repo (occupation/get-occupation "7232"))))
